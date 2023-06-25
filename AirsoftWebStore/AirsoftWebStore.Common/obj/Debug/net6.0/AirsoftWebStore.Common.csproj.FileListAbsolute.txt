@@ -1,0 +1,12 @@
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\bin\Debug\net6.0\AirsoftWebStore.Common.deps.json
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\bin\Debug\net6.0\AirsoftWebStore.Common.dll
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\bin\Debug\net6.0\AirsoftWebStore.Common.pdb
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\AirsoftWebStore.Common.csproj.AssemblyReference.cache
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\AirsoftWebStore.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\AirsoftWebStore.Common.AssemblyInfoInputs.cache
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\AirsoftWebStore.Common.AssemblyInfo.cs
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\AirsoftWebStore.Common.csproj.CoreCompileInputs.cache
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\AirsoftWebStore.Common.dll
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\refint\AirsoftWebStore.Common.dll
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\AirsoftWebStore.Common.pdb
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Common\obj\Debug\net6.0\ref\AirsoftWebStore.Common.dll

@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirsoftWebStore.Web", "AirsoftWebStore.Web\AirsoftWebStore.Web.csproj", "{1D85D606-6B9D-4D57-8E3B-01177952AEC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirsoftWebStore.Data", "AirsoftWebStore.Data\AirsoftWebStore.Data.csproj", "{A3E228B0-A8BA-41AD-BDAE-317235845F30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirsoftWebStore.Common", "AirsoftWebStore.Common\AirsoftWebStore.Common.csproj", "{18EE4C86-272D-4D5A-9D30-61DF0E2FEB0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{7F3CF3C3-4311-4A3D-A02C-8559936B5D87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{90B8DD8E-0577-4009-827A-A0092B8983A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{0DDA8CA6-A2DE-4AB5-91A7-3057A30BC424}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirsoftWebStore.Web.ViewModels", "AirsoftWebStore.Web.ViewModels\AirsoftWebStore.Web.ViewModels.csproj", "{5EA3461A-D736-45B7-8054-12AEE42CE33C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D85D606-6B9D-4D57-8E3B-01177952AEC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D85D606-6B9D-4D57-8E3B-01177952AEC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D85D606-6B9D-4D57-8E3B-01177952AEC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D85D606-6B9D-4D57-8E3B-01177952AEC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3E228B0-A8BA-41AD-BDAE-317235845F30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3E228B0-A8BA-41AD-BDAE-317235845F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3E228B0-A8BA-41AD-BDAE-317235845F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3E228B0-A8BA-41AD-BDAE-317235845F30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18EE4C86-272D-4D5A-9D30-61DF0E2FEB0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EE4C86-272D-4D5A-9D30-61DF0E2FEB0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18EE4C86-272D-4D5A-9D30-61DF0E2FEB0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18EE4C86-272D-4D5A-9D30-61DF0E2FEB0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EA3461A-D736-45B7-8054-12AEE42CE33C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EA3461A-D736-45B7-8054-12AEE42CE33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA3461A-D736-45B7-8054-12AEE42CE33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EA3461A-D736-45B7-8054-12AEE42CE33C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D85D606-6B9D-4D57-8E3B-01177952AEC6} = {7F3CF3C3-4311-4A3D-A02C-8559936B5D87}
+		{A3E228B0-A8BA-41AD-BDAE-317235845F30} = {90B8DD8E-0577-4009-827A-A0092B8983A3}
+		{5EA3461A-D736-45B7-8054-12AEE42CE33C} = {7F3CF3C3-4311-4A3D-A02C-8559936B5D87}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D33CBBD-72C9-489E-A6BB-A436243B9EF3}
+	EndGlobalSection
+EndGlobal

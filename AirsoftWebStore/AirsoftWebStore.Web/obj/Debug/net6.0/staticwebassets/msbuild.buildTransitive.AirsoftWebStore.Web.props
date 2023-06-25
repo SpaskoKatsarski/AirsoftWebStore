@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\AirsoftWebStore.Web.props" />
+</Project>
