@@ -36,12 +36,5 @@
 
         [Required]
         public int Quantity { get; set; }
-
-        [Required]
-        [ForeignKey(nameof(Gun))]
-        public Guid GunId { get; set; }
-
-        [Required]
-        public Gun Gun { get; set; } = null!;
     }
 }
