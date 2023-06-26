@@ -5,8 +5,10 @@
 
     using AirsoftWebStore.Data.Configuration;
     using AirsoftWebStore.Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    using System.Reflection.Emit;
 
-    public class AirsoftStoreDbContext : IdentityDbContext
+    public class AirsoftStoreDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         public AirsoftStoreDbContext(DbContextOptions<AirsoftStoreDbContext> options)
             : base(options)
@@ -23,13 +25,12 @@
 
         public DbSet<Part> Parts { get; set; } = null!;
 
-        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<Cart> Carts { get; set; } = null!;
+
+        public DbSet<CartItem> CartItems { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            new CategoryEntityTypeConfiguration()
-                .Configure(builder.Entity<Category>());
-
             builder
                 .ApplyConfigurationsFromAssembly(typeof(CategoryEntityTypeConfiguration).Assembly);
 

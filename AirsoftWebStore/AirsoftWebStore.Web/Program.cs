@@ -20,7 +20,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
     .AddEntityFrameworkStores<AirsoftStoreDbContext>();
 
-// Register services here with
+// Register services here with AddApplicationServices
 
 builder.Services.AddControllersWithViews();
 

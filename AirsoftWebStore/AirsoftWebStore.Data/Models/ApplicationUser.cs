@@ -2,16 +2,18 @@
 {
     using Microsoft.AspNetCore.Identity;
 
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class ApplicationUser : IdentityUser<Guid>
     {
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
-            this.Purchases = new HashSet<Order>();
         }
 
-        public Order CurrentOrder { get; set; } = null!;
+        [ForeignKey(nameof(Cart))]
+        public Guid CartId { get; set; }
 
-        public ICollection<Order> Purchases = null!;
+        public Cart? Cart { get; set; }
     }
 }

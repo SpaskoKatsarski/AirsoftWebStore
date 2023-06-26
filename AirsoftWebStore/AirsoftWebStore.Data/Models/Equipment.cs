@@ -9,7 +9,6 @@
         public Equipment()
         {
             this.Id = Guid.NewGuid();
-            this.Orders = new HashSet<Order>();
         }
 
         [Key]
@@ -32,7 +31,5 @@
 
         [Required]
         public int Quantity { get; set; }
-
-        public ICollection<Order> Orders { get; set; } = null!;
     }
 }

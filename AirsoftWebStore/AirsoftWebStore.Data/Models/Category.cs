@@ -18,6 +18,6 @@
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
-        public ICollection<Gun> Guns { get; set; } = null!;
+        public ICollection<Gun> Guns { get; set; }
     }
 }

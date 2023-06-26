@@ -10,7 +10,6 @@
         {
             this.Id = Guid.NewGuid();
             this.Parts = new HashSet<Part>();
-            this.Orders = new HashSet<Order>();
         }
 
         [Key]
@@ -48,9 +47,6 @@
         [Required]
         public Category Category { get; set; } = null!;
 
-
-        public ICollection<Part> Parts = null!;
-
-        public ICollection<Order> Orders { get; set; } = null!;
+        public ICollection<Part> Parts { get; set; }
     }
 }

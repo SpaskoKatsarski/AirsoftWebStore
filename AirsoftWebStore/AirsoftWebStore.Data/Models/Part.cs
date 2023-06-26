@@ -10,7 +10,6 @@
         public Part()
         {
             this.Id = Guid.NewGuid();
-            this.Orders = new HashSet<Order>();
         }
 
         [Key]
@@ -40,11 +39,9 @@
 
         [Required]
         [ForeignKey(nameof(Gun))]
-        public int GunId { get; set; }
+        public Guid GunId { get; set; }
 
         [Required]
         public Gun Gun { get; set; } = null!;
-
-        public ICollection<Order> Orders { get; set; } = null!;
     }
 }
