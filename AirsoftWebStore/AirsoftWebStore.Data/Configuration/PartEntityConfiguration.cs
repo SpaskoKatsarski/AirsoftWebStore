@@ -11,7 +11,7 @@
         {
             builder
                 .HasOne(p => p.Gun)
-                .WithMany(g => g.Parts)
+                .WithMany(g => g.Attachments)
                 .HasForeignKey(p => p.GunId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

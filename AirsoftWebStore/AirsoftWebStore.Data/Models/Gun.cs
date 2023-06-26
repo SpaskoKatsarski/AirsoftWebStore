@@ -9,7 +9,8 @@
         public Gun()
         {
             this.Id = Guid.NewGuid();
-            this.Parts = new HashSet<Part>();
+            this.Attachments = new HashSet<Part>();
+            this.CartItems = new HashSet<CartItem>();
         }
 
         [Key]
@@ -47,6 +48,8 @@
         [Required]
         public Category Category { get; set; } = null!;
 
-        public ICollection<Part> Parts { get; set; }
+        public ICollection<Part> Attachments { get; set; }
+
+        public ICollection<CartItem> CartItems { get; set; }
     }
 }

@@ -19,17 +19,23 @@
 
         public Cart Cart { get; set; } = null!;
 
-        [Required]
-        public Guid ProductId { get; set; }
-
-        [Required]
-        public string ProductType { get; set; } = null!;
+        [ForeignKey(nameof(Gun))]
+        public Guid? GunId { get; set; }
 
         public Gun? Gun { get; set; }
 
+        [ForeignKey(nameof(Part))]
+        public Guid? PartId { get; set; }
+
         public Part? Part { get; set; }
 
+        [ForeignKey(nameof(Equipment))]
+        public Guid? EquipmentId { get; set; }
+
         public Equipment? Equipment { get; set; }
+
+        [ForeignKey(nameof(Consumative))]
+        public Guid? ConsumativeId { get; set; }
 
         public Consumative? Consumative { get; set; }
 

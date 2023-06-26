@@ -9,6 +9,7 @@
         public Consumative()
         {
             this.Id = Guid.NewGuid();
+            this.CartItems = new HashSet<CartItem>();
         }
 
         [Key]
@@ -31,5 +32,7 @@
 
         [Required]
         public int Quantity { get; set; }
+
+        public ICollection<CartItem> CartItems { get; set; }
     }
 }

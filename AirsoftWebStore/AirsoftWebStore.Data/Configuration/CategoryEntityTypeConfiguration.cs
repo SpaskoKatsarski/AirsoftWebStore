@@ -1,9 +1,9 @@
 ﻿namespace AirsoftWebStore.Data.Configuration
 {
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using AirsoftWebStore.Data.Models;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     public class CategoryEntityTypeConfiguration : IEntityTypeConfiguration<Category>
     {
