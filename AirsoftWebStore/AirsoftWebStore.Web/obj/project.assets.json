@@ -978,6 +978,20 @@
           "bin/placeholder/AirsoftWebStore.Data.dll": {}
         }
       },
+      "AirsoftWebStore.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "AirsoftWebStore.Data": "1.0.0",
+          "AirsoftWebStore.Web.ViewModels": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/AirsoftWebStore.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AirsoftWebStore.Services.dll": {}
+        }
+      },
       "AirsoftWebStore.Web.ViewModels/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -2489,6 +2503,11 @@
       "path": "../AirsoftWebStore.Data/AirsoftWebStore.Data.csproj",
       "msbuildProject": "../AirsoftWebStore.Data/AirsoftWebStore.Data.csproj"
     },
+    "AirsoftWebStore.Services/1.0.0": {
+      "type": "project",
+      "path": "../AirsoftWebStore.Services/AirsoftWebStore.Services.csproj",
+      "msbuildProject": "../AirsoftWebStore.Services/AirsoftWebStore.Services.csproj"
+    },
     "AirsoftWebStore.Web.ViewModels/1.0.0": {
       "type": "project",
       "path": "../AirsoftWebStore.Web.ViewModels/AirsoftWebStore.Web.ViewModels.csproj",
@@ -2497,7 +2516,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "AirsoftWebStore.Data >= 1.0.0",
+      "AirsoftWebStore.Services >= 1.0.0",
       "AirsoftWebStore.Web.ViewModels >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.13",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.13",
@@ -2534,8 +2553,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Data\\AirsoftWebStore.Data.csproj": {
-              "projectPath": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Data\\AirsoftWebStore.Data.csproj"
+            "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Services\\AirsoftWebStore.Services.csproj": {
+              "projectPath": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Services\\AirsoftWebStore.Services.csproj"
             },
             "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Web.ViewModels\\AirsoftWebStore.Web.ViewModels.csproj": {
               "projectPath": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Web.ViewModels\\AirsoftWebStore.Web.ViewModels.csproj"

@@ -11,7 +11,7 @@
             public const int ManufacturerMaxLength = 50;
 
             public const int DescriptionMinLength = 20;
-            public const int DescriptionMaxLength = 500;
+            public const int DescriptionMaxLength = 1500;
 
             public const int YearMin = 1970;
             public const int YearMax = 2023;
@@ -34,7 +34,7 @@
             public const int BrandMaxLength = 50;
 
             public const int DescriptionMinLength = 10;
-            public const int DescriptionMaxLength = 500;
+            public const int DescriptionMaxLength = 1000;
 
             public const int ImageUrlMaxLength = 2048;
 
@@ -46,7 +46,7 @@
             public const int NameMaxLength = 50;
 
             public const int DescriptionMinLength = 10;
-            public const int DescriptionMaxLength = 500;
+            public const int DescriptionMaxLength = 1000;
 
             public const int ImageUrlMaxLength = 2048;
         }
@@ -57,7 +57,7 @@
             public const int NameMaxLength = 50;
 
             public const int DescriptionMinLength = 10;
-            public const int DescriptionMaxLength = 500;
+            public const int DescriptionMaxLength = 1000;
 
             public const int ImageUrlMaxLength = 2048;
         }

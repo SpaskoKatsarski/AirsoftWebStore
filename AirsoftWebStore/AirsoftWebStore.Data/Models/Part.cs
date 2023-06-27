@@ -10,6 +10,7 @@
         public Part()
         {
             this.Id = Guid.NewGuid();
+            this.CartItems = new HashSet<CartItem>();
         }
 
         [Key]
@@ -36,5 +37,14 @@
 
         [Required]
         public int Quantity { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(Category))]
+        public int CategoryId { get; set; }
+
+        [Required]
+        public Category Category { get; set; } = null!;
+
+        public ICollection<CartItem> CartItems { get; set; }
     }
 }

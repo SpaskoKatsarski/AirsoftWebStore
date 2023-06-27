@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AirsoftWebStore.Data\AirsoftWebStore.Data.csproj" />
+    <ProjectReference Include="..\AirsoftWebStore.Web.ViewModels\AirsoftWebStore.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

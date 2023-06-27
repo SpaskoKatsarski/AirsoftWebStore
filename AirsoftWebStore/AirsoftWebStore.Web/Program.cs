@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 
 using AirsoftWebStore.Data.Models;
 using AirsoftWebStore.Data;
+using AirsoftWebStore.Services.Contracts;
+using AirsoftWebStore.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     .AddEntityFrameworkStores<AirsoftStoreDbContext>();
 
 // Register services here with AddApplicationServices
+builder.Services.AddScoped<IGunService, GunService>();
 
 builder.Services.AddControllersWithViews();
 

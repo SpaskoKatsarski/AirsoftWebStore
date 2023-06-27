@@ -8,7 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "AirsoftWebStore.Web/1.0.0": {
         "dependencies": {
-          "AirsoftWebStore.Data": "1.0.0",
+          "AirsoftWebStore.Services": "1.0.0",
           "AirsoftWebStore.Web.ViewModels": "1.0.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.13",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.13",
@@ -556,6 +556,15 @@
           "AirsoftWebStore.Data.dll": {}
         }
       },
+      "AirsoftWebStore.Services/1.0.0": {
+        "dependencies": {
+          "AirsoftWebStore.Data": "1.0.0",
+          "AirsoftWebStore.Web.ViewModels": "1.0.0"
+        },
+        "runtime": {
+          "AirsoftWebStore.Services.dll": {}
+        }
+      },
       "AirsoftWebStore.Web.ViewModels/1.0.0": {
         "runtime": {
           "AirsoftWebStore.Web.ViewModels.dll": {}
@@ -939,6 +948,11 @@
       "sha512": ""
     },
     "AirsoftWebStore.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AirsoftWebStore.Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

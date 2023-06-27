@@ -80,3 +80,5 @@ D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web\obj\Debug\net6.0\AirsoftW
 D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web\obj\Debug\net6.0\ref\AirsoftWebStore.Web.dll
 D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web\bin\Debug\net6.0\AirsoftWebStore.Web.ViewModels.dll
 D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web\bin\Debug\net6.0\AirsoftWebStore.Web.ViewModels.pdb
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web\bin\Debug\net6.0\AirsoftWebStore.Services.dll
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web\bin\Debug\net6.0\AirsoftWebStore.Services.pdb

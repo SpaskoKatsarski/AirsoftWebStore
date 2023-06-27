@@ -9,6 +9,7 @@
         public Category()
         {
             this.Guns = new HashSet<Gun>();
+            this.Parts = new HashSet<Part>();
         }
 
         [Key]
@@ -19,5 +20,7 @@
         public string Name { get; set; } = null!;
 
         public ICollection<Gun> Guns { get; set; }
+
+        public ICollection<Part> Parts { get; set; }
     }
 }
