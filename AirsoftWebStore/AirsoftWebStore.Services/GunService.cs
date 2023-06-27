@@ -5,6 +5,8 @@
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Gun;
+    using AirsoftWebStore.Data.Models;
+    using static AirsoftWebStore.Common.ErrorMessages.Gun;
 
     public class GunService : IGunService
     {
@@ -29,6 +31,32 @@
                 .ToListAsync();
 
             return guns;
+        }
+
+        public async Task<GunDetailViewModel> GetDetailsAsync(string id)
+        {
+            Gun? gun = await this.context.Guns
+                .FindAsync(Guid.Parse(id));
+
+            if (gun == null)
+            {
+                throw new Exception(GunNotFoundErrorMessage);
+            }
+
+            GunDetailViewModel gunModel = new GunDetailViewModel()
+            {
+                Id = gun.Id.ToString(),
+                Name = gun.Name,
+                Manufacturer = gun.Manufacturer,
+                Description = gun.Description,
+                ImageUrl = gun.ImageUrl,
+                Year = gun.Year,
+                Price = gun.Price,
+                Quantity = gun.Quantity,
+                CategoryId = gun.CategoryId
+            };
+
+            return gunModel;
         }
     }
 }

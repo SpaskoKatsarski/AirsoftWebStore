@@ -23,5 +23,13 @@
 
             return View(guns);
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            GunDetailViewModel gunModel = await this.gunService
+                .GetDetailsAsync(id);
+
+            return View(gunModel);
+        }
     }
 }

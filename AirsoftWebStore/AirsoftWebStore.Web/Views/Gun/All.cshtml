@@ -13,11 +13,9 @@
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
                 <h5 class="card-title mt-1">@gun.Name</h5>
-                <img class="card-img" src="@gun.ImageUrl">
+                <a  asp-controller="Gun" asp-action="Details" asp-route-id="@gun.Id"><img class="card-img hoverable" src="@gun.ImageUrl"></a>
                 <p class="mb-0"><span class="fw-bold">Price: </span>$@gun.Price</p>
             </div>
-
-            <a asp-controller="Gun" asp-action="Details" asp-route-id="@gun.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">View Details</a>
         </div>
     }
 </div>
