@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{0D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirsoftWebStore.Web.ViewModels", "AirsoftWebStore.Web.ViewModels\AirsoftWebStore.Web.ViewModels.csproj", "{5EA3461A-D736-45B7-8054-12AEE42CE33C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirsoftWebStore.Services", "AirsoftWebStore.Services\AirsoftWebStore.Services.csproj", "{C1666D8D-1357-4275-97AE-3B87802255DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirsoftWebStore.Services", "AirsoftWebStore.Services\AirsoftWebStore.Services.csproj", "{C1666D8D-1357-4275-97AE-3B87802255DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirsoftWebStore.Web.Infrastructure", "AirsoftWebStore.Web.Infrastructure\AirsoftWebStore.Web.Infrastructure.csproj", "{EC6D4113-D3B7-46CF-9AAA-C5DD3F473C70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{C1666D8D-1357-4275-97AE-3B87802255DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1666D8D-1357-4275-97AE-3B87802255DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1666D8D-1357-4275-97AE-3B87802255DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6D4113-D3B7-46CF-9AAA-C5DD3F473C70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6D4113-D3B7-46CF-9AAA-C5DD3F473C70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6D4113-D3B7-46CF-9AAA-C5DD3F473C70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6D4113-D3B7-46CF-9AAA-C5DD3F473C70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{A3E228B0-A8BA-41AD-BDAE-317235845F30} = {90B8DD8E-0577-4009-827A-A0092B8983A3}
 		{5EA3461A-D736-45B7-8054-12AEE42CE33C} = {7F3CF3C3-4311-4A3D-A02C-8559936B5D87}
 		{C1666D8D-1357-4275-97AE-3B87802255DE} = {0DDA8CA6-A2DE-4AB5-91A7-3057A30BC424}
+		{EC6D4113-D3B7-46CF-9AAA-C5DD3F473C70} = {7F3CF3C3-4311-4A3D-A02C-8559936B5D87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D33CBBD-72C9-489E-A6BB-A436243B9EF3}

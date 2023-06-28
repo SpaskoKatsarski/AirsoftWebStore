@@ -9,6 +9,7 @@
       "AirsoftWebStore.Web/1.0.0": {
         "dependencies": {
           "AirsoftWebStore.Services": "1.0.0",
+          "AirsoftWebStore.Web.Infrastructure": "1.0.0",
           "AirsoftWebStore.Web.ViewModels": "1.0.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.13",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.13",
@@ -565,6 +566,14 @@
           "AirsoftWebStore.Services.dll": {}
         }
       },
+      "AirsoftWebStore.Web.Infrastructure/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "6.0.1"
+        },
+        "runtime": {
+          "AirsoftWebStore.Web.Infrastructure.dll": {}
+        }
+      },
       "AirsoftWebStore.Web.ViewModels/1.0.0": {
         "runtime": {
           "AirsoftWebStore.Web.ViewModels.dll": {}
@@ -953,6 +962,11 @@
       "sha512": ""
     },
     "AirsoftWebStore.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AirsoftWebStore.Web.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

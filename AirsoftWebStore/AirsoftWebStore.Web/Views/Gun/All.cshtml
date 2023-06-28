@@ -10,7 +10,7 @@
 <div class="text-center row">
     @foreach (var gun in Model)
     {
-        <div class="card col-4" style="width: 20rem; ">
+        <div class="card col-4" style="width: 20rem;">
             <div class="card-body">
                 <h5 class="card-title mt-1">@gun.Name</h5>
                 <a  asp-controller="Gun" asp-action="Details" asp-route-id="@gun.Id"><img class="card-img hoverable" src="@gun.ImageUrl"></a>
@@ -19,7 +19,3 @@
         </div>
     }
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

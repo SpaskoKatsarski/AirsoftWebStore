@@ -40,7 +40,7 @@
 
             if (gun == null)
             {
-                throw new Exception(GunNotFoundErrorMessage);
+                throw new Exception(string.Format(GunNotFoundErrorMessage, id));
             }
 
             GunDetailViewModel gunModel = new GunDetailViewModel()

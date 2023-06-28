@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "GXmI33KZdeBGLKEFqkNBWlGAroema+TVKCCBjW77eiBADUVe8JQkBAmnkh62BQzq0virXg78yL/6One2y9E5nw==",
+  "success": true,
+  "projectFilePath": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Web.Infrastructure\\AirsoftWebStore.Web.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\patso\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.1\\microsoft.extensions.dependencyinjection.6.0.1.nupkg.sha512",
+    "C:\\Users\\patso\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\patso\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
