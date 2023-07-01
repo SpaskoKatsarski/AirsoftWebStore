@@ -16,8 +16,8 @@
             public const int YearMin = 1970;
             public const int YearMax = 2023;
 
-            public const decimal PriceMin = 50;
-            public const decimal PriceMax = 15000;
+            public const string PriceMin = "50";
+            public const string PriceMax = "15000";
 
             public const int QuantityMin = 1;
             public const int QuantityMax = 200;

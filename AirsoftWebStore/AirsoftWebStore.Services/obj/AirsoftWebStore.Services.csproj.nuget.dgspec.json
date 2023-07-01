@@ -229,7 +229,11 @@
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Common\\AirsoftWebStore.Common.csproj": {
+                "projectPath": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Common\\AirsoftWebStore.Common.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

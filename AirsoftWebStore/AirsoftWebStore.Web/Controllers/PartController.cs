@@ -16,6 +16,7 @@
             this.partService = partService;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             IEnumerable<PartAllViewModel> parts = await this.partService
@@ -24,6 +25,7 @@
             return View(parts);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             PartDetailViewModel partModel = await this.partService

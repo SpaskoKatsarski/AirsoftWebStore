@@ -531,6 +531,9 @@
         }
       },
       "AirsoftWebStore.Web.ViewModels/1.0.0": {
+        "dependencies": {
+          "AirsoftWebStore.Common": "1.0.0"
+        },
         "runtime": {
           "AirsoftWebStore.Web.ViewModels.dll": {}
         }

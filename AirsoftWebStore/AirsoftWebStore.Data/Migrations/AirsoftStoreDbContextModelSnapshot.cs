@@ -108,7 +108,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasIndex("BuyerId")
                         .IsUnique();
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("AirsoftWebStore.Data.Models.CartItem", b =>
@@ -147,7 +147,7 @@ namespace AirsoftWebStore.Data.Migrations
 
                     b.HasIndex("PartId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItems", (string)null);
                 });
 
             modelBuilder.Entity("AirsoftWebStore.Data.Models.Category", b =>
@@ -165,7 +165,7 @@ namespace AirsoftWebStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -229,7 +229,7 @@ namespace AirsoftWebStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Consumatives");
+                    b.ToTable("Consumatives", (string)null);
                 });
 
             modelBuilder.Entity("AirsoftWebStore.Data.Models.Equipment", b =>
@@ -261,7 +261,7 @@ namespace AirsoftWebStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Equipments");
+                    b.ToTable("Equipments", (string)null);
                 });
 
             modelBuilder.Entity("AirsoftWebStore.Data.Models.Gun", b =>
@@ -306,7 +306,7 @@ namespace AirsoftWebStore.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Guns");
+                    b.ToTable("Guns", (string)null);
 
                     b.HasData(
                         new
@@ -398,7 +398,7 @@ namespace AirsoftWebStore.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Parts");
+                    b.ToTable("Parts", (string)null);
 
                     b.HasData(
                         new

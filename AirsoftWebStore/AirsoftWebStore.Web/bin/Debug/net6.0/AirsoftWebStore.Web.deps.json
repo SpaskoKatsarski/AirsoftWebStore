@@ -568,6 +568,7 @@
       },
       "AirsoftWebStore.Web.Infrastructure/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.13",
           "Microsoft.Extensions.DependencyInjection": "6.0.1"
         },
         "runtime": {
@@ -575,6 +576,9 @@
         }
       },
       "AirsoftWebStore.Web.ViewModels/1.0.0": {
+        "dependencies": {
+          "AirsoftWebStore.Common": "1.0.0"
+        },
         "runtime": {
           "AirsoftWebStore.Web.ViewModels.dll": {}
         }

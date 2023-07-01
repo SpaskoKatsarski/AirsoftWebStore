@@ -10,3 +10,6 @@ D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web.ViewModels\obj\Debug\net6
 D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web.ViewModels\obj\Debug\net6.0\refint\AirsoftWebStore.Web.ViewModels.dll
 D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web.ViewModels\obj\Debug\net6.0\AirsoftWebStore.Web.ViewModels.pdb
 D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web.ViewModels\obj\Debug\net6.0\ref\AirsoftWebStore.Web.ViewModels.dll
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web.ViewModels\bin\Debug\net6.0\AirsoftWebStore.Common.dll
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web.ViewModels\bin\Debug\net6.0\AirsoftWebStore.Common.pdb
+D:\AirsoftWebStore\AirsoftWebStore\AirsoftWebStore.Web.ViewModels\obj\Debug\net6.0\AirsoftWebStore.Web.ViewModels.csproj.CopyComplete

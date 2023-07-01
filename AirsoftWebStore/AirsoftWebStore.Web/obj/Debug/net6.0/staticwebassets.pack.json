@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Web\\wwwroot\\js\\jquery-override.js",
+      "PackagePath": "staticwebassets\\js\\jquery-override.js"
+    },
+    {
       "Id": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

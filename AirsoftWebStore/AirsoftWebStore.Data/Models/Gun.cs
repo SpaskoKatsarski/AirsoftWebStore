@@ -28,7 +28,7 @@
         public string Description { get; set; } = null!;
 
         [Required]
-        [MaxLength(ImageUrlMaxLength)]
+        [StringLength(ImageUrlMaxLength)]
         public string ImageUrl { get; set; } = null!;
 
         [Required]

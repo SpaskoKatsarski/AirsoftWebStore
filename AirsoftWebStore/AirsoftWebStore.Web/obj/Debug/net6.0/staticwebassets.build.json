@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aVYZj71Gc/RacTqF7jJzZNDNkkVpEqkxFn6kgHgG4qA=",
+  "Hash": "Osswq8DZgHT5enWKWdq5pWsSz2a5/6ED9v3gmWpixwo=",
   "Source": "AirsoftWebStore.Web",
   "BasePath": "_content/AirsoftWebStore.Web",
   "Mode": "Default",
@@ -1103,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Web\\wwwroot\\js\\jquery-override.js",
+      "SourceId": "AirsoftWebStore.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Web\\wwwroot\\",
+      "BasePath": "_content/AirsoftWebStore.Web",
+      "RelativePath": "js/jquery-override.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\jquery-override.js"
     },
     {
       "Identity": "D:\\AirsoftWebStore\\AirsoftWebStore\\AirsoftWebStore.Web\\wwwroot\\js\\site.js",
