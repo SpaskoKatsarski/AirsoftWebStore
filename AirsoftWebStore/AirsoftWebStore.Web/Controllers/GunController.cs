@@ -51,6 +51,7 @@
             return View(formModel);
         }
 
+        // Use try-catch
         [HttpPost]
         public async Task<IActionResult> Add(GunFormViewModel model)
         {
