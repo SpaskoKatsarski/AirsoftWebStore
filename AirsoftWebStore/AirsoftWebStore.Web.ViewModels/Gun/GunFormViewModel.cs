@@ -21,10 +21,12 @@
 
         [Required]
         [StringLength(ImageUrlMaxLength)]
+        [Url]
         [Display(Name = "Image URL")]
         public string ImageUrl { get; set; } = null!;
 
         [Required]
+        [Range(YearMin, YearMax)]
         public int Year { get; set; }
 
         [Required]
@@ -39,6 +41,6 @@
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
-        public IEnumerable<CategoryFormViewModel> Categories { get; set; } = null!;
+        public IEnumerable<CategoryFormViewModel>? Categories { get; set; }
     }
 }

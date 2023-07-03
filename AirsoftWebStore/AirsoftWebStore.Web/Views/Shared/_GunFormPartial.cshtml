@@ -2,10 +2,10 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form method="post">
+        <form asp-action="Add" method="post">
             <div class="form-group">
                 <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" placeholder="Title...">
+                <input asp-for="Name" class="form-control" placeholder="Model...">
                 <span asp-validation-for="Name" class="small text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,9 +24,19 @@
                 <span asp-validation-for="ImageUrl" class="small text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Year"></label>
+                <input asp-for="Year" class="form-control">
+                <span asp-validation-for="Year" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Price"></label>
                 <input asp-for="Price" class="form-control">
                 <span asp-validation-for="Price" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity"></label>
+                <input asp-for="Quantity" class="form-control">
+                <span asp-validation-for="Quantity" class="small text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId"></label>

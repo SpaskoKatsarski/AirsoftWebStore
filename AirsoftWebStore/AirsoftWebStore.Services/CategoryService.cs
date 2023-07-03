@@ -28,5 +28,11 @@
 
             return categories;
         }
+
+        public Task<bool> ExistsByIdAsync(int id)
+        {
+            return this.context.Categories
+                .AnyAsync(c => c.Id == id);
+        }
     }
 }

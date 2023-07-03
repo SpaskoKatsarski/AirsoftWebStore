@@ -2,8 +2,9 @@ using Microsoft.EntityFrameworkCore;
 
 using AirsoftWebStore.Data.Models;
 using AirsoftWebStore.Data;
-using AirsoftWebStore.Web.Infrastructure;
+using AirsoftWebStore.Web.Infrastructure.Extensions;
 using AirsoftWebStore.Services.Contracts;
+using AirsoftWebStore.Web.Infrastructure.ModelBinders;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,12 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 // Register services here with AddApplicationServices
 builder.Services.AddApplicationServices(typeof(IGunService));
 
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddControllersWithViews()
+    .AddMvcOptions(options => 
+    {
+        options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    });
 
 WebApplication app = builder.Build();
 

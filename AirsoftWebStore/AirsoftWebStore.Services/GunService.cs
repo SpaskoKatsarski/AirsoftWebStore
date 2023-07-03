@@ -17,6 +17,26 @@
             this.context = context;
         }
 
+        public async Task<string> AddAsync(GunFormViewModel model)
+        {
+            Gun gun = new Gun()
+            {
+                Name = model.Name,
+                Manufacturer = model.Manufacturer,
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                Year = model.Year,
+                Price = model.Price,
+                Quantity = model.Quantity,
+                CategoryId = model.CategoryId
+            };
+
+            await this.context.Guns.AddAsync(gun);
+            await this.context.SaveChangesAsync();
+
+            return gun.Id.ToString();
+        }
+
         public async Task<IEnumerable<GunAllViewModel>> AllAsync()
         {
             IEnumerable<GunAllViewModel> guns = await context.Guns
@@ -31,6 +51,16 @@
                 .ToListAsync();
 
             return guns;
+        }
+
+        public async Task<bool> ExistsByIdAsync(string id)
+        {
+            return await this.context.Guns.AnyAsync(g => g.Id.ToString() == id);
+        }
+
+        public async Task<bool> ExistsByNameAsync(string name)
+        {
+            return await this.context.Guns.AnyAsync(g => g.Name == name);
         }
 
         public async Task<GunDetailViewModel> GetDetailsAsync(string id)
@@ -57,6 +87,25 @@
             };
 
             return gunModel;
+        }
+
+        public async Task<GunFormViewModel> GetGunForEditByIdAsync(string id)
+        {
+            Gun? gun = await this.context.Guns.FindAsync(id);
+
+            GunFormViewModel formModel = new GunFormViewModel()
+            {
+                Name = gun!.Name,
+                Manufacturer = gun.Manufacturer,
+                Description = gun.Description,
+                ImageUrl = gun.ImageUrl,
+                Year = gun.Year,
+                Price = gun.Price,
+                Quantity = gun.Quantity,
+                CategoryId = gun.CategoryId
+            };
+
+            return formModel;
         }
     }
 }

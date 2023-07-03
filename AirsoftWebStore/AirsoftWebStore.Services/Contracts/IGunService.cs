@@ -7,5 +7,13 @@
         Task<IEnumerable<GunAllViewModel>> AllAsync();
 
         Task<GunDetailViewModel> GetDetailsAsync(string Id);
+
+        Task<string> AddAsync(GunFormViewModel model);
+
+        Task<bool> ExistsByIdAsync(string id);
+
+        Task<bool> ExistsByNameAsync(string name);
+
+        Task<GunFormViewModel> GetGunForEditByIdAsync(string id);
     }
 }
