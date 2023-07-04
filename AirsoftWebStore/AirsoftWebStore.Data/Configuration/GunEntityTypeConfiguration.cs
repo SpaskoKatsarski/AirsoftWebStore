@@ -16,6 +16,10 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
+                .Property(g => g.IsActive)
+                .HasDefaultValue(true);
+
+            builder
                 .HasData(this.GenerateGuns());
         }
 

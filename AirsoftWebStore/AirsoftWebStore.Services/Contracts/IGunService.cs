@@ -10,10 +10,16 @@
 
         Task<string> AddAsync(GunFormViewModel model);
 
+        Task<string> EditAsync(string id, GunFormViewModel model);
+
+        Task DeleteAsync(string id);
+
         Task<bool> ExistsByIdAsync(string id);
 
         Task<bool> ExistsByNameAsync(string name);
 
         Task<GunFormViewModel> GetGunForEditByIdAsync(string id);
+
+        Task<GunDeleteViewModel> GetGunForDeleteByIdAsync(string id);
     }
 }

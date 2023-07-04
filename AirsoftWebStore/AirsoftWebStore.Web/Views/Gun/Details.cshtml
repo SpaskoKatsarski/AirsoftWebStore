@@ -21,6 +21,7 @@
         </div>
 
         <a asp-controller="Gun" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-warning">Edit</a>
+        <a asp-controller="Gun" asp-action="Delete" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-danger">Delete</a>
 
         <a asp-controller="Gun" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to all</a>
     </div>

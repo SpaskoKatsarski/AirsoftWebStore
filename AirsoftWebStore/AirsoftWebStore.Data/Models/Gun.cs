@@ -40,6 +40,8 @@
         [Required]
         public int Quantity { get; set; }
 
+        public bool IsActive { get; set; }
+
         [Required]
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }

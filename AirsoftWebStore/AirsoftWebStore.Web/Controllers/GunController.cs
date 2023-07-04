@@ -5,6 +5,8 @@
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Gun;
+    using AirsoftWebStore.Common;
+    using AirsoftWebStore.Web.Infrastructure.Extensions;
 
     [Authorize]
     public class GunController : Controller
@@ -30,6 +32,7 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
+            // TODO: add validation or redirect to custom error page
             GunDetailViewModel gunModel = await this.gunService
                 .GetDetailsAsync(id);
 
@@ -49,7 +52,6 @@
 
             try
             {
-                // TODO: Chech why gun is not being found by the service:
                 GunFormViewModel model = await this.gunService.GetGunForEditByIdAsync(id);
                 model.Categories = await this.categoryService.AllAsync();
 
@@ -59,6 +61,20 @@
             {
                 return this.GeneralError();
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, GunFormViewModel model)
+        {
+            // TODO: make a validation for id if is valid
+            //if (!await this.gunService.ExistsByIdAsync(id))
+            //{
+            //    ModelState.AddModelError(, "Invalid id");
+            //}
+
+            await this.gunService.EditAsync(id, model);
+
+            return RedirectToAction("Details", "Gun", new { id });
         }
 
         [HttpGet]
@@ -114,9 +130,58 @@
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            // TODO: Check if user is weapon craetor, only he can remove
+            if (!await this.gunService.ExistsByIdAsync(id))
+            {
+                return RedirectToAction("All", "Gun");
+            }
+
+            GunDeleteViewModel model = await this.gunService.GetGunForDeleteByIdAsync(id);
+
+            return View(model);
+        }
+
+        // TODO: Implement the logic inside:
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, GunDeleteViewModel model)
+        {
+            bool gunExists = await this.gunService.ExistsByIdAsync(id);
+
+            if (!gunExists)
+            {
+                TempData["ErrorMessage"] = "Replica with the provided Id does not exist!";
+
+                return RedirectToAction("All", "Gun");
+            }
+
+            // Check if user is weapon creator...
+            // Thats how:
+            //if (!isUserWeaponCreator)
+            //{
+            //    TempData[ErrorMessage] = "You must become a weapon creator in order to delete items!";
+
+            //    return this.RedirectToAction("Become", "WeaponCreator");
+            //}
+
+            try
+            {
+                await this.gunService.DeleteAsync(id);
+
+                //TempData[WarningMessage] = "Item successfuly deleted!";
+                return RedirectToAction("All", "Gun");
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+
         private IActionResult GeneralError()
         {
-            TempData["ErrorMessage"] = "Unexpected error occurred! Please try again or contact administrator!";
+            //TempData["ErrorMessage"] = "Unexpected error occurred! Please try again or contact administrator!";
 
             return View("Index", "Home");
         }
