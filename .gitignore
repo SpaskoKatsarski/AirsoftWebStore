@@ -1,0 +1,13 @@
+# Ignore bin and obj folders
+bin/
+obj/
+
+# Ignore .dll and .exe files
+*.dll
+*.exe
+
+# Ignore log files
+*.log
+
+# Ignore specific file
+secret.txt
