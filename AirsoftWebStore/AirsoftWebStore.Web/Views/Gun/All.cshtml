@@ -8,13 +8,13 @@
 <hr />
 
 <div class="text-center row">
-    @foreach (var gun in Model)
+    @foreach (var equipment in Model)
     {
         <div class="card col-4" style="width: 20rem;">
             <div class="card-body">
-                <h5 class="card-title mt-1">@gun.Name</h5>
-                <a  asp-controller="Gun" asp-action="Details" asp-route-id="@gun.Id"><img class="card-img hoverable" src="@gun.ImageUrl"></a>
-                <p class="mb-0"><span class="fw-bold">Price: </span>$@gun.Price</p>
+                <h5 class="card-title mt-1">@equipment.Name</h5>
+                <a  asp-controller="Gun" asp-action="Details" asp-route-id="@equipment.Id"><img class="card-img hoverable" src="@equipment.ImageUrl"></a>
+                <p class="mb-0"><span class="fw-bold">$@equipment.Price</span></p>
             </div>
         </div>
     }
