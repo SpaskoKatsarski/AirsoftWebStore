@@ -5,8 +5,6 @@
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Gun;
-    using AirsoftWebStore.Common;
-    using AirsoftWebStore.Web.Infrastructure.Extensions;
 
     [Authorize]
     public class GunController : Controller
@@ -71,10 +69,28 @@
             //{
             //    ModelState.AddModelError(, "Invalid id");
             //}
+            bool categoryExists = await this.categoryService.ExistsByIdAsync(model.CategoryId);
+            if (!categoryExists)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist!");
+            }
 
-            await this.gunService.EditAsync(id, model);
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await this.categoryService.AllAsync();
+                return View(model);
+            }
 
-            return RedirectToAction("Details", "Gun", new { id });
+            try
+            {
+                await this.gunService.EditAsync(id, model);
+
+                return RedirectToAction("Details", "Gun", new { id });
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         [HttpGet]
@@ -117,7 +133,7 @@
                 string id = await this.gunService.AddAsync(model);
 
                 // with toastr js
-                // this.TempData[SuccessMessage] = "House was added successfully!";
+                // this.TempData[SuccessMessage] = "Replica was added successfully!";
 
                 return RedirectToAction("Details", "Gun", new { id });
             }
@@ -139,9 +155,16 @@
                 return RedirectToAction("All", "Gun");
             }
 
-            GunDeleteViewModel model = await this.gunService.GetGunForDeleteByIdAsync(id);
+            try
+            {
+                GunDeleteViewModel model = await this.gunService.GetGunForDeleteByIdAsync(id);
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         // TODO: Implement the logic inside:

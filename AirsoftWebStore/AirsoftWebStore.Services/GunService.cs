@@ -130,10 +130,10 @@
             return gunModel;
         }
 
-        //TODO: Check for isActive property:
         public async Task<GunDeleteViewModel> GetGunForDeleteByIdAsync(string id)
         {
             Gun? gun = await this.context.Guns
+                .Where(g => g.IsActive)
                 .Include(g => g.Category)
                 .FirstAsync(g => g.Id.ToString() == id);
 
@@ -150,7 +150,9 @@
 
         public async Task<GunFormViewModel> GetGunForEditByIdAsync(string id)
         {
-            Gun? gun = await this.context.Guns.FindAsync(Guid.Parse(id));
+            Gun? gun = await this.context.Guns
+                .Where(g => g.IsActive)
+                .FirstAsync(g => g.Id.ToString() == id);
 
             GunFormViewModel formModel = new GunFormViewModel()
             {

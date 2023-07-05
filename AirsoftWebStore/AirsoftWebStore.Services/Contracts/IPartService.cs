@@ -6,6 +6,20 @@
     {
         Task<IEnumerable<PartAllViewModel>> AllAsync();
 
+        Task<string> AddAsync(PartFormViewModel model);
+
+        Task EditAsync(string id, PartFormViewModel model);
+
+        Task DeleteAsync(string id);
+
+        Task<PartFormViewModel> GetPartForEditAsync(string id);
+
+        Task<PartDeleteViewModel> GetPartForDeleteAsync(string id);
+
         Task<PartDetailViewModel> GetDetailsAsync(string id);
+
+        Task<bool> ExistsByNameAsync(string name);
+
+        Task<bool> ExistsByIdAsync(string id);
     }
 }

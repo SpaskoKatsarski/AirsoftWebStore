@@ -44,12 +44,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Part/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydFxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Part/All.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydFxBbGwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Part/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydFxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Part/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Part/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Shared/Error.cshtml]
@@ -62,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Shared/_PartFormPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYXJ0Rm9ybVBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/AirsoftWebStore/AirsoftWebStore/AirsoftWebStore.Web/Views/Shared/_ValidationScriptsPartial.cshtml]

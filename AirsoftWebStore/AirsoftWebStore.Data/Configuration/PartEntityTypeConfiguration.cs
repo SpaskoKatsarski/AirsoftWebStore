@@ -16,6 +16,10 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
+                .Property(p => p.IsActive)
+                .HasDefaultValue(true);
+
+            builder
                 .HasData(this.GenerateParts());
         }
 
