@@ -85,7 +85,7 @@
         {
             bool result = await this.context.Parts
                 .Where(p => p.IsActive)
-                .AnyAsync(p => p.Name == name);
+                .AnyAsync(p => p.Name.ToLower() == name.ToLower());
 
             return result;
         }

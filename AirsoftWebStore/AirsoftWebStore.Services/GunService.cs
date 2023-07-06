@@ -100,7 +100,7 @@
         {
             return await this.context.Guns
                 .Where(g => g.IsActive)
-                .AnyAsync(g => g.Name == name);
+                .AnyAsync(g => g.Name.ToLower() == name.ToLower());
         }
 
         public async Task<GunDetailViewModel> GetDetailsAsync(string id)

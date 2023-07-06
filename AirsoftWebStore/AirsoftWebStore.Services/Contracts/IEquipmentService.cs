@@ -5,5 +5,13 @@
     public interface IEquipmentService
     {
         Task<IEnumerable<EquipmentAllViewModel>> AllAsync();
+
+        Task<string> AddAsync(EquipmentFormViewModel model);
+
+        Task<bool> ExistsByIdAsync(string id);
+
+        Task<bool> ExistsByNameAsync(string name);
+
+        Task<EquipmentDetailsViewModel> GetForDetailsAsync(string id);
     }
 }

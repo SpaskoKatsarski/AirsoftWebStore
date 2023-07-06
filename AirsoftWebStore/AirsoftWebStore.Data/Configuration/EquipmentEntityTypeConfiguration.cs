@@ -13,6 +13,9 @@
             builder
                 .Property(e => e.IsActive)
                 .HasDefaultValue(true);
+
+            builder
+                .HasData(this.GenerateEquipment());
         }
 
         private ICollection<Equipment> GenerateEquipment()
@@ -53,7 +56,6 @@
             equipmentItems.Add(equipment);
 
             return equipmentItems;
-            // TODO: Add more equipment
         }
     }
 }

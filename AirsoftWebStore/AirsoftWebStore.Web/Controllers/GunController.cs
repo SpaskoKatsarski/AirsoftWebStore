@@ -30,7 +30,13 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
-            // TODO: add validation or redirect to custom error page
+            // TODO: Consider insted of redirecting to all, redirect to custom error page
+            bool exists = await this.gunService.ExistsByIdAsync(id);
+            if (!exists)
+            {
+                return RedirectToAction("All", "Gun");
+            }
+
             GunDetailViewModel gunModel = await this.gunService
                 .GetDetailsAsync(id);
 
