@@ -7,6 +7,8 @@
 
     public class PartFormViewModel
     {
+        public string? Id { get; set; } = null!;
+
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; } = null!;

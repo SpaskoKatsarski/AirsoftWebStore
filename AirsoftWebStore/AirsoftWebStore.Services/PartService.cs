@@ -121,11 +121,11 @@
             return model;
         }
 
-        public async Task EditAsync(string id, PartFormViewModel model)
+        public async Task<string> EditAsync(PartFormViewModel model)
         {
             Part part = await this.context.Parts
                 .Where(p => p.IsActive)
-                .FirstAsync(p => p.Id.ToString() == id);
+                .FirstAsync(p => p.Id.ToString() == model.Id);
 
             part.Name = model.Name;
             part.Manufacturer = model.Manufacturer;
@@ -136,6 +136,8 @@
             part.CategoryId = model.CategoryId;
 
             await this.context.SaveChangesAsync();
+
+            return part.Id.ToString();
         }
 
         public async Task<PartDeleteViewModel> GetPartForDeleteAsync(string id)

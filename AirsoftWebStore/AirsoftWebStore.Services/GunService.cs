@@ -65,14 +65,9 @@
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<string> EditAsync(string id, GunFormViewModel model)
+        public async Task<string> EditAsync(GunFormViewModel model)
         {
-            Gun? gun = await this.context.Guns.FindAsync(Guid.Parse(id));
-
-            if (gun == null)
-            {
-                throw new Exception(string.Format(GunNotFoundErrorMessage, id));
-            }
+            Gun? gun = await this.context.Guns.FindAsync(Guid.Parse(model.Id!));
 
             gun.Name = model.Name;
             gun.Manufacturer = model.Manufacturer;

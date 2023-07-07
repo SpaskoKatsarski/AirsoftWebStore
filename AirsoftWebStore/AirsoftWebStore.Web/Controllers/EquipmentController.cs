@@ -80,9 +80,99 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(string id)
         {
-            return Ok();
+            bool exists = await this.equipmentService.ExistsByIdAsync(id);
+            if (!exists)
+            {
+                return RedirectToAction("All", "Equipment");
+            }
+
+            EquipmentFormViewModel model = await this.equipmentService.GetForEditAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EquipmentFormViewModel model)
+        {
+            bool nameExists = await this.equipmentService.ExistsByNameAsync(model.Name);
+            string currentName = await this.equipmentService.GetCurrentNameAsync(model.Id!);
+            if (nameExists && model.Name != currentName)
+            {
+                ModelState.AddModelError(nameof(model.Name), "Equipment with this name already exists!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                string id = await this.equipmentService.EditAsync(model);
+
+                return RedirectToAction("Details", "Equipment", new { id });
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool exists = await this.equipmentService.ExistsByIdAsync(id);
+            if (!exists)
+            {
+                return RedirectToAction("All", "Equipment");
+            }
+
+            EquipmentDeleteViewModel model = await this.equipmentService.GetForDeleteAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, EquipmentDeleteViewModel model)
+        {
+            bool exists = await this.equipmentService.ExistsByIdAsync(id);
+
+            if (!exists)
+            {
+                TempData["ErrorMessage"] = "Equipment with the provided Id does not exist!";
+
+                return RedirectToAction("All", "Gun");
+            }
+
+            // Check if user is weapon creator...
+            // Thats how:
+            //if (!isUserWeaponCreator)
+            //{
+            //    TempData[ErrorMessage] = "You must become a weapon creator in order to delete items!";
+
+            //    return this.RedirectToAction("Become", "WeaponCreator");
+            //}
+
+            try
+            {
+                await this.equipmentService.DeleteAsync(id);
+
+                //TempData[WarningMessage] = "Item successfuly deleted!";
+                return RedirectToAction("All", "Equipment");
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+
+        private IActionResult GeneralError()
+        {
+            //TempData["ErrorMessage"] = "Unexpected error occurred! Please try again or contact administrator!";
+
+            return View("Index", "Home");
         }
     }
 }

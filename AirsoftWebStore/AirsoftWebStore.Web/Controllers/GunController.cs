@@ -75,6 +75,8 @@
             //{
             //    ModelState.AddModelError(, "Invalid id");
             //}
+
+            // Check if name exists and if its different from previous name (see equipment method GetCurrentNameAsync())
             bool categoryExists = await this.categoryService.ExistsByIdAsync(model.CategoryId);
             if (!categoryExists)
             {
@@ -89,7 +91,7 @@
 
             try
             {
-                await this.gunService.EditAsync(id, model);
+                await this.gunService.EditAsync(model);
 
                 return RedirectToAction("Details", "Gun", new { id });
             }

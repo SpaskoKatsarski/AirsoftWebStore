@@ -94,7 +94,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id, PartFormViewModel model)
+        public async Task<IActionResult> Edit(PartFormViewModel model)
         {
             bool categoryExists = await this.categoryService.ExistsByIdAsync(model.CategoryId);
             if (!categoryExists)
@@ -110,7 +110,7 @@
 
             try
             {
-                await this.partService.EditAsync(id, model);
+                string id = await this.partService.EditAsync(model);
 
                 return RedirectToAction("Details", "Part", new { id });
             }

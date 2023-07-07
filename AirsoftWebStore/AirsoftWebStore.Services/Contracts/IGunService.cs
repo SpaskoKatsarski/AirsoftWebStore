@@ -10,7 +10,7 @@
 
         Task<string> AddAsync(GunFormViewModel model);
 
-        Task<string> EditAsync(string id, GunFormViewModel model);
+        Task<string> EditAsync(GunFormViewModel model);
 
         Task DeleteAsync(string id);
 

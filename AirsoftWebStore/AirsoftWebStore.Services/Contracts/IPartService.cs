@@ -8,7 +8,7 @@
 
         Task<string> AddAsync(PartFormViewModel model);
 
-        Task EditAsync(string id, PartFormViewModel model);
+        Task<string> EditAsync(PartFormViewModel model);
 
         Task DeleteAsync(string id);
 
