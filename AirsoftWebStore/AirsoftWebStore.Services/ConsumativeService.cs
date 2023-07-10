@@ -52,6 +52,32 @@
             return consumative.Id.ToString();
         }
 
+        public async Task EditAsync(ConsumativeFormViewModel model)
+        {
+            Consumative consumative = await this.context.Consumatives
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == model.Id);
+
+            consumative.Name = model.Name;
+            consumative.Description = model.Description;
+            consumative.ImageUrl = model.ImageUrl;
+            consumative.Price = model.Price;
+            consumative.Quantity = model.Quantity;
+
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            Consumative equipment = await this.context.Consumatives
+                .Where(e => e.IsActive)
+                .FirstAsync(e => e.Id.ToString() == id);
+
+            equipment.IsActive = false;
+
+            await this.context.SaveChangesAsync();
+        }
+
         public async Task<ConsumativeDetailsViewModel> GetForDetailsAsync(string id)
         {
             Consumative consumative = await this.context.Consumatives
@@ -72,9 +98,43 @@
             return model;
         }
 
+        public async Task<ConsumativeFormViewModel> GetForEditAsync(string id)
+        {
+            Consumative consumative = await this.context.Consumatives
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == id);
+
+            ConsumativeFormViewModel model = new ConsumativeFormViewModel()
+            {
+                Id = consumative.Id.ToString(),
+                Name = consumative.Name,
+                Description = consumative.Description,
+                ImageUrl = consumative.ImageUrl,
+                Price = consumative.Price,
+                Quantity = consumative.Quantity
+            };
+
+            return model;
+        }
+
+        public async Task<ConsumativeDeleteViewModel> GetForDeleteAsync(string id)
+        {
+            Consumative consumative = await this.context.Consumatives
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == id);
+
+            ConsumativeDeleteViewModel model = new ConsumativeDeleteViewModel()
+            {
+                Name = consumative.Name,
+                ImageUrl = consumative.ImageUrl
+            };
+
+            return model;
+        }
+
         public async Task<bool> ExistsByIdAsync(string id)
         {
-            bool result = await this.context.Equipments
+            bool result = await this.context.Consumatives
                 .AsNoTracking()
                 .Where(e => e.IsActive)
                 .AnyAsync(e => e.Id.ToString() == id);
@@ -90,6 +150,16 @@
                 .AnyAsync(c => c.Name == name);
 
             return result;
+        }
+
+        public async Task<string> GetCurrentNameAsync(string id)
+        {
+            string name = (await this.context.Consumatives
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == id))
+                .Name;
+
+            return name;
         }
     }
 }

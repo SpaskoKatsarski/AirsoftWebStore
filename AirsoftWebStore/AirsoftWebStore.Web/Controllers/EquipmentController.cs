@@ -143,7 +143,7 @@
             {
                 TempData["ErrorMessage"] = "Equipment with the provided Id does not exist!";
 
-                return RedirectToAction("All", "Gun");
+                return RedirectToAction("All", "Equipment");
             }
 
             // Check if user is weapon creator...

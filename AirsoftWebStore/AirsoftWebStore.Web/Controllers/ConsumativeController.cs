@@ -5,6 +5,7 @@
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Consumative;
+    using AirsoftWebStore.Web.ViewModels.Equipment;
 
     [Authorize]
     public class ConsumativeController : Controller
@@ -28,7 +29,7 @@
         public async Task<IActionResult> Details(string id)
         {
             bool exists = await this.consumativeService.ExistsByIdAsync(id);
-            if (exists)
+            if (!exists)
             {
                 return RedirectToAction("All", "Consumative");
             }
@@ -72,6 +73,102 @@
 
                 return View(model);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            bool exists = await this.consumativeService.ExistsByIdAsync(id);
+            if (!exists)
+            {
+                return RedirectToAction("All", "Consumative");
+            }
+
+            ConsumativeFormViewModel model = await this.consumativeService.GetForEditAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ConsumativeFormViewModel model)
+        {
+            bool nameExists = await this.consumativeService.ExistsByNameAsync(model.Name);
+            string currentName = await this.consumativeService.GetCurrentNameAsync(model.Id!);
+            if (nameExists && model.Name != currentName)
+            {
+                ModelState.AddModelError(nameof(model.Name), "Equipment with this name already exists!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await this.consumativeService.EditAsync(model);
+
+                return RedirectToAction("Details", "Consumative", new { id = model.Id });
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool exists = await this.consumativeService.ExistsByIdAsync(id);
+            if (!exists)
+            {
+                return RedirectToAction("All", "Consumative");
+            }
+
+            ConsumativeDeleteViewModel model = await this.consumativeService.GetForDeleteAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, EquipmentDeleteViewModel model)
+        {
+            bool exists = await this.consumativeService.ExistsByIdAsync(id);
+
+            if (!exists)
+            {
+                TempData["ErrorMessage"] = "Consumative with the provided Id does not exist!";
+
+                return RedirectToAction("All", "Consumative");
+            }
+
+            // Check if user is weapon creator...
+            // Thats how:
+            //if (!isUserWeaponCreator)
+            //{
+            //    TempData[ErrorMessage] = "You must become a weapon creator in order to delete items!";
+
+            //    return this.RedirectToAction("Become", "WeaponCreator");
+            //}
+
+            try
+            {
+                await this.consumativeService.DeleteAsync(id);
+
+                //TempData[WarningMessage] = "Item successfuly deleted!";
+                return RedirectToAction("All", "Consumative");
+            }
+            catch (Exception)
+            {
+                return GeneralError();
+            }
+        }
+
+        private IActionResult GeneralError()
+        {
+            //TempData["ErrorMessage"] = "Unexpected error occurred! Please try again or contact administrator!";
+
+            return View("Index", "Home");
         }
     } 
 }
