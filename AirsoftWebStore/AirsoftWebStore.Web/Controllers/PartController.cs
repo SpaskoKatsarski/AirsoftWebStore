@@ -188,6 +188,12 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
+            bool exists = await this.partService.ExistsByIdAsync(id);
+            if (!exists)
+            {
+                return RedirectToAction("All", "Part");
+            }
+
             PartDetailViewModel partModel = await this.partService
                 .GetDetailsAsync(id);
 

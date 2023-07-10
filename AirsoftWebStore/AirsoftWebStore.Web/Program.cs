@@ -23,7 +23,6 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 })
     .AddEntityFrameworkStores<AirsoftStoreDbContext>();
 
-// Register services here with AddApplicationServices
 builder.Services.AddApplicationServices(typeof(IGunService));
 
 builder.Services

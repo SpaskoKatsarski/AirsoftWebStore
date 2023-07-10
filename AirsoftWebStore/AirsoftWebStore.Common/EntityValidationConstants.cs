@@ -71,6 +71,12 @@
             public const int DescriptionMinLength = 10;
             public const int DescriptionMaxLength = 1000;
 
+            public const string PriceMin = "1";
+            public const string PriceMax = "2500";
+
+            public const int QuantityMin = 1;
+            public const int QuantityMax = 300;
+
             public const int ImageUrlMaxLength = 2048;
         }
 

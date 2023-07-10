@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ConsumativeAllViewModel>
+
+@{
+    ViewBag.Title = "All Consumatives";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @if (!Model.Any())
+    {
+        <div>No items availible!</div>
+    }
+    else
+    {
+        foreach (var consumative in Model)
+        {
+            <div class="card col-4" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title mt-1">@consumative.Name</h5>
+                    <a asp-controller="Consumative" asp-action="Details" asp-route-id="@consumative.Id"><img class="card-img hoverable" src="@consumative.ImageUrl"></a>
+                    <p class="mb-0"><span class="fw-bold">$@consumative.Price</span></p>
+                </div>
+            </div>
+        }
+    }
+</div>
