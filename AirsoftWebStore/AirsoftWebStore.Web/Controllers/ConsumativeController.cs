@@ -28,7 +28,7 @@
         public async Task<IActionResult> Details(string id)
         {
             bool exists = await this.consumativeService.ExistsByIdAsync(id);
-            if (!exists)
+            if (exists)
             {
                 return RedirectToAction("All", "Consumative");
             }
