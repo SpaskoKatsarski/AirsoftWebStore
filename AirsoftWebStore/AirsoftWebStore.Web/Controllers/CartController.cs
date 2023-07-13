@@ -31,8 +31,7 @@
         }
 
         // Add item to cart
-        [HttpPost]
-        public async Task<IActionResult> AddToCart(string itemId, int quantity, string productType)
+        public async Task<IActionResult> AddToCart(string itemId, string productType)
         {
             string? userId = ClaimsPrincipalExtensions.GetId(this.User);
 
@@ -49,6 +48,7 @@
 
                 item = new CartItem()
                 {
+                    GunId = gun.Id,
                     Gun = gun
                 };
             }
@@ -58,6 +58,7 @@
 
                 item = new CartItem()
                 {
+                    PartId = part.Id,
                     Part = part
                 };
             }
@@ -67,6 +68,7 @@
 
                 item = new CartItem()
                 {
+                    EquipmentId = equipment.Id,
                     Equipment = equipment
                 };
             }
@@ -76,6 +78,7 @@
 
                 item = new CartItem()
                 {
+                    ConsumativeId = consumative.Id,
                     Consumative = consumative
                 };
             }
@@ -87,7 +90,7 @@
             await this.cartService.AddItemAsync(item, userId!);
 
             // Redirect to the cart view
-            return RedirectToAction("ViewCart");
+            return RedirectToAction("ViewCart", "Cart");
         }
 
         // View cart
@@ -100,6 +103,9 @@
             }
 
             CartViewModel model = await this.cartService.GetCartForVisualizationAsync(userId!);
+
+            model.TotalPrice = model.CartItems
+                .Sum(i => i.PricePerItem * i.Quantity);
 
             return View(model);
         }

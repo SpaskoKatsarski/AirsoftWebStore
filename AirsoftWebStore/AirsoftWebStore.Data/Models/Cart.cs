@@ -24,7 +24,7 @@
 
         public ICollection<CartItem> CartItems { get; set; }
 
-        [Required]
+        [NotMapped]
         public decimal TotalPrice { get; set; }
     }
 }

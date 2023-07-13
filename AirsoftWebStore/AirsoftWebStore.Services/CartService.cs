@@ -55,7 +55,8 @@
             {
                 // Create a new cart item if no cart item exists.
                 // The quantity is set in the controller
-                cart.CartItems.Add(item);
+                item.CartId = cart.Id;
+                await this.context.CartItems.AddAsync(item);
             }
             else
             {
@@ -79,16 +80,19 @@
                     throw new Exception("User does not exist!");
                 }
 
-                Cart cart = new Cart();
+                Cart cart = new Cart()
+                {
+                    BuyerId = Guid.Parse(userId)
+                };
 
-                user.Cart = cart;
+                await this.context.Carts.AddAsync(cart);
 
-                // Fix it:
                 this.context.Entry(user).Reload();
                 this.context.Entry(cart).Reload();
+
                 await this.context.SaveChangesAsync();
 
-                return user.Cart;
+                return cart;
             }
 
             throw new ArgumentException("User already has a cart!");
@@ -102,8 +106,9 @@
                 await this.CreateCartForUserAsync(userId);
             }
 
-            Cart? cart = await this.context.Carts
-                .FindAsync(Guid.Parse(userId));
+            Cart cart = await this.context.Carts
+                .Include(c => c.CartItems)
+                .FirstAsync(c => c.BuyerId.ToString() == userId);
 
             return cart;
         }
