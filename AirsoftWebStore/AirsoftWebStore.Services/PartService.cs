@@ -168,5 +168,14 @@
 
             await this.context.SaveChangesAsync();
         }
+
+        public async Task<Part> GetPartByIdAsync(string id)
+        {
+            Part part = await this.context.Parts
+                .Where(g => g.IsActive)
+                .FirstAsync(g => g.Id.ToString() == id);
+
+            return part;
+        }
     }
 }

@@ -161,5 +161,14 @@
 
             return name;
         }
+
+        public async Task<Consumative> GetConsumativeByIdAsync(string id)
+        {
+            Consumative consumative = await this.context.Consumatives
+                .Where(c => c.IsActive)
+                .FirstAsync(c => c.Id.ToString() == id);
+
+            return consumative;
+        }
     }
 }

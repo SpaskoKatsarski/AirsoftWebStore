@@ -6,15 +6,36 @@
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Gun;
     using AirsoftWebStore.Data.Models;
+    using AirsoftWebStore.Web.ViewModels.Home;
     using static AirsoftWebStore.Common.ErrorMessages.Gun;
 
     public class GunService : IGunService
     {
         private readonly AirsoftStoreDbContext context;
+        private readonly ICartService cartService;
 
-        public GunService(AirsoftStoreDbContext context)
+        public GunService(AirsoftStoreDbContext context, ICartService cartService)
         {
             this.context = context;
+            this.cartService = cartService;
+        }
+
+        public async Task<IEnumerable<IndexViewModel>> GetTopThreeWithMostCountsAsync()
+        {
+            IEnumerable<IndexViewModel> model = await this.context.Guns
+                .AsNoTracking()
+                .Where(g => g.IsActive)
+                .OrderByDescending(g => g.Quantity)
+                .Take(3)
+                .Select(g => new IndexViewModel() 
+                {
+                    Id = g.Id.ToString(),
+                    Name = g.Name,
+                    ImageUrl = g.ImageUrl
+                })
+                .ToListAsync();
+
+            return model;
         }
 
         public async Task<string> AddAsync(GunFormViewModel model)
@@ -163,6 +184,15 @@
             };
 
             return formModel;
+        }
+
+        public async Task<Gun> GetGunByIdAsync(string id)
+        {
+            Gun gun = await this.context.Guns
+                .Where(g => g.IsActive)
+                .FirstAsync(g => g.Id.ToString() == id);
+
+            return gun;
         }
     }
 }

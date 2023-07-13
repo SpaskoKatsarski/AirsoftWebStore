@@ -5,12 +5,23 @@
     using Microsoft.AspNetCore.Mvc;
 
     using AirsoftWebStore.Web.ViewModels;
+    using AirsoftWebStore.Services.Contracts;
+    using AirsoftWebStore.Web.ViewModels.Home;
 
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IGunService gunService;
+
+        public HomeController(IGunService gunService)
         {
-            return View();
+            this.gunService = gunService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            IEnumerable<IndexViewModel> model = await this.gunService.GetTopThreeWithMostCountsAsync();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

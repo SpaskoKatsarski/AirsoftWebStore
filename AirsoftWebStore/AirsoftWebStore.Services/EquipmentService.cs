@@ -163,5 +163,14 @@
 
             return name;
         }
+
+        public async Task<Equipment> GetEquipmentByIdAsync(string id)
+        {
+            Equipment equipment = await this.context.Equipments
+                .Where(e => e.IsActive)
+                .FirstAsync(e => e.Id.ToString() == id);
+
+            return equipment;
+        }
     }
 }

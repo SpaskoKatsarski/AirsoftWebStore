@@ -1,9 +1,12 @@
 ﻿namespace AirsoftWebStore.Services.Contracts
 {
+    using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Web.ViewModels.Consumative;
 
     public interface IConsumativeService
     {
+        Task<Consumative> GetConsumativeByIdAsync(string id);
+
         Task<IEnumerable<ConsumativeAllViewModel>> AllAsync();
 
         Task<string> AddAsync(ConsumativeFormViewModel model);

@@ -1,9 +1,12 @@
 ﻿namespace AirsoftWebStore.Services.Contracts
 {
+    using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Web.ViewModels.Equipment;
 
     public interface IEquipmentService
     {
+        Task<Equipment> GetEquipmentByIdAsync(string id);
+
         Task<IEnumerable<EquipmentAllViewModel>> AllAsync();
 
         Task<string> AddAsync(EquipmentFormViewModel model);
