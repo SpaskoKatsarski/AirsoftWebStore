@@ -8,8 +8,6 @@
     {
         Task<Gun> GetGunByIdAsync(string id);
 
-        Task AddItemToUsersCart(string itemId, string userId);
-
         Task<IEnumerable<IndexViewModel>> GetTopThreeWithMostCountsAsync();
 
         Task<IEnumerable<GunAllViewModel>> AllAsync();

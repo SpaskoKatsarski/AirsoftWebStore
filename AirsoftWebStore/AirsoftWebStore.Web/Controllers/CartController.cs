@@ -1,12 +1,12 @@
 ﻿namespace AirsoftWebStore.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
 
     using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.Infrastructure.Extensions;
-    
+    using AirsoftWebStore.Web.ViewModels.Cart;
+
     public class CartController : Controller
     {
         private readonly ICartService cartService;
@@ -31,6 +31,7 @@
         }
 
         // Add item to cart
+        [HttpPost]
         public async Task<IActionResult> AddToCart(string itemId, int quantity, string productType)
         {
             string? userId = ClaimsPrincipalExtensions.GetId(this.User);
@@ -40,7 +41,8 @@
                 // Error page or notify the user that he needs to log in
             }
 
-            CartItem? item = null;
+            // Set Quantity
+            CartItem? item;
             if (productType == "gun")
             {
                 Gun gun = await this.gunService.GetGunByIdAsync(itemId);
@@ -53,9 +55,33 @@
             else if (productType == "part")
             {
                 Part part = await this.partService.GetPartByIdAsync(itemId);
+
+                item = new CartItem()
+                {
+                    Part = part
+                };
+            }
+            else if (productType == "equipment")
+            {
+                Equipment equipment = await this.equipmentService.GetEquipmentByIdAsync(itemId);
+
+                item = new CartItem()
+                {
+                    Equipment = equipment
+                };
+            }
+            else if (productType == "consumative")
+            {
+                Consumative consumative = await this.consumativeService.GetConsumativeByIdAsync(itemId);
+
+                item = new CartItem()
+                {
+                    Consumative = consumative
+                };
             }
             else
             {
+                // Error page
                 return NotFound();
             }
             await this.cartService.AddItemAsync(item, userId!);
@@ -65,41 +91,17 @@
         }
 
         // View cart
-        //public async Task<IActionResult> ViewCart()
-        //{
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user == null)
-        //    {
-        //        // Handle user not found
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> ViewCart()
+        {
+            string? userId = ClaimsPrincipalExtensions.GetId(this.User);
+            if (userId == null)
+            {
+                // User should be logged in in order to see his cart
+            }
 
-        //    var cart = await GetOrCreateCartForUser(user);
+            CartViewModel model = await this.cartService.GetCartForVisualizationAsync(userId!);
 
-        //    return View(cart);
-        //}
-
-        //// Helper method to get or create the cart for a user
-        //private async Task<Cart> GetOrCreateCartForUser(ApplicationUser user)
-        //{
-        //    var cart = await _context.Carts
-        //        .Include(c => c.CartItems)
-        //        .FirstOrDefaultAsync(c => c.BuyerId == user.Id);
-
-        //    if (cart == null)
-        //    {
-        //        cart = new Cart
-        //        {
-        //            Id = Guid.NewGuid(),
-        //            BuyerId = user.Id,
-        //            CartItems = new List<CartItem>()
-        //        };
-
-        //        _context.Carts.Add(cart);
-        //        await _context.SaveChangesAsync();
-        //    }
-
-        //    return cart;
-        //}
+            return View(model);
+        }
     }
 }

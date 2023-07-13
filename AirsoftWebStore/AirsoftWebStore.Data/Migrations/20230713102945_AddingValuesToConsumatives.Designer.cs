@@ -4,6 +4,7 @@ using AirsoftWebStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirsoftWebStore.Data.Migrations
 {
     [DbContext(typeof(AirsoftStoreDbContext))]
-    partial class AirsoftStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230713102945_AddingValuesToConsumatives")]
+    partial class AddingValuesToConsumatives
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("CartId")
+                    b.Property<Guid>("CartId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -235,18 +237,6 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Consumatives");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("492f9106-b557-4e47-a174-90424befa4f4"),
-                            Description = "For high precision and really good shots. These BBs are going to like you a lot! They are competition grade and are really balanced.",
-                            ImageUrl = "https://m.media-amazon.com/images/I/51QY6Y7klQL._AC_UF1000,1000_QL80_.jpg",
-                            IsActive = false,
-                            Name = "BBs",
-                            Price = 15.55m,
-                            Quantity = 8
-                        });
                 });
 
             modelBuilder.Entity("AirsoftWebStore.Data.Models.Equipment", b =>
@@ -288,7 +278,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cfef7734-5e5b-4dc3-9e5d-9a455a231ead"),
+                            Id = new Guid("5de1a237-13bc-4c12-a66f-c92d22503f61"),
                             Description = "The first aid kit can be attached using a Velcro panel to the equipment compatible with the MOLLE system or directly to the Velcro straps. The first aid kit also includes a tape with a buckle that will also help compress the contents of the pouch.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_Large-tear-off-first-aid-kit-Black-1152235193_1.webp",
                             IsActive = false,
@@ -298,7 +288,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e24bd442-407d-4a3f-ab60-c09dd2e461b9"),
+                            Id = new Guid("e8860e4d-4b62-4329-868b-e49738db1cb6"),
                             Description = "Uniform clothing in the original and unique Multi-environmental Adaptive Pattern camouflage, intended for civilian and professional users who are interested in the military and actively spend their time outdoors - as well as in difficult and extreme conditions.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_CJP-02-Pro-Combat-Jacket-MAPA-R-1152234971_1.webp",
                             IsActive = false,
@@ -308,7 +298,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ce50e142-506a-437e-8006-4bbd0c34099b"),
+                            Id = new Guid("bc263d1e-66e7-428d-8a0e-ba0cdc00fdea"),
                             Description = "The light protective helmet LHO-01 is the first bulletproof high cut helmet produced by MASKPOL designed for the civilian market. It is designed to protect the wearer's head against direct shrapnel wounds and certain small arms projectiles.",
                             ImageUrl = "https://static4.gunfire.com/eng_pm_Ballistic-helmet-LHO-01-Olive-1152235163_1.webp",
                             IsActive = false,
@@ -370,7 +360,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6d2e1e7b-5b88-405c-b892-5f9c7c6fb3a3"),
+                            Id = new Guid("df50886e-b812-4af4-b7a5-868fc1167cc5"),
                             CategoryId = 1,
                             Description = "Specna Arms proudly presents the FLEX line of replicas. An affordable price combined with an innovative quick spring change system, great performance straight out of the box and high-quality components makes this series an excellent choice for both beginners and experienced airsoft players alike.",
                             ImageUrl = "https://www.zerooneairsoft.com/products_image_15055_0.jpg",
@@ -383,7 +373,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2403371c-d052-4913-b1c9-f6413a912e52"),
+                            Id = new Guid("87fbd3b0-4505-4c8e-abe0-c67ff6cea48f"),
                             CategoryId = 2,
                             Description = "Double Bell brand airsoft replica powered by green gas. The grip facings are made of plastic. The breech drop lever and decocker are made of steel. The skeleton, lock, external barrel and the rest of the components are made of aluminium and zinc alloy.",
                             ImageUrl = "https://static4.gunfire.com/eng_pm_P226-pistol-replica-778-Tan-1152235155_1.webp",
@@ -396,7 +386,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("676bc4a0-3f98-4747-af45-c4c1effbefd4"),
+                            Id = new Guid("7752062f-ecba-48ad-8bff-a790ef4e1e96"),
                             CategoryId = 4,
                             Description = "This sniper rifle will win make you feel like a real soldier. With its silence and long range, you will be able to make really good shots and the enemies will wonder what had happened to them after.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_TAC-41-A-airsoft-sniper-rifle-Wolf-Grey-1152234909_1.webp",
@@ -409,7 +399,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c04fe826-f0dc-4263-98a2-0977cd8c5250"),
+                            Id = new Guid("edb60395-5a67-4ab9-b5e4-9dd90d166a7a"),
                             CategoryId = 5,
                             Description = "GF Custom Division is an idea conceived in the heads of the Gunfire airsoft team. We offer you the highest quality replicas, modified and configured by us, using only the best, tried and tested parts and accessories. Each element serves a specific purpose - these are exactly the configurations that we would like to use in the playing field ourselves. Many years of airsoft experience helps us in working on custom airsoft guns like this one, so we can safely say that GF Custom Division is a project created 100% by players for players.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_8871-Shotgun-Replica-Corpo-Wars-WGTO-1152234920_1.webp",
@@ -471,7 +461,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("26239bac-14c8-43d9-89c9-dbdaf0be9bab"),
+                            Id = new Guid("262004ae-92a8-4a7a-a8e7-5d18fe9eab97"),
                             CategoryId = 4,
                             Description = "Fess 1-8x is a durable most attractive price-wise driven hunt scope with a variable magnification in the Buckler family that does an exceptional job at satisfying the needs of hunters, dynamic sports shooters and tactical shooters.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_Fess-II-1-8x24-Driven-Hunt-Scope-1152224248_1.webp",
@@ -483,7 +473,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("93e9b332-2aff-4b3a-b2d8-c5a50311ec20"),
+                            Id = new Guid("c6cee8a3-3ce3-43a3-950f-d639caa4a46f"),
                             CategoryId = 1,
                             Description = "A vertical forward grip made of metal intended for the attachment to KeyMod mounting system rails. Inside the mount is a small compartment for miscellaneous items. Features a rubber, anti-slip texture that improves the grip.",
                             ImageUrl = "https://static3.gunfire.com/eng_pm_KeyMod-Vertical-Grip-tan-1152221218_1.webp",
@@ -495,7 +485,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("225d5885-a71e-4ea9-b5d5-b75cde15a679"),
+                            Id = new Guid("7f3d578d-81d7-45d8-b32b-b9f07a56575e"),
                             CategoryId = 1,
                             Description = "Shorter version of the angled front grip by PTS, made of a single piece of aluminum. Thanks to its compatibility with the M-LOK system, it can be mounted on any rail in this standard. Equipping the rifle with a front grip improves comfort and better control during fire.",
                             ImageUrl = "https://static4.gunfire.com/eng_pm_Fortis-Shift-TM-Short-Angle-Grip-Dark-Earth-1152230344_1.webp",

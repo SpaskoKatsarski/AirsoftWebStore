@@ -4,6 +4,7 @@ using AirsoftWebStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirsoftWebStore.Data.Migrations
 {
     [DbContext(typeof(AirsoftStoreDbContext))]
-    partial class AirsoftStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230713111845_NullSetToCartIdInApplicationUser")]
+    partial class NullSetToCartIdInApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
