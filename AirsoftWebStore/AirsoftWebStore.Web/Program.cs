@@ -5,6 +5,7 @@ using AirsoftWebStore.Data;
 using AirsoftWebStore.Web.Infrastructure.Extensions;
 using AirsoftWebStore.Services.Contracts;
 using AirsoftWebStore.Web.Infrastructure.ModelBinders;
+using Microsoft.AspNetCore.Mvc;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services
     .AddMvcOptions(options => 
     {
         options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+        options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
     });
 
 WebApplication app = builder.Build();

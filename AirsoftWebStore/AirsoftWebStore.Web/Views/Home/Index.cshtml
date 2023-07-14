@@ -20,7 +20,9 @@
 
 <div class="mb-5"></div>
 
-<img class="d-block img-thumbnail" src="https://images.unsplash.com/photo-1569242840510-9fe6f0112cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="home img">
+<img class="d-block img-thumbnail mb-5" src="https://images.unsplash.com/photo-1569242840510-9fe6f0112cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="home img">
+
+<h2 class="text-center">Some of Our Products:</h2>
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -34,12 +36,14 @@
             {
                 var product = products[i];
                 <div class="carousel-item @(i == 0 ? "active" : string.Empty)">
-                    <img class="d-block w-100" style="height:500px"
-                 src="@product.ImageUrl" alt="@product.Name">
+                    <div class="d-flex justify-content-center">
+                        <img class="img-thumbnail" style="height:500px" src="@product.ImageUrl" alt="@product.Name">
+                    </div>
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <a class="btn btn-primary" asp-controller="Gun" asp-action="Details"
-                       asp-route-id="@product.Id"> @product.Name</a>
+                            <a class="btn btn-primary" asp-controller="Gun" asp-action="Details" asp-route-id="@product.Id">
+                                @product.Name
+                            </a>
                         </h5>
                     </div>
                 </div>

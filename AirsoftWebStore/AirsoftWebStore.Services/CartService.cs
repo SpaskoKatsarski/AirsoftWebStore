@@ -82,7 +82,8 @@
 
                 Cart cart = new Cart()
                 {
-                    BuyerId = Guid.Parse(userId)
+                    BuyerId = Guid.Parse(userId),
+                    TotalPrice = 0
                 };
 
                 await this.context.Carts.AddAsync(cart);
@@ -117,9 +118,11 @@
         {
             Cart cart = await this.GetCartForUserAsync(userId);
 
+            decimal totalPrice = await this.CalculateTotalPriceForCartById(cart.Id.ToString());
+
             CartViewModel model = new CartViewModel()
             {
-                TotalPrice = cart.TotalPrice,
+                TotalPrice = totalPrice,
                 CartItems = cart.CartItems
                 .Select(ci => new CartItemViewModel()
                 {
@@ -131,6 +134,37 @@
             };
 
             return model;
+        }
+
+        public async Task<decimal> CalculateTotalPriceForCartById(string id)
+        {
+            Cart cart = await this.context.Carts
+                .Include(c => c.CartItems)
+                .FirstAsync(c => c.Id.ToString() == id);
+
+            decimal totalPrice = 0;
+
+            foreach (CartItem item in cart.CartItems)
+            {
+                if (item.Gun != null)
+                {
+                    totalPrice += item.Gun.Price;
+                }
+                else if (item.Part != null)
+                {
+                    totalPrice += item.Part.Price;
+                }
+                else if (item.Equipment != null)
+                {
+                    totalPrice += item.Equipment.Price;
+                }
+                else if (item.Consumative != null)
+                {
+                    totalPrice += item.Consumative.Price;
+                }
+            }
+
+            return totalPrice;
         }
 
         private async Task<bool> HasUserCart(string userId) => await this.context.Carts
