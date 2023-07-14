@@ -1,12 +1,14 @@
 ﻿namespace AirsoftWebStore.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.Infrastructure.Extensions;
     using AirsoftWebStore.Web.ViewModels.Cart;
 
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ICartService cartService;
