@@ -34,7 +34,6 @@
             this.consumativeService = consumativeService;
         }
 
-        // Add item to cart
         public async Task<IActionResult> AddToCart(string itemId, int quantity, string productType)
         {
             string? userId = ClaimsPrincipalExtensions.GetId(this.User);

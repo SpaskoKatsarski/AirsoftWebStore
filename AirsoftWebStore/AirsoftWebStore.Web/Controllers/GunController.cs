@@ -30,7 +30,6 @@
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
-            // TODO: Consider insted of redirecting to all, redirect to custom error page
             bool exists = await this.gunService.ExistsByIdAsync(id);
             if (!exists)
             {

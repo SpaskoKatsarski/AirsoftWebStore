@@ -19,6 +19,8 @@
             <p class="mb-0"><span class="fw-bold">CategoryId: </span>@Model.CategoryId</p>
         </div>
 
+        <a asp-controller="Cart" asp-action="AddToCart" asp-route-itemId="@Model.Id.ToString()" asp-route-quantity="1" asp-route-productType="part">Add to Cart</a>
+
         <a asp-controller="Part" asp-action="Edit" asp-route-id="@Model.Id" class="mb-3 btn btn-warning">Edit</a>
         <a asp-controller="Part" asp-action="Delete" asp-route-id="@Model.Id" class="mb-3 btn btn-danger">Delete</a>
 

@@ -20,6 +20,7 @@
             <p class="mb-0"><span class="fw-bold">CategoryId: </span>@Model.CategoryId</p>
         </div>
 
+        // !!! IMPORTANT !!! -> Make a dropdown so that the user can choose how many of the items to buy. 
         <a asp-controller="Cart" asp-action="AddToCart" asp-route-itemId="@Model.Id.ToString()" asp-route-quantity="1" asp-route-productType="gun">Add to Cart</a>
 
         <a asp-controller="Gun" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-warning">Edit</a>

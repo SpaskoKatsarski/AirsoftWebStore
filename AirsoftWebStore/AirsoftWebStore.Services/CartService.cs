@@ -55,8 +55,6 @@
 
             if (!itemExistsInCurrentCart)
             {
-                // Create a new cart item if no cart item exists.
-                // The quantity is set in the controller
                 item.CartId = cart.Id;
                 await this.context.CartItems.AddAsync(item);
             }
@@ -66,19 +64,21 @@
 
                 if (itemType == "gun")
                 {
-                    currentItem = cart.CartItems.First(ci => ci.Gun.name == item.Name);
+                    currentItem = cart.CartItems.First(ci => ci.Gun!.Name == item.Gun!.Name);
                 }
                 else if (itemType == "part")
                 {
-                    currentItem = cart.CartItems.First(ci => ci.Part.name == item.Name);
+                    // It finds the nav property only when the item is gun. Check why:
+                    currentItem = cart.CartItems.First(ci => ci.Part!.Name == item.Part!.Name);
                 }
                 else if (itemType == "equipment")
                 {
-                    currentItem = cart.CartItems.First(ci => ci.Equipment.name == item.Name);
+                    currentItem = cart.CartItems.First(ci => ci.Equipment!.Name == item.Equipment!.Name);
                 }
                 else
                 {
-                    currentItem = cart.CartItems.First(ci => ci.Consumative.name == item.Name);
+                    // It finds the nav property only when the item is gun. Check why:
+                    currentItem = cart.CartItems.First(ci => ci.Consumative!.Name == item.Consumative!.Name);
                 }
 
                 currentItem.Quantity++;
