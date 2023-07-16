@@ -27,6 +27,7 @@
             }
 
             Cart cart = await this.context.Carts
+                .Include(c => c.CartItems)
                 .FirstAsync(c => c.BuyerId.ToString() == userId);
 
             bool itemExistsInCurrentCart;
@@ -48,6 +49,7 @@
             }
             else
             {
+                // Throw error
                 itemExistsInCurrentCart = false;
             }
 
@@ -109,6 +111,13 @@
 
             Cart cart = await this.context.Carts
                 .Include(c => c.CartItems)
+                .ThenInclude(c => c.Gun)
+                .Include(c => c.CartItems)
+                .ThenInclude(c => c.Part)
+                .Include(c => c.CartItems)
+                .ThenInclude(c => c.Equipment)
+                .Include(c => c.CartItems)
+                .ThenInclude(c => c.Consumative)
                 .FirstAsync(c => c.BuyerId.ToString() == userId);
 
             return cart;
@@ -118,7 +127,7 @@
         {
             Cart cart = await this.GetCartForUserAsync(userId);
 
-            decimal totalPrice = await this.CalculateTotalPriceForCartById(cart.Id.ToString());
+            decimal totalPrice = this.CalculateTotalPriceForCartById(cart);
 
             CartViewModel model = new CartViewModel()
             {
@@ -136,12 +145,8 @@
             return model;
         }
 
-        public async Task<decimal> CalculateTotalPriceForCartById(string id)
+        public decimal CalculateTotalPriceForCartById(Cart cart)
         {
-            Cart cart = await this.context.Carts
-                .Include(c => c.CartItems)
-                .FirstAsync(c => c.Id.ToString() == id);
-
             decimal totalPrice = 0;
 
             foreach (CartItem item in cart.CartItems)

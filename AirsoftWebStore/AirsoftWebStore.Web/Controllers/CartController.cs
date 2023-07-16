@@ -33,7 +33,7 @@
         }
 
         // Add item to cart
-        public async Task<IActionResult> AddToCart(string itemId, string productType)
+        public async Task<IActionResult> AddToCart(string itemId, int quantity, string productType)
         {
             string? userId = ClaimsPrincipalExtensions.GetId(this.User);
 
@@ -51,7 +51,8 @@
                 item = new CartItem()
                 {
                     GunId = gun.Id,
-                    Gun = gun
+                    Gun = gun,
+                    Quantity = quantity
                 };
             }
             else if (productType == "part")
@@ -91,11 +92,9 @@
             }
             await this.cartService.AddItemAsync(item, userId!);
 
-            // Redirect to the cart view
             return RedirectToAction("ViewCart", "Cart");
         }
 
-        // View cart
         public async Task<IActionResult> ViewCart()
         {
             string? userId = ClaimsPrincipalExtensions.GetId(this.User);

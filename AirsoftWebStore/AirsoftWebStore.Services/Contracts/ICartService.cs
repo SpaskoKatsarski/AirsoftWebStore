@@ -13,6 +13,6 @@
 
         Task<CartViewModel> GetCartForVisualizationAsync(string userId);
 
-        Task<decimal> CalculateTotalPriceForCartById(string id);
+        decimal CalculateTotalPriceForCartById(Cart cart);
     }
 }
