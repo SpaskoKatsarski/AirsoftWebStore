@@ -218,5 +218,14 @@
 
             return 0;
         }
+
+        public async Task ReduceMoneyFromUserByIdAsync(string userId, decimal moneyToReduce)
+        {
+            ApplicationUser user = await this.context.Users.FindAsync(userId);
+
+            user.Money -= moneyToReduce;
+
+            await this.context.SaveChangesAsync();
+        }
     }
 }

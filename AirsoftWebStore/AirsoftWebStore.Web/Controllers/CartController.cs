@@ -12,7 +12,7 @@
     public class CartController : Controller
     {
         private readonly ICartService cartService;
-
+        private readonly IWalletService walletService;
         private readonly IGunService gunService;
         private readonly IPartService partService;
         private readonly IEquipmentService equipmentService;
@@ -20,12 +20,14 @@
 
         public CartController(
             ICartService cartService,
+            IWalletService walletService,
             IGunService gunService,
             IPartService partService,
             IEquipmentService equipmentService,
             IConsumativeService consumativeService)
         {
             this.cartService = cartService;
+            this.walletService = walletService;
             this.gunService = gunService;
             this.partService = partService;
             this.equipmentService = equipmentService;
@@ -109,6 +111,27 @@
                 .Sum(i => i.PricePerItem * i.Quantity);
 
             return View(model);
+        }
+
+        public async Task<IActionResult> PurchaseAll()
+        {
+            // 1. Check if user has enough money to buy all products in his cart.
+            // 1.1 If he hasn't then display an error message and suggest him to deposit money. With button or sth...
+            // 2. Substract his money from the total money of his products and display a thank you message.
+
+            string userId = this.User.GetId()!;
+
+            Cart cart = await this.cartService.GetCartForUserAsync(userId);
+
+            decimal userMoney = await this.walletService.GetMoneyForUserByIdAsync(userId);
+            decimal cartTotalMoney = this.cartService.CalculateTotalPriceForCartById(cart);
+
+            if (userMoney < cartTotalMoney)
+            {
+                return RedirectToAction("ViewCart", "Cart");
+            }
+
+            await this.cartService.ReduceMoneyFromUserByIdAsync();
         }
     }
 }

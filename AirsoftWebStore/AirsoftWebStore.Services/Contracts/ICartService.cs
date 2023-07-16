@@ -14,5 +14,7 @@
         Task<CartViewModel> GetCartForVisualizationAsync(string userId);
 
         decimal CalculateTotalPriceForCartById(Cart cart);
+
+        Task ReduceMoneyFromUserByIdAsync(string userId, decimal moneyToReduce);
     }
 }
