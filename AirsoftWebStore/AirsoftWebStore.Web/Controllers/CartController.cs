@@ -44,7 +44,6 @@
                 // Error page or notify the user that he needs to log in
             }
 
-            // Set Quantity
             CartItem? item;
             if (productType == "gun")
             {
@@ -64,7 +63,8 @@
                 item = new CartItem()
                 {
                     PartId = part.Id,
-                    Part = part
+                    Part = part,
+                    Quantity = quantity
                 };
             }
             else if (productType == "equipment")
@@ -74,7 +74,8 @@
                 item = new CartItem()
                 {
                     EquipmentId = equipment.Id,
-                    Equipment = equipment
+                    Equipment = equipment,
+                    Quantity = quantity
                 };
             }
             else if (productType == "consumative")
@@ -84,7 +85,8 @@
                 item = new CartItem()
                 {
                     ConsumativeId = consumative.Id,
-                    Consumative = consumative
+                    Consumative = consumative,
+                    Quantity = quantity
                 };
             }
             else
@@ -131,7 +133,9 @@
                 return RedirectToAction("ViewCart", "Cart");
             }
 
-            await this.cartService.ReduceMoneyFromUserByIdAsync();
+            await this.cartService.ReduceMoneyFromUserByIdAsync(userId, cartTotalMoney);
+
+            return Ok();
         }
     }
 }

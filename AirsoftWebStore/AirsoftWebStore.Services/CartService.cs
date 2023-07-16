@@ -30,26 +30,26 @@
                 .Include(c => c.CartItems)
                 .FirstAsync(c => c.BuyerId.ToString() == userId);
 
+            string? itemType = this.GetTypeOfItem(item);
             bool itemExistsInCurrentCart;
-            if (item.Gun != null)
+            if (itemType == "gun")
             {
                 itemExistsInCurrentCart = cart.CartItems.Any(ci => ci.GunId.ToString() == item.GunId.ToString());
             }
-            else if (item.Part != null)
+            else if (itemType == "part")
             {
                 itemExistsInCurrentCart = cart.CartItems.Any(ci => ci.PartId.ToString() == item.PartId.ToString());
             }
-            else if (item.Equipment != null)
+            else if (itemType == "equipment")
             {
                 itemExistsInCurrentCart = cart.CartItems.Any(ci => ci.EquipmentId.ToString() == item.EquipmentId.ToString());
             }
-            else if (item.Consumative != null)
+            else if (itemType == "consumative")
             {
                 itemExistsInCurrentCart = cart.CartItems.Any(ci => ci.ConsumativeId.ToString() == item.ConsumativeId.ToString());
             }
             else
             {
-                // Throw error
                 itemExistsInCurrentCart = false;
             }
 
@@ -62,8 +62,26 @@
             }
             else
             {
-                // Update this to users selected quantity
-                item.Quantity++;
+                CartItem currentItem;
+
+                if (itemType == "gun")
+                {
+                    currentItem = cart.CartItems.First(ci => ci.Gun.name == item.Name);
+                }
+                else if (itemType == "part")
+                {
+                    currentItem = cart.CartItems.First(ci => ci.Part.name == item.Name);
+                }
+                else if (itemType == "equipment")
+                {
+                    currentItem = cart.CartItems.First(ci => ci.Equipment.name == item.Name);
+                }
+                else
+                {
+                    currentItem = cart.CartItems.First(ci => ci.Consumative.name == item.Name);
+                }
+
+                currentItem.Quantity++;
             }
 
             await this.context.SaveChangesAsync();
@@ -226,6 +244,33 @@
             user.Money -= moneyToReduce;
 
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task EmptyCartForUserById(string userId)
+        {
+
+        }
+
+        private string? GetTypeOfItem(CartItem item)
+        {
+            if (item.Gun != null)
+            {
+                return "gun";
+            }
+            else if (item.Part != null)
+            {
+                return "part";
+            }
+            else if (item.Equipment != null)
+            {
+                return "equipment";
+            }
+            else if (item.Consumative != null)
+            {
+                return "consumative";
+            }
+
+            return null;
         }
     }
 }

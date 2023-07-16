@@ -16,5 +16,7 @@
         decimal CalculateTotalPriceForCartById(Cart cart);
 
         Task ReduceMoneyFromUserByIdAsync(string userId, decimal moneyToReduce);
+
+        Task EmptyCartForUserById(string userId);
     }
 }
