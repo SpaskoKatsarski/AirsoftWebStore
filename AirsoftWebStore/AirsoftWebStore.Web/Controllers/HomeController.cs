@@ -1,5 +1,8 @@
 ﻿namespace AirsoftWebStore.Web.Controllers
 {
+    using System.Security.Claims;
+
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using AirsoftWebStore.Services.Contracts;
@@ -19,6 +22,12 @@
             IEnumerable<IndexViewModel> model = await this.gunService.GetTopThreeWithMostCountsAsync();
 
             return View(model);
+        }
+
+        [Authorize]
+        public IActionResult ThankYou()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AirsoftWebStore.Common\AirsoftWebStore.Common.csproj" />
     <ProjectReference Include="..\AirsoftWebStore.Services\AirsoftWebStore.Services.csproj" />
     <ProjectReference Include="..\AirsoftWebStore.Web.Infrastructure\AirsoftWebStore.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\AirsoftWebStore.Web.ViewModels\AirsoftWebStore.Web.ViewModels.csproj" />

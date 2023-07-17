@@ -28,6 +28,13 @@
 
             Cart cart = await this.context.Carts
                 .Include(c => c.CartItems)
+                .ThenInclude(c => c.Gun)
+                .Include(c => c.CartItems)
+                .ThenInclude(c => c.Part)
+                .Include(c => c.CartItems)
+                .ThenInclude(c => c.Equipment)
+                .Include(c => c.CartItems)
+                .ThenInclude(c => c.Consumative)
                 .FirstAsync(c => c.BuyerId.ToString() == userId);
 
             string? itemType = this.GetTypeOfItem(item);
@@ -64,21 +71,19 @@
 
                 if (itemType == "gun")
                 {
-                    currentItem = cart.CartItems.First(ci => ci.Gun!.Name == item.Gun!.Name);
+                    currentItem = cart.CartItems.First(ci => ci.Gun?.Name == item.Gun!.Name);
                 }
                 else if (itemType == "part")
                 {
-                    // It finds the nav property only when the item is gun. Check why:
-                    currentItem = cart.CartItems.First(ci => ci.Part!.Name == item.Part!.Name);
+                    currentItem = cart.CartItems.First(ci => ci.Part?.Name == item.Part!.Name);
                 }
                 else if (itemType == "equipment")
                 {
-                    currentItem = cart.CartItems.First(ci => ci.Equipment!.Name == item.Equipment!.Name);
+                    currentItem = cart.CartItems.First(ci => ci.Equipment?.Name == item.Equipment!.Name);
                 }
                 else
                 {
-                    // It finds the nav property only when the item is gun. Check why:
-                    currentItem = cart.CartItems.First(ci => ci.Consumative!.Name == item.Consumative!.Name);
+                    currentItem = cart.CartItems.First(ci => ci.Consumative?.Name == item.Consumative!.Name);
                 }
 
                 currentItem.Quantity++;
@@ -153,10 +158,12 @@
                 CartItems = cart.CartItems
                 .Select(ci => new CartItemViewModel()
                 {
+                    Id = this.GetIdForItem(ci)!,
                     ProductName = this.GetProductName(ci),
                     Quantity = ci.Quantity,
                     PricePerItem = GetPricePerItem(ci),
-                    TotalPrice = GetPricePerItem(ci) * ci.Quantity
+                    TotalPrice = GetPricePerItem(ci) * ci.Quantity,
+                    ProductType = this.GetTypeOfItem(ci)!
                 })
             };
 
@@ -169,25 +176,81 @@
 
             foreach (CartItem item in cart.CartItems)
             {
-                if (item.Gun != null)
+                string? itemType = this.GetTypeOfItem(item);
+
+                if (itemType == "gun")
                 {
-                    totalPrice += item.Gun.Price;
+                    totalPrice += item.Gun!.Price;
                 }
-                else if (item.Part != null)
+                else if (itemType == "part")
                 {
-                    totalPrice += item.Part.Price;
+                    totalPrice += item.Part!.Price;
                 }
-                else if (item.Equipment != null)
+                else if (itemType == "equipment")
                 {
-                    totalPrice += item.Equipment.Price;
+                    totalPrice += item.Equipment!.Price;
                 }
-                else if (item.Consumative != null)
+                else if (itemType == "consumative")
                 {
-                    totalPrice += item.Consumative.Price;
+                    totalPrice += item.Consumative!.Price;
                 }
             }
 
             return totalPrice;
+        }
+
+        public async Task EmptyCartForUserById(string userId)
+        {
+            Cart cart = await this.GetCartForUserAsync(userId);
+            this.context.CartItems.RemoveRange(cart.CartItems);
+
+            await this.context.SaveChangesAsync();
+        }
+
+        private string? GetTypeOfItem(CartItem item)
+        {
+            if (item.Gun != null)
+            {
+                return "gun";
+            }
+            else if (item.Part != null)
+            {
+                return "part";
+            }
+            else if (item.Equipment != null)
+            {
+                return "equipment";
+            }
+            else if (item.Consumative != null)
+            {
+                return "consumative";
+            }
+
+            return null;
+        }
+
+        private string? GetIdForItem(CartItem item)
+        {
+            string itemType = this.GetTypeOfItem(item)!;
+
+            if (itemType == "gun")
+            {
+                return item.GunId.ToString();
+            }
+            else if (itemType == "part")
+            {
+                return item.PartId.ToString();
+            }
+            else if (itemType == "equipment")
+            {
+                return item.EquipmentId.ToString();
+            }
+            else if (itemType == "consumative")
+            {
+                return item.ConsumativeId.ToString();
+            }
+
+            return null;
         }
 
         private async Task<bool> HasUserCart(string userId) => await this.context.Carts
@@ -235,42 +298,6 @@
             }
 
             return 0;
-        }
-
-        public async Task ReduceMoneyFromUserByIdAsync(string userId, decimal moneyToReduce)
-        {
-            ApplicationUser user = await this.context.Users.FindAsync(userId);
-
-            user.Money -= moneyToReduce;
-
-            await this.context.SaveChangesAsync();
-        }
-
-        public async Task EmptyCartForUserById(string userId)
-        {
-
-        }
-
-        private string? GetTypeOfItem(CartItem item)
-        {
-            if (item.Gun != null)
-            {
-                return "gun";
-            }
-            else if (item.Part != null)
-            {
-                return "part";
-            }
-            else if (item.Equipment != null)
-            {
-                return "equipment";
-            }
-            else if (item.Consumative != null)
-            {
-                return "consumative";
-            }
-
-            return null;
         }
     }
 }

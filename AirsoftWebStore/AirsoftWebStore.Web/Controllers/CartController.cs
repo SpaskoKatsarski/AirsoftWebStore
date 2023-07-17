@@ -7,6 +7,7 @@
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.Infrastructure.Extensions;
     using AirsoftWebStore.Web.ViewModels.Cart;
+    using static AirsoftWebStore.Common.NotificationMessages;
 
     [Authorize]
     public class CartController : Controller
@@ -129,12 +130,14 @@
 
             if (userMoney < cartTotalMoney)
             {
+                TempData[ErrorMessage] = "You don't have enough money in the account to buy the products in your cart!";
                 return RedirectToAction("ViewCart", "Cart");
             }
 
-            await this.cartService.ReduceMoneyFromUserByIdAsync(userId, cartTotalMoney);
+            await this.walletService.ReduceMoneyFromUserByIdAsync(userId, cartTotalMoney);
+            await this.cartService.EmptyCartForUserById(userId);
 
-            return Ok();
+            return RedirectToAction("ThankYou", "Home");
         }
     }
 }

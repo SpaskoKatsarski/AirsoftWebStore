@@ -19,20 +19,42 @@
                 <tr>
                     <td>@item.ProductName</td>
                     <td>@item.Quantity</td>
-                    <td>@item.PricePerItem</td>
-                    <td>@item.TotalPrice</td>
+                    <td>$@item.PricePerItem</td>
+                    <td>$@item.TotalPrice</td>
+                    <td>
+                        @if (item.ProductType == "gun")
+                        {
+                            <a asp-controller="Gun" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                        }
+                        else if (item.ProductType == "part")
+                        {
+                            <a asp-controller="Part" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                        }
+                        else if (item.ProductType == "equipment")
+                        {
+                            <a asp-controller="Equipment" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                        }
+                        else if (item.ProductType == "consumative")
+                        {
+                            <a asp-controller="Consumative" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                        }
+                    </td>
                 </tr>
+
             }
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                <td>@Model.TotalPrice</td>
+                <td>$@Model.TotalPrice</td>
             </tr>
         </tfoot>
     </table>
-    <div id="purchaseErrorMessage" style="display: none;" class="text-danger">You don't have enough money to purchase all items in your cart. Think of making a deposit.
+    <div id="purchaseErrorMessage" style="display: none;" class="text-danger">
+        You don't have enough money to purchase all items in your cart. Think of making a deposit.
     </div>
+
+    <a class="btn btn-success" asp-controller="Cart" asp-action="PurchaseAll">Purchase</a>
 }
 else
 {

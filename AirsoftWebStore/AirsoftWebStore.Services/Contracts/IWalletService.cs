@@ -4,6 +4,8 @@
     {
         Task<decimal> GetMoneyForUserByIdAsync(string userId);
 
+        Task ReduceMoneyFromUserByIdAsync(string userId, decimal moneyToReduce);
+
         Task DepositToUserAccountAsync(string userId, decimal moneyToDeposit);
     }
 }

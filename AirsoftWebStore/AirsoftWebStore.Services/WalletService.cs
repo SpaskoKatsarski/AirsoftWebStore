@@ -23,6 +23,15 @@
             await this.context.SaveChangesAsync();
         }
 
+        public async Task ReduceMoneyFromUserByIdAsync(string userId, decimal moneyToReduce)
+        {
+            ApplicationUser? user = await this.context.Users.FindAsync(Guid.Parse(userId));
+
+            user!.Money -= moneyToReduce;
+
+            await this.context.SaveChangesAsync();
+        }
+
         public async Task<decimal> GetMoneyForUserByIdAsync(string userId)
         {
             ApplicationUser? user = await this.context.Users
