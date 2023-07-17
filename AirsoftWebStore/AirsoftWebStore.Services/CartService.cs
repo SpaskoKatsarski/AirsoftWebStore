@@ -17,6 +17,15 @@
             this.context = context;
         }
 
+        public async Task RemoveItemFromCart(string itemId)
+        {
+            CartItem? item = await this.context.CartItems.FindAsync(Guid.Parse(itemId));
+
+            this.context.CartItems.Remove(item!);
+
+            await this.context.SaveChangesAsync();
+        }
+
         public async Task AddItemAsync(CartItem item, string userId)
         {
             bool hasUserCart = await this.HasUserCart(userId);
@@ -158,7 +167,8 @@
                 CartItems = cart.CartItems
                 .Select(ci => new CartItemViewModel()
                 {
-                    Id = this.GetIdForItem(ci)!,
+                    ProductId = this.GetIdForItem(ci)!,
+                    CartItemId = ci.Id.ToString(),
                     ProductName = this.GetProductName(ci),
                     Quantity = ci.Quantity,
                     PricePerItem = GetPricePerItem(ci),

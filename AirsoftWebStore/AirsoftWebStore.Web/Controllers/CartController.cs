@@ -102,10 +102,6 @@
         public async Task<IActionResult> ViewCart()
         {
             string? userId = ClaimsPrincipalExtensions.GetId(this.User);
-            if (userId == null)
-            {
-                // User should be logged in in order to see his cart
-            }
 
             CartViewModel model = await this.cartService.GetCartForVisualizationAsync(userId!);
 
@@ -115,12 +111,15 @@
             return View(model);
         }
 
-        public async Task<IActionResult> PurchaseAll()
+        public async Task<IActionResult> RemoveItem(string itemId)
         {
-            // 1. Check if user has enough money to buy all products in his cart.
-            // 1.1 If he hasn't then display an error message and suggest him to deposit money. With button or sth...
-            // 2. Substract his money from the total money of his products and display a thank you message.
+            await this.cartService.RemoveItemFromCart(itemId);
 
+            return RedirectToAction("ViewCart", "Cart");
+        }
+
+        public async Task<IActionResult?> PurchaseAll()
+        {
             string userId = this.User.GetId()!;
 
             Cart cart = await this.cartService.GetCartForUserAsync(userId);
@@ -131,7 +130,7 @@
             if (userMoney < cartTotalMoney)
             {
                 TempData[ErrorMessage] = "You don't have enough money in the account to buy the products in your cart!";
-                return RedirectToAction("ViewCart", "Cart");
+                return RedirectToAction("Deposit", "Wallet");
             }
 
             await this.walletService.ReduceMoneyFromUserByIdAsync(userId, cartTotalMoney);

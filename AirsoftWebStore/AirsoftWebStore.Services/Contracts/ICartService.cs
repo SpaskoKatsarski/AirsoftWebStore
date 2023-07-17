@@ -7,6 +7,8 @@
     {
         Task AddItemAsync(CartItem item, string userId);
 
+        Task RemoveItemFromCart(string itemId);
+
         Task<Cart> CreateCartForUserAsync(string userId);
 
         Task<Cart> GetCartForUserAsync(string userId);

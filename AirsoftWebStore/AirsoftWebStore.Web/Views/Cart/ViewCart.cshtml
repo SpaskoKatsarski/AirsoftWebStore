@@ -24,20 +24,21 @@
                     <td>
                         @if (item.ProductType == "gun")
                         {
-                            <a asp-controller="Gun" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                            <a asp-controller="Gun" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-dark">Details</a>
                         }
                         else if (item.ProductType == "part")
                         {
-                            <a asp-controller="Part" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                            <a asp-controller="Part" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-dark">Details</a>
                         }
                         else if (item.ProductType == "equipment")
                         {
-                            <a asp-controller="Equipment" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                            <a asp-controller="Equipment" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-dark">Details</a>
                         }
                         else if (item.ProductType == "consumative")
                         {
-                            <a asp-controller="Consumative" asp-action="Details" asp-route-id="@item.Id" class="btn btn-dark">Details</a>
+                            <a asp-controller="Consumative" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-dark">Details</a>
                         }
+                        <a asp-controller="Cart" asp-action="RemoveItem" asp-route-itemId="@item.CartItemId" class="btn btn-danger">Remove</a>
                     </td>
                 </tr>
 

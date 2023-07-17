@@ -5,23 +5,31 @@
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
-<hr />
+<hr class="mb-5" />
 
-<div class="row">
-    <div class="card w-100">
-        <div class="card-body">
-            <img src="@Model.ImageUrl"/>
-            <h3 class="card-title text-center">@Model.Name</h3>
-            <h4 class="card-title text-center">$@Model.Price</h4>
-            <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
-            <p class="mb-0"><span class="fw-bold">Availible: </span>@Model.Quantity counts</p>
-        </div>
-
-        <a asp-controller="Cart" asp-action="AddToCart" asp-route-itemId="@Model.Id.ToString()" asp-route-quantity="1" asp-route-productType="equipment">Add to Cart</a>
-
-        <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-warning">Edit</a>
-        <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-danger">Delete</a>
-
-        <a asp-controller="Equipment" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to all</a>
+<div style="display: flex; align-items: flex-start;">
+    <div class="align-content-between" style="flex: 1;">
+        <img src="@Model.ImageUrl" alt="@Model.Name" style="max-width: 400px; border: 1px solid #ccc; padding: 5px; display: block; margin: 0 auto;" />
     </div>
+    <div style="flex: 1; padding-left: 20px;">
+        <h2>@Model.Name</h2>
+        <p><strong>Description:</strong> @Model.Description</p>
+        <p><strong>Price:</strong> $@Model.Price</p>
+        <p><strong>Availible:</strong> @Model.Quantity</p>
+
+        <a class="btn btn-primary" asp-controller="Cart" asp-action="AddToCart" asp-route-itemId="@Model.Id.ToString()" asp-route-quantity="1" asp-route-productType="equipment">Add to Cart</a>
+        
+    </div>
+</div>
+
+<hr class="mt-5" />
+
+<div style="margin-top: 20px;">
+    <a asp-controller="Equipment" asp-action="All" class="btn btn-warning fw-bold">Back to all</a>
+</div>
+<div style="margin-top: 20px;">
+    <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-warning">Edit</a>
+</div>
+<div style="margin-top: 20px;">
+    <a asp-controller="Equipment" asp-action="Delete" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-danger">Delete</a>
 </div>
