@@ -1,12 +1,14 @@
 ﻿namespace AirsoftWebStore.Web.Controllers
 {
+    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using AirsoftWebStore.Web.Infrastructure.Extensions;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Wallet;
-    using System.Security.Claims;
+    using static AirsoftWebStore.Common.NotificationMessages;
 
     [Authorize]
     public class WalletController : Controller
@@ -46,6 +48,8 @@
             string userId = this.User.GetId()!;
 
             await this.walletService.DepositToUserAccountAsync(userId, model.Money);
+
+            TempData[SuccessMessage] = $"You have successfuly made a ${model.Money:f2} deposit!";
 
             return RedirectToAction("Index", "Home");
         }

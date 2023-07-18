@@ -5,6 +5,7 @@
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Gun;
+    using static AirsoftWebStore.Common.NotificationMessages;
 
     [Authorize]
     public class GunController : Controller
@@ -139,8 +140,7 @@
             {
                 string id = await this.gunService.AddAsync(model);
 
-                // with toastr js
-                // this.TempData[SuccessMessage] = "Replica was added successfully!";
+                TempData[SuccessMessage] = "Replica was added successfully!";
 
                 return RedirectToAction("Details", "Gun", new { id });
             }
@@ -200,7 +200,7 @@
             {
                 await this.gunService.DeleteAsync(id);
 
-                //TempData[WarningMessage] = "Item successfuly deleted!";
+                TempData[WarningMessage] = "Item deleted successfuly!";
                 return RedirectToAction("All", "Gun");
             }
             catch (Exception)

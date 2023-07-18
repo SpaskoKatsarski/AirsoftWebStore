@@ -3,7 +3,6 @@
 @if (TempData.ContainsKey(ErrorMessage))
 {
     <script>toastr.error('@TempData[ErrorMessage]');</script>
-    
 }
 
 @if (TempData.ContainsKey(WarningMessage))

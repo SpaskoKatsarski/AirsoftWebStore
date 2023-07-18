@@ -190,19 +190,19 @@
 
                 if (itemType == "gun")
                 {
-                    totalPrice += item.Gun!.Price;
+                    totalPrice += item.Gun!.Price * item.Quantity;
                 }
                 else if (itemType == "part")
                 {
-                    totalPrice += item.Part!.Price;
+                    totalPrice += item.Part!.Price * item.Quantity;
                 }
                 else if (itemType == "equipment")
                 {
-                    totalPrice += item.Equipment!.Price;
+                    totalPrice += item.Equipment!.Price * item.Quantity;
                 }
                 else if (itemType == "consumative")
                 {
-                    totalPrice += item.Consumative!.Price;
+                    totalPrice += item.Consumative!.Price * item.Quantity;
                 }
             }
 
