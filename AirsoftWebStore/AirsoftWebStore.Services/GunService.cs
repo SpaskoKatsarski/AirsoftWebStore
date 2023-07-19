@@ -8,6 +8,8 @@
     using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Web.ViewModels.Home;
     using static AirsoftWebStore.Common.ErrorMessages.Gun;
+    using AirsoftWebStore.Services.Models.Gun;
+    using AirsoftWebStore.Web.ViewModels.Gun.Enums;
 
     public class GunService : IGunService
     {
@@ -58,21 +60,55 @@
             return gun.Id.ToString();
         }
 
-        public async Task<IEnumerable<GunAllViewModel>> AllAsync()
+        public async Task<AllGunsFilteredAndPagedServiceModel> AllAsync(AllGunsQueryModel queryModel)
         {
-            IEnumerable<GunAllViewModel> guns = await context.Guns
-                .AsNoTracking()
+            IQueryable<Gun> gunsQuery = this.context.Guns
                 .Where(g => g.IsActive)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(queryModel.Category))
+            {
+                gunsQuery = gunsQuery
+                    .Where(g => g.Category.Name == queryModel.Category);
+            }
+
+            if (!string.IsNullOrEmpty(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%"
+;
+                gunsQuery = gunsQuery
+                    .Where(g => EF.Functions.Like(g.Name, wildCard) ||
+                    EF.Functions.Like(g.Manufacturer, wildCard));
+            }
+
+            gunsQuery = queryModel.GunSorting switch
+            {
+                GunSorting.Newest => gunsQuery.OrderByDescending(g => g.Year),
+                GunSorting.Oldest => gunsQuery.OrderBy(g => g.Year),
+                GunSorting.PriceDescending => gunsQuery.OrderByDescending(p => p.Price),
+                GunSorting.PriceAscending => gunsQuery.OrderBy(g => g.Price),
+                _ => gunsQuery
+            };
+
+            IEnumerable<GunAllViewModel> guns = await gunsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.GunsPerPage)
+                .Take(queryModel.GunsPerPage)
                 .Select(g => new GunAllViewModel()
                 {
                     Id = g.Id.ToString(),
                     Name = g.Name,
                     Price = g.Price,
-                    ImageUrl = g.ImageUrl,
+                    ImageUrl = g.ImageUrl
                 })
                 .ToListAsync();
 
-            return guns;
+            AllGunsFilteredAndPagedServiceModel serviceModel = new AllGunsFilteredAndPagedServiceModel()
+            {
+                TotalGunsCount = gunsQuery.Count(),
+                Guns = guns
+            };
+
+            return serviceModel;
         }
 
         public async Task DeleteAsync(string id)

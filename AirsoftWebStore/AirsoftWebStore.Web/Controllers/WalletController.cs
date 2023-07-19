@@ -47,11 +47,18 @@
 
             string userId = this.User.GetId()!;
 
-            await this.walletService.DepositToUserAccountAsync(userId, model.Money);
+            try
+            {
+                await this.walletService.DepositToUserAccountAsync(userId, model.Money);
 
-            TempData[SuccessMessage] = $"You have successfuly made a ${model.Money:f2} deposit!";
-
-            return RedirectToAction("Index", "Home");
+                TempData[SuccessMessage] = $"You have successfuly made a ${model.Money:f2} deposit!";
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "Unexpected error occured while trying to make a deposit! Try again later or contact administrator!";
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

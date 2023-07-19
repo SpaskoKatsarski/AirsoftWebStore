@@ -29,6 +29,16 @@
             return categories;
         }
 
+        public async Task<IEnumerable<string>> AllNamesAsync()
+        {
+            IEnumerable<string> categoryNames = await this.context.Categories
+                .AsNoTracking()
+                .Select(c => c.Name)
+                .ToListAsync();
+
+            return categoryNames;
+        }
+
         public Task<bool> ExistsByIdAsync(int id)
         {
             return this.context.Categories

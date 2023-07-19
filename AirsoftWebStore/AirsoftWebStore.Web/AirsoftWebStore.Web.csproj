@@ -17,10 +17,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.13" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AirsoftWebStore.Common\AirsoftWebStore.Common.csproj" />
+    <ProjectReference Include="..\AirsoftWebStore.Services.Models\AirsoftWebStore.Services.Models.csproj" />
     <ProjectReference Include="..\AirsoftWebStore.Services\AirsoftWebStore.Services.csproj" />
     <ProjectReference Include="..\AirsoftWebStore.Web.Infrastructure\AirsoftWebStore.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\AirsoftWebStore.Web.ViewModels\AirsoftWebStore.Web.ViewModels.csproj" />

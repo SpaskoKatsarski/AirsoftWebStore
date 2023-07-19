@@ -6,6 +6,7 @@
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Gun;
     using static AirsoftWebStore.Common.NotificationMessages;
+    using AirsoftWebStore.Services.Models.Gun;
 
     [Authorize]
     public class GunController : Controller
@@ -20,12 +21,15 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllGunsQueryModel queryModel)
         {
-            IEnumerable<GunAllViewModel> guns = await this.gunService
-                .AllAsync();
+            AllGunsFilteredAndPagedServiceModel serviceModel = await this.gunService.AllAsync(queryModel);
 
-            return View(guns);
+            queryModel.Guns = serviceModel.Guns;
+            queryModel.TotalGuns = serviceModel.TotalGunsCount;
+            queryModel.Categories = await this.categoryService.AllNamesAsync();
+
+            return View(queryModel);
         }
 
         [AllowAnonymous]

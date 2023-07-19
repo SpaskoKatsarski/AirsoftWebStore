@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AirsoftWebStore.Data\AirsoftWebStore.Data.csproj" />
+    <ProjectReference Include="..\AirsoftWebStore.Services.Models\AirsoftWebStore.Services.Models.csproj" />
     <ProjectReference Include="..\AirsoftWebStore.Web.ViewModels\AirsoftWebStore.Web.ViewModels.csproj" />
   </ItemGroup>
 

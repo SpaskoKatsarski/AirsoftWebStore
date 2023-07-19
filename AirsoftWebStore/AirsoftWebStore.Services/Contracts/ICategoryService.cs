@@ -6,6 +6,8 @@
     {
         Task<IEnumerable<CategoryFormViewModel>> AllAsync();
 
+        Task<IEnumerable<string>> AllNamesAsync();
+
         Task<bool> ExistsByIdAsync(int id);
     }
 }

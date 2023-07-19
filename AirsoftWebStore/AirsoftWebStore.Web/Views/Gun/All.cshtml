@@ -1,30 +1,116 @@
-﻿@model IEnumerable<GunAllViewModel>
+﻿@model AllGunsQueryModel
 
 @{
     ViewBag.Title = "All Replicas";
 }
 
-<img class="mb-5 img-thumbnail" src="https://images.unsplash.com/photo-1566566713478-131a85da90b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="replica image" />
-
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div class="text-center row">
-    @if (!Model.Any())
-    {
-        <div>No items availible!</div>
-    }
-    else
-    {
-        foreach (var equipment in Model)
-        {
-            <div class="card col-4" style="width: 20rem;">
-                <div class="card-body">
-                    <h5 class="card-title mt-1">@equipment.Name</h5>
-                    <a asp-controller="Gun" asp-action="Details" asp-route-id="@equipment.Id"><img class="card-img hoverable" src="@equipment.ImageUrl"></a>
-                    <p class="mb-0"><span class="fw-bold">$@equipment.Price</span></p>
-                </div>
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Category"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
             </div>
-        }
+
+            <div class="form-group">
+                <label asp-for="GunsPerPage"></label>
+                <select asp-for="GunsPerPage" class="form-control">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label asp-for="SearchString"></label>
+            <input asp-for="SearchString" class="form-control" placeholder="...">
+        </div>
+
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="GunSorting"></label>
+                <select asp-for="GunSorting" class="form-control">
+                    <option value="0">Newest</option>
+                    <option value="1">Oldest</option>
+                    <option value="2">Price (Ascending)</option>
+                    <option value="3">Price (Descending)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@{
+    int previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
     }
+
+    int maxPage = (int)Math.Ceiling((double)Model.TotalGuns /
+        Model.GunsPerPage);
+}
+
+<div class="row mb-5">
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Gun"
+           asp-action="All"
+           asp-route-gunsPerPage="@Model.GunsPerPage"
+           asp-route-currentPage="@previousPage"
+           asp-route-category="@Model.Category"
+           asp-route-searchTerm="@Model.SearchString"
+           asp-route-sorting="@((int)Model.GunSorting)"><<</a>
+    </div>
+
+    @{
+        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.Guns.Any();
+    }
+
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary
+           @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="Gun"
+           asp-action="All"
+           asp-route-gunsPerPage="@Model.GunsPerPage"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-category="@Model.Category"
+           asp-route-searchTerm="@Model.SearchString"
+           asp-route-sorting="@((int)Model.GunSorting)">>></a>
+    </div>
 </div>
+
+@if (!Model.Guns.Any())
+{
+    <h2 class="text-center">No replicas found by the given criteria!</h2>
+}
+else
+{
+    <div class="text-center row">
+        @foreach (var gun in Model.Guns)
+        {
+            <partial name="_GunPartial" model="@gun" />
+        }
+    </div>
+}
+
+
+<img class="mb-5 img-thumbnail" src="https://images.unsplash.com/photo-1566566713478-131a85da90b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="replica image" />

@@ -1,6 +1,7 @@
 ﻿namespace AirsoftWebStore.Services.Contracts
 {
     using AirsoftWebStore.Data.Models;
+    using AirsoftWebStore.Services.Models.Gun;
     using AirsoftWebStore.Web.ViewModels.Gun;
     using AirsoftWebStore.Web.ViewModels.Home;
 
@@ -10,7 +11,7 @@
 
         Task<IEnumerable<IndexViewModel>> GetTopThreeWithMostCountsAsync();
 
-        Task<IEnumerable<GunAllViewModel>> AllAsync();
+        Task<AllGunsFilteredAndPagedServiceModel> AllAsync(AllGunsQueryModel queryModel);
 
         Task<GunDetailViewModel> GetDetailsAsync(string Id);
 
