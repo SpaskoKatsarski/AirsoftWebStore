@@ -6,6 +6,8 @@
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Equipment;
     using AirsoftWebStore.Data.Models;
+    using AirsoftWebStore.Services.Models.Equipment;
+    using AirsoftWebStore.Web.ViewModels.Equipment.Enums;
 
     public class EquipmentService : IEquipmentService
     {
@@ -16,21 +18,45 @@
             this.context = context;
         }
 
-        public async Task<IEnumerable<EquipmentAllViewModel>> AllAsync()
+        public async Task<AllEquipmentFilteredAndPagedServiceModel> AllAsync(AllEquipmentQueryModel queryModel)
         {
-            IEnumerable<EquipmentAllViewModel> models = await this.context.Equipments
-                .AsNoTracking()
+            IQueryable<Equipment> equipmentQuery = this.context.Equipments
                 .Where(e => e.IsActive)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                equipmentQuery = equipmentQuery.Where(e => EF.Functions.Like(e.Name, wildCard));
+            }
+
+            equipmentQuery = queryModel.EquipmentSorting switch
+            {
+                EquipmentSorting.PriceAscending => equipmentQuery.OrderBy(e => e.Price),
+                EquipmentSorting.PriceDescending => equipmentQuery.OrderByDescending(e => e.Price),
+                _ => equipmentQuery
+            };
+
+            IEnumerable<EquipmentAllViewModel> equipment = await equipmentQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.ItemsPerPage)
+                .Take(queryModel.ItemsPerPage)
                 .Select(e => new EquipmentAllViewModel()
                 {
                     Id = e.Id.ToString(),
                     Name = e.Name,
-                    ImageUrl = e.ImageUrl,
-                    Price = e.Price
+                    Price = e.Price,
+                    ImageUrl = e.ImageUrl
                 })
                 .ToListAsync();
 
-            return models;
+            AllEquipmentFilteredAndPagedServiceModel serviceModel = new AllEquipmentFilteredAndPagedServiceModel()
+            {
+                TotalEquipmentCount = equipmentQuery.Count(),
+                AllEquipment = equipment
+            };
+
+            return serviceModel;
         }
 
         public async Task<string> AddAsync(EquipmentFormViewModel model)

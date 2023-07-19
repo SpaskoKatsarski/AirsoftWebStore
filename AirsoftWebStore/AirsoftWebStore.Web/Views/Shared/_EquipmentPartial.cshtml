@@ -1,0 +1,9 @@
+﻿@model EquipmentAllViewModel
+
+<div class="card col-4" style="width: 20rem;">
+    <div class="card-body">
+        <h5 class="card-title mt-1">@Model.Name</h5>
+        <a asp-controller="Equipment" asp-action="Details" asp-route-id="@Model.Id"><img class="card-img hoverable" src="@Model.ImageUrl"></a>
+        <p class="mb-0"><span class="fw-bold">$@Model.Price</span></p>
+    </div>
+</div>

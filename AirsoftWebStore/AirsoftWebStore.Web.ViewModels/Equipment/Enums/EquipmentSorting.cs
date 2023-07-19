@@ -2,5 +2,7 @@
 {
     public enum EquipmentSorting
     {
+        PriceAscending = 0,
+        PriceDescending = 1
     }
 }

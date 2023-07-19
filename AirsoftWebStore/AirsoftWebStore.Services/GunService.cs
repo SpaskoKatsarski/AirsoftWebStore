@@ -72,7 +72,7 @@
                     .Where(g => g.Category.Name == queryModel.Category);
             }
 
-            if (!string.IsNullOrEmpty(queryModel.SearchString))
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
             {
                 string wildCard = $"%{queryModel.SearchString.ToLower()}%"
 ;

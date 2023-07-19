@@ -5,6 +5,7 @@
 
     using AirsoftWebStore.Web.ViewModels.Equipment;
     using AirsoftWebStore.Services.Contracts;
+    using AirsoftWebStore.Services.Models.Equipment;
 
     [Authorize]
     public class EquipmentController : Controller
@@ -17,11 +18,14 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(AllEquipmentQueryModel queryModel)
         {
-            IEnumerable<EquipmentAllViewModel> models = await this.equipmentService.AllAsync();
+            AllEquipmentFilteredAndPagedServiceModel serviceModel = await this.equipmentService.AllAsync(queryModel);
 
-            return View(models);
+            queryModel.AllEquipment = serviceModel.AllEquipment;
+            queryModel.TotalItems = serviceModel.TotalEquipmentCount;
+            
+            return View(queryModel);
         }
 
         [AllowAnonymous]

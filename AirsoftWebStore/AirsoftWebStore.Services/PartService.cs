@@ -43,7 +43,7 @@
                 .Where(p => p.IsActive)
                 .AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            if (!string.IsNullOrEmpty(queryModel.Category))
             {
                 partsQuery = partsQuery.Where(p => p.Category.Name == queryModel.Category);
             }
