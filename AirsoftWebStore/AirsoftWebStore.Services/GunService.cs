@@ -159,6 +159,7 @@
         {
             Gun? gun = await this.context.Guns
                 .Where(g => g.IsActive)
+                .Include(g => g.Category)
                 .FirstAsync(g => g.Id.ToString() == id);
 
             if (gun == null)
@@ -176,7 +177,7 @@
                 Year = gun.Year,
                 Price = gun.Price,
                 Quantity = gun.Quantity,
-                CategoryId = gun.CategoryId
+                Category = gun.Category.Name
             };
 
             return gunModel;

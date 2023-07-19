@@ -18,6 +18,6 @@
 
         public int Quantity { get; set; }
 
-        public int CategoryId { get; set; }
+        public string Category { get; set; } = null!;
     }
 }

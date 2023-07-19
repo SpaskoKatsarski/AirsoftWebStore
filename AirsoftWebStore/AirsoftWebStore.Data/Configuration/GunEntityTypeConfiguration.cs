@@ -83,6 +83,118 @@
 
             guns.Add(gun);
 
+            gun = new Gun()
+            {
+                Name = "SA-H22",
+                Manufacturer = "Specna Arms",
+                Description = "The EDGE 2.0 ™ series introduces a completely new quality to the Specna Arms replica family, adding new functionalities and innovations to the tried and tested design. As a result, Specna Arms EDGE 2.0 ™ carbines offer an exceptional high level of craftsmanship and technical advancement straight out of the box.",
+                ImageUrl = "https://static5.gunfire.com/eng_pm_SA-H22-EDGE-2-0-TM-Carbine-Replica-black-1152225956_1.webp",
+                Year = 2021,
+                Price = 385.25m,
+                Quantity = 4,
+                CategoryId = 1
+            };
+
+            guns.Add(gun);
+
+            gun = new Gun()
+            {
+                Name = "SA-C10 PDW CORE",
+                Manufacturer = "Specna Arms",
+                Description = "Specna Arms meets the expectations of clients by presenting the CORE™ line of products - an exceptional series of replicas that introduces a new quality to the market. Attractive price in combination with an innovative spring exchange system as well as high-quality materials make this replica suitable for beginners and seasoned airsoft players alike.",
+                ImageUrl = "https://static5.gunfire.com/eng_pm_SA-C10-PDW-CORE-TM-Carbine-Replica-Black-1152225067_1.webp",
+                Year = 2020,
+                Price = 165.50m,
+                Quantity = 7,
+                CategoryId = 1
+            };
+
+            guns.Add(gun);
+
+            gun = new Gun()
+            {
+                Name = "SA-C05 CORE",
+                Manufacturer = "Specna Arms",
+                Description = "Specna Arms meets the expectations of clients by presenting the CORE™ line of products - an exceptional series of replicas that introduces a new quality to the market. An attractive price in combination with an innovative spring change system as well as high-quality materials make this replica suitable for beginners and seasoned airsoft players alike.",
+                ImageUrl = "https://static2.gunfire.com/eng_pm_SA-C05-CORE-TM-Carbine-Replica-1152215724_1.webp",
+                Year = 2018,
+                Price = 165.40m,
+                Quantity = 4,
+                CategoryId = 1
+            };
+
+            guns.Add(gun);
+
+            gun = new Gun()
+            {
+                Name = "SA-C22 CORE",
+                Manufacturer = "Specna Arms",
+                Description = "The receiver, stock slide and an SF stock that holds the battery as well as the pistol grip were made of nylon fiber reinforced polymer. Remaining components such as the barrel, handguard, flash hider, enlarged charging handle and tactical sling swivels were made of metal (parts made of steel include the screws, pins, shell ejection window and mock bolt carrier). The receiver bears markings and a serial number.",
+                ImageUrl = "https://static4.gunfire.com/eng_pm_SA-C22-CORE-TM-Carbine-Replica-Chaos-Bronze-1152231391_1.webp",
+                Year = 2022,
+                Price = 180.23m,
+                Quantity = 6,
+                CategoryId = 1
+            };
+
+            guns.Add(gun);
+
+            gun = new Gun()
+            {
+                Name = "SA-H11 ONE",
+                Manufacturer = "Specna Arms",
+                Description = "The replica’s parts are very well aligned - in a way that could be thus far noticed solely in replicas by such top-tier manufacturers as G&P or Classic Army, the replica is also perfectly balanced. This allows for an almost ideal maneuverability of the replica and its weight is almost unnoticeable once the replica has been shouldered.",
+                ImageUrl = "https://static1.gunfire.com/eng_pm_SA-H11-ONE-TM-Carbine-Replica-Black-1152227616_1.webp",
+                Year = 2019,
+                Price = 303.54m,
+                Quantity = 8,
+                CategoryId = 1
+            };
+
+            guns.Add(gun);
+
+            gun = new Gun()
+            {
+                Name = "SW-04",
+                Manufacturer = "Snow Wolf",
+                Description = "A spring action replica of a sniper rifle. It is a bolt-action replica, which means that it has to be reloaded after each shot. The cradle with the stock were made from a durable polymer. Metal was used in the manufacture process of such elements as the barrel, trigger guard, bolt carrier, magwell and the charging handle.",
+                ImageUrl = "https://static3.gunfire.com/eng_pm_SW-04-Sniper-Rifle-Replica-with-Scope-and-Bipod-Olive-Drab-1152194766_1.webp",
+                Year = 2019,
+                Price = 172.42m,
+                Quantity = 5,
+                CategoryId = 4
+            };
+            
+            guns.Add(gun);
+
+            gun = new Gun()
+            {
+                Name = "SMC-9",
+                Manufacturer = "G&G Armament",
+                Description = "SMC-9 is a first construction of this type by G&G on the market. It is a combination of a submachine gun and a GTP9 pistol that came together into a unique construction. Thanks to its size, it is ideal for CQB games. Parts taken from GTP9 replica include the frame and the trigger mechanism - the barrel, chamber, cylinder set all belong to the conversion. Thanks to a special mechanism, the replica can fire in semi-auto as well as full-auto modes.",
+                ImageUrl = "https://static3.gunfire.com/eng_pm_SW-04-Sniper-Rifle-Replica-with-Scope-and-Bipod-Olive-Drab-1152194766_1.webp",
+                Year = 2021,
+                Price = 440.25m,
+                Quantity = 7,
+                CategoryId = 3
+            };
+
+            guns.Add(gun);
+
+            gun = new Gun()
+            {
+                Name = "GL-06",
+                Manufacturer = "ASG",
+                Description = "The grenade launcher replica is made of durable plastic and metal. The elements such as the barrel, the front iron aiming sights and the RIS rails are made of metal. The replica’s stock, the pistol grip, the body and the rear iron aiming sight are made of durable plastic.",
+                ImageUrl = "https://static2.gunfire.com/eng_pm_GL-06-grenade-launcher-1152195090_1.webp",
+                Year = 2016,
+                Price = 205.56m,
+                Quantity = 4,
+                CategoryId = 6
+            };
+
+            guns.Add(gun);
+
             return guns;
         }
     }
