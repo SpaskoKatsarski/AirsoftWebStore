@@ -6,7 +6,8 @@
     using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Part;
-    using static AirsoftWebStore.Common.ErrorMessages.Part;
+    using AirsoftWebStore.Services.Models.Part;
+    using AirsoftWebStore.Web.ViewModels.Part.Enums;
 
     public class PartService : IPartService
     {
@@ -36,11 +37,35 @@
             return part.Id.ToString();
         }
 
-        public async Task<IEnumerable<PartAllViewModel>> AllAsync()
+        public async Task<AllPartsFilteredAndPagedServiceModel> AllAsync(AllPartsQueryModel queryModel)
         {
-            IEnumerable<PartAllViewModel> parts = await this.context.Parts
-                .AsNoTracking()
+            IQueryable<Part> partsQuery = this.context.Parts
                 .Where(p => p.IsActive)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            {
+                partsQuery = partsQuery.Where(p => p.Category.Name == queryModel.Category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                partsQuery = partsQuery.Where(p => EF.Functions.Like(p.Name, wildCard) ||
+                                         EF.Functions.Like(p.Manufacturer, wildCard));
+            }
+
+            partsQuery = queryModel.PartSorting switch
+            {
+                PartSorting.PriceDescending => partsQuery.OrderByDescending(p => p.Price),
+                PartSorting.PriceAscending => partsQuery.OrderBy(p => p.Price),
+                _ => partsQuery
+            };
+
+            IEnumerable<PartAllViewModel> parts = await partsQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.PartsPerPage)
+                .Take(queryModel.PartsPerPage)
                 .Select(p => new PartAllViewModel()
                 {
                     Id = p.Id.ToString(),
@@ -50,7 +75,13 @@
                 })
                 .ToListAsync();
 
-            return parts;
+            AllPartsFilteredAndPagedServiceModel serviceModel = new AllPartsFilteredAndPagedServiceModel()
+            {
+                TotalPartsCount = partsQuery.Count(),
+                Parts = parts
+            };
+
+            return serviceModel;
         }
 
         public async Task<PartDetailViewModel> GetDetailsAsync(string id)
@@ -59,12 +90,6 @@
                 .AsNoTracking()
                 .Where(p => p.IsActive)
                 .FirstAsync(p => p.Id.ToString() == id);
-
-            // TODO: Think of removing this from here
-            if (part == null)
-            {
-                throw new Exception(string.Format(PartNotFoundErrorMessage, id));
-            }
 
             PartDetailViewModel partModel = new PartDetailViewModel()
             {

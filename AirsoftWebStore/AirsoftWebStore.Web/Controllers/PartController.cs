@@ -5,6 +5,7 @@
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Part;
+    using AirsoftWebStore.Services.Models.Part;
 
     [Authorize]
     public class PartController : Controller
@@ -176,12 +177,15 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllPartsQueryModel queryModel)
         {
-            IEnumerable<PartAllViewModel> parts = await this.partService
-                .AllAsync();
+            AllPartsFilteredAndPagedServiceModel serviceModel = await this.partService.AllAsync(queryModel);
 
-            return View(parts);
+            queryModel.Parts = serviceModel.Parts;
+            queryModel.TotalParts = serviceModel.TotalPartsCount;
+            queryModel.Categories = await this.categoryService.AllNamesAsync();
+
+            return View(queryModel);
         }
 
         // TODO: Check for invalid id

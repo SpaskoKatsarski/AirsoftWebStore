@@ -78,7 +78,7 @@
 ;
                 gunsQuery = gunsQuery
                     .Where(g => EF.Functions.Like(g.Name, wildCard) ||
-                    EF.Functions.Like(g.Manufacturer, wildCard));
+                                EF.Functions.Like(g.Manufacturer, wildCard));
             }
 
             gunsQuery = queryModel.GunSorting switch

@@ -1,13 +1,14 @@
 ﻿namespace AirsoftWebStore.Services.Contracts
 {
     using AirsoftWebStore.Data.Models;
+    using AirsoftWebStore.Services.Models.Part;
     using AirsoftWebStore.Web.ViewModels.Part;
 
     public interface IPartService
     {
         Task<Part> GetPartByIdAsync(string id);
 
-        Task<IEnumerable<PartAllViewModel>> AllAsync();
+        Task<AllPartsFilteredAndPagedServiceModel> AllAsync(AllPartsQueryModel queryModel);
 
         Task<string> AddAsync(PartFormViewModel model);
 
