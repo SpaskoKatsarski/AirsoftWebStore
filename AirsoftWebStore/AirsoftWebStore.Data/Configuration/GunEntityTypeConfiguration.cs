@@ -176,7 +176,7 @@
                 Year = 2021,
                 Price = 440.25m,
                 Quantity = 7,
-                CategoryId = 3
+                CategoryId = 4
             };
 
             guns.Add(gun);
