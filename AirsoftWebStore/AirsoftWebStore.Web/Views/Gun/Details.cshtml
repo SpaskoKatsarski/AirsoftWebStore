@@ -20,7 +20,14 @@
         <p><strong>Price:</strong> $@Model.Price</p>
         <p><strong>Availible:</strong> @Model.Quantity</p>
 
-        <a asp-controller="Cart" asp-action="AddToCart" asp-route-itemId="@Model.Id.ToString()" asp-route-quantity="1" asp-route-productType="gun" class="btn btn-primary">Add to Cart</a>
+        @if (Model.Quantity == 0)
+        {
+            <span class="text-secondary">*Out of Stock*</span>
+        }
+        else
+        {
+            <a asp-controller="Cart" asp-action="AddToCart" asp-route-itemId="@Model.Id.ToString()" asp-route-quantity="1" asp-route-productType="gun" class="btn btn-primary">Add to Cart</a>
+        }
     </div>
 </div>
 

@@ -94,9 +94,18 @@
                 // Error page
                 return NotFound();
             }
-            await this.cartService.AddItemAsync(item, userId!);
 
-            return RedirectToAction("ViewCart", "Cart");
+            try
+            {
+                await this.cartService.AddItemAsync(item, userId!);
+
+                return RedirectToAction("ViewCart", "Cart");
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData[ErrorMessage] = ex.Message;
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public async Task<IActionResult> ViewCart()

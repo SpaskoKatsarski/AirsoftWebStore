@@ -48,6 +48,7 @@
 
             string? itemType = this.GetTypeOfItem(item);
             bool itemExistsInCurrentCart;
+            
             if (itemType == "gun")
             {
                 itemExistsInCurrentCart = cart.CartItems.Any(ci => ci.GunId.ToString() == item.GunId.ToString());
@@ -71,6 +72,35 @@
 
             if (!itemExistsInCurrentCart)
             {
+                if (itemType == "gun")
+                {
+                    if (item.Gun!.Quantity == 0)
+                    {
+                        throw new InvalidOperationException($"There are no '{item.Gun.Name}' in stock!");
+                    }
+                }
+                else if (itemType == "part")
+                {
+                    if (item.Part!.Quantity == 0)
+                    {
+                        throw new InvalidOperationException($"There are no '{item.Part.Name}' in stock!");
+                    }
+                }
+                else if (itemType == "equipment")
+                {
+                    if (item.Equipment!.Quantity == 0)
+                    {
+                        throw new InvalidOperationException($"There are no '{item.Equipment.Name}' in stock!");
+                    }
+                }
+                else if (itemType == "consumative")
+                {
+                    if (item.Consumative!.Quantity == 0)
+                    {
+                        throw new InvalidOperationException($"There are no '{item.Consumative.Name}' in stock!");
+                    }
+                }
+                
                 item.CartId = cart.Id;
                 await this.context.CartItems.AddAsync(item);
             }
@@ -81,18 +111,46 @@
                 if (itemType == "gun")
                 {
                     currentItem = cart.CartItems.First(ci => ci.Gun?.Name == item.Gun!.Name);
+
+                    int totalCounts = currentItem.Quantity + 1;
+
+                    if (totalCounts > currentItem.Gun!.Quantity)
+                    {
+                        throw new InvalidOperationException($"You cannot add more '{currentItem.Gun.Name}' to the cart than there is in stock!");
+                    }
                 }
                 else if (itemType == "part")
                 {
                     currentItem = cart.CartItems.First(ci => ci.Part?.Name == item.Part!.Name);
+
+                    int totalCounts = currentItem.Quantity + 1;
+
+                    if (totalCounts > currentItem.Part!.Quantity)
+                    {
+                        throw new InvalidOperationException($"You cannot add more '{currentItem.Part.Name}' to the cart than there is in stock!");
+                    }
                 }
                 else if (itemType == "equipment")
                 {
                     currentItem = cart.CartItems.First(ci => ci.Equipment?.Name == item.Equipment!.Name);
+
+                    int totalCounts = currentItem.Quantity + 1;
+
+                    if (totalCounts > currentItem.Equipment!.Quantity)
+                    {
+                        throw new InvalidOperationException($"You cannot add more '{currentItem.Equipment.Name}' to the cart than there is in stock!");
+                    }
                 }
                 else
                 {
                     currentItem = cart.CartItems.First(ci => ci.Consumative?.Name == item.Consumative!.Name);
+
+                    int totalCounts = currentItem.Quantity + 1;
+
+                    if (totalCounts > currentItem.Consumative!.Quantity)
+                    {
+                        throw new InvalidOperationException($"You cannot add more '{currentItem.Consumative.Name}' to the cart than there is in stock!");
+                    }
                 }
 
                 currentItem.Quantity++;
@@ -212,6 +270,29 @@
         public async Task EmptyCartForUserById(string userId)
         {
             Cart cart = await this.GetCartForUserAsync(userId);
+
+            foreach (CartItem item in cart.CartItems)
+            {
+                string itemType = this.GetTypeOfItem(item)!;
+
+                if (itemType == "gun")
+                {
+                    item.Gun!.Quantity -= item.Quantity;
+                }
+                else if (itemType == "part")
+                {
+                    item.Part!.Quantity -= item.Quantity;
+                }
+                else if (itemType == "equipment")
+                {
+                    item.Equipment!.Quantity -= item.Quantity;
+                }
+                else if (itemType == "consumative")
+                {
+                    item.Consumative!.Quantity -= item.Quantity;
+                }
+            }
+
             this.context.CartItems.RemoveRange(cart.CartItems);
 
             await this.context.SaveChangesAsync();
