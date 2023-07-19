@@ -6,6 +6,8 @@
     using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Consumative;
+    using AirsoftWebStore.Services.Models.Consumative;
+    using AirsoftWebStore.Web.ViewModels.Consumative.Enums;
 
     public class ConsumativeService : IConsumativeService
     {
@@ -17,22 +19,45 @@
         }
 
         // Add configuration for Consumatives beacuse IsActive will be false by default
-        public async Task<IEnumerable<ConsumativeAllViewModel>> AllAsync()
+        public async Task<AllConsumativesFilteredAndSortedServiceModel> AllAsync(AllConsumativesQueryModel queryModel)
         {
-            IEnumerable<ConsumativeAllViewModel> consumatives = await this.context.Consumatives
-                .AsNoTracking()
+            IQueryable<Consumative> consumativesQuery = this.context.Consumatives
                 .Where(c => c.IsActive)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                consumativesQuery = consumativesQuery.Where(c => EF.Functions.Like(c.Name, wildCard));
+            }
+
+            consumativesQuery = queryModel.ConsumativeSorting switch
+            {
+                ConsumativeSorting.PriceAscending => consumativesQuery.OrderBy(c => c.Price),
+                ConsumativeSorting.PriceDescending => consumativesQuery.OrderByDescending(c => c.Price),
+                _ => consumativesQuery
+            };
+
+            IEnumerable<ConsumativeAllViewModel> consumatives = await consumativesQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.ConsumativesPerPage)
+                .Take(queryModel.ConsumativesPerPage)
                 .Select(c => new ConsumativeAllViewModel()
                 {
                     Id = c.Id.ToString(),
                     Name = c.Name,
-                    ImageUrl = c.ImageUrl,
-                    Price = c.Price
+                    Price = c.Price,
+                    ImageUrl = c.ImageUrl
                 })
                 .ToListAsync();
 
-            return consumatives;
+            AllConsumativesFilteredAndSortedServiceModel serviceModel = new AllConsumativesFilteredAndSortedServiceModel()
+            {
+                TotalConsumativesCount = consumativesQuery.Count(),
+                Consumatives = consumatives
+            };
 
+            return serviceModel;
         }
 
         public async Task<string> AddAsync(ConsumativeFormViewModel model)

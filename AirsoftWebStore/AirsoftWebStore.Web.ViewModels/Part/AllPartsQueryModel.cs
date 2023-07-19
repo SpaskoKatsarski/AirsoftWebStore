@@ -23,7 +23,7 @@
         [Display(Name = "Sort Parts by")]
         public PartSorting PartSorting { get; set; }
 
-        [Display(Name = "Items Per Page")]
+        [Display(Name = "Items per Page")]
         public int PartsPerPage { get; set; }
 
         public int CurrentPage { get; set; }

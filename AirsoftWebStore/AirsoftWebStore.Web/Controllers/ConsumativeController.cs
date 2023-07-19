@@ -5,7 +5,7 @@
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Consumative;
-    using AirsoftWebStore.Web.ViewModels.Equipment;
+    using AirsoftWebStore.Services.Models.Consumative;
 
     [Authorize]
     public class ConsumativeController : Controller
@@ -18,11 +18,14 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllConsumativesQueryModel queryModel)
         {
-            IEnumerable<ConsumativeAllViewModel> consumatives = await this.consumativeService.AllAsync();
+            AllConsumativesFilteredAndSortedServiceModel serviceModel = await this.consumativeService.AllAsync(queryModel);
 
-            return View(consumatives);
+            queryModel.Consumatives = serviceModel.Consumatives;
+            queryModel.TotalConsumatives = serviceModel.TotalConsumativesCount;
+
+            return View(queryModel);
         }
 
         [AllowAnonymous]
@@ -131,7 +134,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string id, EquipmentDeleteViewModel model)
+        public async Task<IActionResult> Delete(string id, ConsumativeDeleteViewModel model)
         {
             bool exists = await this.consumativeService.ExistsByIdAsync(id);
 

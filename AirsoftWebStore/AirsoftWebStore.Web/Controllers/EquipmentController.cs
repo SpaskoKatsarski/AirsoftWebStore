@@ -18,7 +18,7 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All(AllEquipmentQueryModel queryModel)
+        public async Task<IActionResult> All([FromQuery]AllEquipmentQueryModel queryModel)
         {
             AllEquipmentFilteredAndPagedServiceModel serviceModel = await this.equipmentService.AllAsync(queryModel);
 

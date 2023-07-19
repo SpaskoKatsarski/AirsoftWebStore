@@ -25,7 +25,7 @@
 
         public int CurrentPage { get; set; }
 
-        [Display(Name = "Items Per Page")]
+        [Display(Name = "Items per Page")]
         public int GunsPerPage { get; set; }
 
         public int TotalGuns { get; set; }

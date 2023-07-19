@@ -17,14 +17,12 @@
         [Display(Name = "Search by Name")]
         public string? SearchString { get; set; }
 
-        [Display(Name = "Items Per Page")]
+        [Display(Name = "Items per Page")]
         public int ItemsPerPage { get; set; }
 
         public EquipmentSorting EquipmentSorting { get; set; }
 
         public int CurrentPage { get; set; }
-
-        public int TotalPages { get; set; }
 
         public int TotalItems { get; set; }
 
