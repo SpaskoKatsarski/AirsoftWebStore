@@ -38,6 +38,12 @@
 
         public async Task<IActionResult> AddToCart(string itemId, int quantity, string productType)
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+                TempData[ErrorMessage] = "Admins cannot have a cart!";
+                return RedirectToAction("Index", "Home");
+            }
+
             string? userId = ClaimsPrincipalExtensions.GetId(this.User);
 
             if (userId == null)
