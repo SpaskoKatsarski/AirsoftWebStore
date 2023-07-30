@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AirsoftWebStore.Common\AirsoftWebStore.Common.csproj" />
+    <ProjectReference Include="..\AirsoftWebStore.Data\AirsoftWebStore.Data.csproj" />
+  </ItemGroup>
+
 </Project>

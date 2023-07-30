@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 using AirsoftWebStore.Data.Models;
 using AirsoftWebStore.Data;
 using AirsoftWebStore.Web.Infrastructure.Extensions;
 using AirsoftWebStore.Services.Contracts;
 using AirsoftWebStore.Web.Infrastructure.ModelBinders;
-using Microsoft.AspNetCore.Mvc;
+
+using static AirsoftWebStore.Common.GeneralApplicationConstants;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +25,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
 })
+    .AddRoles<IdentityRole<Guid>>()
     .AddEntityFrameworkStores<AirsoftStoreDbContext>();
 
 builder.Services.AddApplicationServices(typeof(IGunService));
@@ -56,6 +60,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.SeedAdministrator(DevelopmentAdminEmail);
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
