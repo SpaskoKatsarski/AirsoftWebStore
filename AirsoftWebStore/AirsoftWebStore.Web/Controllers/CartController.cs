@@ -142,10 +142,19 @@
                 return RedirectToAction("Deposit", "Wallet");
             }
 
-            await this.walletService.ReduceMoneyFromUserByIdAsync(userId, cartTotalMoney);
-            await this.cartService.EmptyCartForUserById(userId);
+            try
+            {
+                await this.walletService.ReduceMoneyFromUserByIdAsync(userId, cartTotalMoney);
+                await this.cartService.EmptyCartForUserById(userId);
 
-            return RedirectToAction("ThankYou", "Home");
+                TempData[SuccessMessage] = "You have successfuly made your purchase!";
+                return RedirectToAction("ThankYou", "Home");
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "Unexpected error occurred!";
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

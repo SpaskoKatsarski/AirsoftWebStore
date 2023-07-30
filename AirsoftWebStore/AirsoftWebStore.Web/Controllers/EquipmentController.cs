@@ -6,6 +6,7 @@
     using AirsoftWebStore.Web.ViewModels.Equipment;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Services.Models.Equipment;
+    using static Common.NotificationMessages;
 
     [Authorize]
     public class EquipmentController : Controller
@@ -34,7 +35,6 @@
             bool exists = await this.equipmentService.ExistsByIdAsync(id);
             if (!exists)
             {
-                // Custom error page will be better maybe?
                 return RedirectToAction("All", "Equipmenmt");
             }
 
@@ -73,12 +73,12 @@
             {
                 string id = await this.equipmentService.AddAsync(model);
 
+                TempData[SuccessMessage] = "Equipment was added successfully!";
                 return RedirectToAction("Details", "Equipment", new { id });
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add your equipment! Please try again or contact administrator!");
-
+                TempData[SuccessMessage] = "Unexpected error occured while trying to add your equipment! Try again";
                 return View(model);
             }
         }
@@ -116,11 +116,13 @@
             {
                 string id = await this.equipmentService.EditAsync(model);
 
+                TempData[SuccessMessage] = "Equipment was modified successfuly!";
                 return RedirectToAction("Details", "Equipment", new { id });
             }
             catch (Exception)
             {
-                return this.GeneralError();
+                TempData[SuccessMessage] = "Unexpected error occured while trying to edit your equipment! Try again";
+                return View(model);
             }
         }
 
@@ -130,6 +132,8 @@
             bool exists = await this.equipmentService.ExistsByIdAsync(id);
             if (!exists)
             {
+                TempData[ErrorMessage] = "Equipment with the provided ID does not exist!";
+
                 return RedirectToAction("All", "Equipment");
             }
 
@@ -145,7 +149,7 @@
 
             if (!exists)
             {
-                TempData["ErrorMessage"] = "Equipment with the provided Id does not exist!";
+                TempData[ErrorMessage] = "Equipment with the provided ID does not exist!";
 
                 return RedirectToAction("All", "Equipment");
             }
@@ -163,7 +167,7 @@
             {
                 await this.equipmentService.DeleteAsync(id);
 
-                //TempData[WarningMessage] = "Item successfuly deleted!";
+                TempData[WarningMessage] = "Item successfuly deleted!";
                 return RedirectToAction("All", "Equipment");
             }
             catch (Exception)
@@ -174,9 +178,9 @@
 
         private IActionResult GeneralError()
         {
-            //TempData["ErrorMessage"] = "Unexpected error occurred! Please try again or contact administrator!";
+            TempData[ErrorMessage] = "Unexpected error occurred! Please try again or contact administrator!";
 
-            return View("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -6,6 +6,7 @@
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Part;
     using AirsoftWebStore.Services.Models.Part;
+    using static Common.NotificationMessages;
 
     [Authorize]
     public class PartController : Controller
@@ -56,14 +57,12 @@
             {
                 string id = await this.partService.AddAsync(model);
 
-                // with toastr js
-                // this.TempData[SuccessMessage] = "Part was added successfully!";
-
+                TempData[SuccessMessage] = "Part was added successfully!";
                 return RedirectToAction("Details", "Part", new { id });
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add your replica. Try again.");
+                ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to add your part. Try again.");
                 model.Categories = await this.categoryService.AllAsync();
 
                 return View(model);
@@ -77,7 +76,7 @@
             if (!exists)
             {
                 // If id does not exist you should add an error message to the TempData, toastr will handle it, and redirect to all replicas
-
+                TempData[ErrorMessage] = "Part with the provided ID does not exist!";
                 return RedirectToAction("All", "Part");
             }
 
@@ -113,11 +112,15 @@
             {
                 string id = await this.partService.EditAsync(model);
 
+                TempData[SuccessMessage] = "Part was successfuly modified!";
                 return RedirectToAction("Details", "Part", new { id });
             }
             catch (Exception)
             {
-                return this.GeneralError();
+                ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to edit your part. Try again.");
+                model.Categories = await this.categoryService.AllAsync();
+
+                return View(model);
             }
         }
 
@@ -127,6 +130,7 @@
             bool exists = await this.partService.ExistsByIdAsync(id);
             if (!exists)
             {
+                TempData[ErrorMessage] = "Part with the provided ID does not exist!";
                 return RedirectToAction("All", "Part");
             }
             try
@@ -167,7 +171,7 @@
             {
                 await this.partService.DeleteAsync(id);
 
-                //TempData[WarningMessage] = "Item successfuly deleted!";
+                TempData[WarningMessage] = "Part successfuly deleted!";
                 return RedirectToAction("All", "Part");
             }
             catch (Exception)
@@ -206,9 +210,8 @@
 
         private IActionResult GeneralError()
         {
-            //TempData[ErrorMessage] = "Unexpected error occurred! Please try again or contact administrator!";
-
-            return View("Index", "Home");
+            TempData[ErrorMessage] = "Unexpected error occurred! Please try again or contact administrator!";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

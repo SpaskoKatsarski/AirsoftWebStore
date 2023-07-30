@@ -53,7 +53,7 @@
             // Check whether the user is WeaponCreator. If not he cannot edit. Also add error message to the TempData
             if (!await this.gunService.ExistsByIdAsync(id))
             {
-                // If id does not exist you should add an error message to the TempData, toastr will handle it, and redirect to all replicas
+                TempData[ErrorMessage] = "Replica with the provided ID does not exist!";
 
                 return RedirectToAction("All", "Gun");
             }
@@ -74,13 +74,19 @@
         [HttpPost]
         public async Task<IActionResult> Edit(string id, GunFormViewModel model)
         {
-            // TODO: make a validation for id if is valid
-            //if (!await this.gunService.ExistsByIdAsync(id))
-            //{
-            //    ModelState.AddModelError(, "Invalid id");
-            //}
+            bool exists = await this.gunService.ExistsByIdAsync(id);
+            if (!exists)
+            {
+                return RedirectToAction("Error", "Home");
+            }
 
-            // Check if name exists and if its different from previous name (see equipment method GetCurrentNameAsync())
+            bool nameExists = await this.gunService.ExistsByNameAsync(model.Name);
+            string currentName = await this.gunService.GetCurrentNameAsync(model.Id!);
+            if (nameExists && model.Name != currentName)
+            {
+                ModelState.AddModelError(nameof(model.Name), "Equipment with this name already exists!");
+            }
+
             bool categoryExists = await this.categoryService.ExistsByIdAsync(model.CategoryId);
             if (!categoryExists)
             {
@@ -97,11 +103,15 @@
             {
                 await this.gunService.EditAsync(model);
 
+                TempData[SuccessMessage] = "Replica successfuly modified!";
                 return RedirectToAction("Details", "Gun", new { id });
             }
             catch (Exception)
             {
-                return this.GeneralError();
+                ModelState.AddModelError(string.Empty, "Unexpected error occured while trying to edit your replica. Try again.");
+                model.Categories = await this.categoryService.AllAsync();
+
+                return View(model);
             }
         }
 
@@ -163,6 +173,8 @@
             // TODO: Check if user is weapon craetor, only he can remove
             if (!await this.gunService.ExistsByIdAsync(id))
             {
+                TempData[ErrorMessage] = "Replica with the provided ID does not exist!";
+
                 return RedirectToAction("All", "Gun");
             }
 
@@ -178,7 +190,6 @@
             }
         }
 
-        // TODO: Implement the logic inside:
         [HttpPost]
         public async Task<IActionResult> Delete(string id, GunDeleteViewModel model)
         {
@@ -186,7 +197,7 @@
 
             if (!gunExists)
             {
-                TempData["ErrorMessage"] = "Replica with the provided Id does not exist!";
+                TempData["ErrorMessage"] = "Replica with the provided ID does not exist!";
 
                 return RedirectToAction("All", "Gun");
             }
@@ -204,7 +215,7 @@
             {
                 await this.gunService.DeleteAsync(id);
 
-                TempData[WarningMessage] = "Item deleted successfuly!";
+                TempData[WarningMessage] = "The replica was removed!";
                 return RedirectToAction("All", "Gun");
             }
             catch (Exception)
@@ -215,9 +226,8 @@
 
         private IActionResult GeneralError()
         {
-            //TempData["ErrorMessage"] = "Unexpected error occurred! Please try again or contact administrator!";
-
-            return View("Index", "Home");
+            TempData[ErrorMessage] = "Unexpected error occurred! Please try again or contact administrator!";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

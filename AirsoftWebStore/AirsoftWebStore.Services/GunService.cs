@@ -7,19 +7,17 @@
     using AirsoftWebStore.Web.ViewModels.Gun;
     using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Web.ViewModels.Home;
-    using static AirsoftWebStore.Common.ErrorMessages.Gun;
     using AirsoftWebStore.Services.Models.Gun;
     using AirsoftWebStore.Web.ViewModels.Gun.Enums;
+    using static AirsoftWebStore.Common.ErrorMessages.Gun;
 
     public class GunService : IGunService
     {
         private readonly AirsoftStoreDbContext context;
-        private readonly ICartService cartService;
 
-        public GunService(AirsoftStoreDbContext context, ICartService cartService)
+        public GunService(AirsoftStoreDbContext context)
         {
             this.context = context;
-            this.cartService = cartService;
         }
 
         public async Task<IEnumerable<IndexViewModel>> GetTopThreeWithMostCountsAsync()
@@ -143,14 +141,17 @@
         public async Task<bool> ExistsByIdAsync(string id)
         {
             bool exists = await this.context.Guns
+                .AsNoTracking()
                 .Where(g => g.IsActive)
                 .AnyAsync(g => g.Id.ToString() == id);
+
             return exists;
         }
 
         public async Task<bool> ExistsByNameAsync(string name)
         {
             return await this.context.Guns
+                .AsNoTracking()
                 .Where(g => g.IsActive)
                 .AnyAsync(g => g.Name.ToLower() == name.ToLower());
         }
@@ -158,6 +159,7 @@
         public async Task<GunDetailViewModel> GetDetailsAsync(string id)
         {
             Gun? gun = await this.context.Guns
+                .AsNoTracking()
                 .Where(g => g.IsActive)
                 .Include(g => g.Category)
                 .FirstAsync(g => g.Id.ToString() == id);
@@ -186,6 +188,7 @@
         public async Task<GunDeleteViewModel> GetGunForDeleteByIdAsync(string id)
         {
             Gun? gun = await this.context.Guns
+                .AsNoTracking()
                 .Where(g => g.IsActive)
                 .Include(g => g.Category)
                 .FirstAsync(g => g.Id.ToString() == id);
@@ -204,6 +207,7 @@
         public async Task<GunFormViewModel> GetGunForEditByIdAsync(string id)
         {
             Gun? gun = await this.context.Guns
+                .AsNoTracking()
                 .Where(g => g.IsActive)
                 .FirstAsync(g => g.Id.ToString() == id);
 
@@ -230,6 +234,17 @@
                 .FirstAsync(g => g.Id.ToString() == id);
 
             return gun;
+        }
+
+        public async Task<string> GetCurrentNameAsync(string id)
+        {
+            string name = (await this.context.Guns
+                .AsNoTracking()
+                .Where(e => e.IsActive)
+                .FirstAsync(e => e.Id.ToString() == id))
+                .Name;
+
+            return name;
         }
     }
 }

@@ -28,5 +28,7 @@
         Task<GunFormViewModel> GetGunForEditByIdAsync(string id);
 
         Task<GunDeleteViewModel> GetGunForDeleteByIdAsync(string id);
+
+        Task<string> GetCurrentNameAsync(string id);
     }
 }

@@ -107,6 +107,7 @@
         public async Task<bool> ExistsByNameAsync(string name)
         {
             bool result = await this.context.Equipments
+                .AsNoTracking()
                 .Where(e => e.IsActive)
                 .AnyAsync(e => e.Name.ToLower() == name.ToLower());
 
