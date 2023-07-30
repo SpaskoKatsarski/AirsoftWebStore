@@ -3,6 +3,7 @@
 @{
     bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;
     bool isUserAdmin = isAuthenticated && User.IsInRole(AdminRoleName);
+    bool isUserModerator = isAuthenticated && User.IsInRole(ModeratorRoleName);
 }
 
 <!DOCTYPE html>
@@ -70,6 +71,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Wallet" asp-action="Deposit">Deposit</a>
                             </li>
+
+                            @if (!isUserModerator && !isUserAdmin)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Moderator" asp-action="Become">Become Moderator</a>
+                                </li>
+                            }
                         }
 
                     </ul>

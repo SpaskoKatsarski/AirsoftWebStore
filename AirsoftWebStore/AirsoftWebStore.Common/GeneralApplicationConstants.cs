@@ -6,6 +6,9 @@
         public const int EntitiesPerPage = 5;
 
         public const string AdminRoleName = "Administrator";
-        public const string DevelopmentAdminEmail = "admin@gmail.com";
+        public const string AdminEmail = "admin@gmail.com";
+
+        public const string ModeratorRoleName = "Moderator";
+        public const string ModeratorEmail = "spasko@abv.bg";
     }
 }

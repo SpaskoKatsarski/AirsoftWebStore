@@ -94,5 +94,7 @@
 
             return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
+        // TODO: When not authenticated user tries to access a button for only authenicated users he is redirected to the wrong
+        // login view. Think a way to fix that.
     }
 }

@@ -1,7 +1,12 @@
 ﻿@model GunDetailViewModel
 
+@using static AirsoftWebStore.Common.GeneralApplicationConstants;
+
 @{
     ViewBag.Title = "Details";
+
+    bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;
+    bool isUserAdmin = isAuthenticated && User.IsInRole(AdminRoleName);
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -36,9 +41,13 @@
 <div style="margin-top: 20px;">
     <a asp-controller="Gun" asp-action="All" class="btn btn-warning fw-bold">Back to all</a>
 </div>
-<div style="margin-top: 20px;">
-    <a asp-controller="Gun" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-warning">Edit</a>
-</div>
-<div style="margin-top: 20px;">
-    <a asp-controller="Gun" asp-action="Delete" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-danger">Delete</a>
-</div>
+
+@if (isUserAdmin)
+{
+    <div style="margin-top: 20px;">
+        <a asp-controller="Gun" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-warning">Edit</a>
+    </div>
+    <div style="margin-top: 20px;">
+        <a asp-controller="Gun" asp-action="Delete" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-danger">Delete</a>
+    </div>
+}
