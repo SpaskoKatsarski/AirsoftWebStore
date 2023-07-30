@@ -63,7 +63,7 @@
                             </li>
                         }
 
-                        @if (isAuthenticated)
+                        @if (isAuthenticated && !isUserAdmin)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="ViewCart">Cart</a>

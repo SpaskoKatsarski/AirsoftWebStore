@@ -8,6 +8,7 @@
     using AirsoftWebStore.Web.Infrastructure.Extensions;
     using AirsoftWebStore.Web.ViewModels.Cart;
     using static AirsoftWebStore.Common.NotificationMessages;
+    using static AirsoftWebStore.Common.GeneralApplicationConstants;
 
     [Authorize]
     public class CartController : Controller
@@ -114,6 +115,12 @@
 
         public async Task<IActionResult> ViewCart()
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+                TempData[ErrorMessage] = "Admins cannot have a cart!";
+                return RedirectToAction("Index", "Home");
+            }
+
             string? userId = ClaimsPrincipalExtensions.GetId(this.User);
 
             CartViewModel model = await this.cartService.GetCartForVisualizationAsync(userId!);
