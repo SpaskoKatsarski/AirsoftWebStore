@@ -1,6 +1,9 @@
 ﻿namespace AirsoftWebStore.Services
 {
+    using Microsoft.EntityFrameworkCore;
+
     using AirsoftWebStore.Data;
+    using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Services.Contracts;
 
     public class UserService : IUserService
@@ -12,9 +15,9 @@
             this.context = context;
         }
 
-        public Task<string> GetFullNameByEmailAsync(string email)
+        public async Task<string> GetFullNameByEmailAsync(string email)
         {
-            ApplicationUser? user = await dbContext
+            ApplicationUser? user = await this.context
                 .Users
                 .FirstOrDefaultAsync(u => u.Email == email);
 

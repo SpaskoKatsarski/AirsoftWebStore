@@ -106,6 +106,10 @@
                 TempData[ErrorMessage] = ex.Message;
                 return RedirectToAction("Index", "Home");
             }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         public async Task<IActionResult> ViewCart()
@@ -155,6 +159,12 @@
                 TempData[ErrorMessage] = "Unexpected error occurred!";
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        private IActionResult GeneralError()
+        {
+            TempData[ErrorMessage] = "Unexpected error occurred! Please try again or contact administrator!";
+            return RedirectToAction("Index", "Home");
         }
     }
 }

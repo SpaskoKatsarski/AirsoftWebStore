@@ -164,7 +164,7 @@
             {
                 await this.consumativeService.DeleteAsync(id);
 
-                TempData[WarningMessage] = "Item successfuly deleted!";
+                TempData[WarningMessage] = "Item was deleted.";
                 return RedirectToAction("All", "Consumative");
             }
             catch (Exception)

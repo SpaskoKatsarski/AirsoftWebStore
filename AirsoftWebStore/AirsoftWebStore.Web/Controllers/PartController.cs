@@ -171,7 +171,7 @@
             {
                 await this.partService.DeleteAsync(id);
 
-                TempData[WarningMessage] = "Part successfuly deleted!";
+                TempData[WarningMessage] = "Item was deleted.";
                 return RedirectToAction("All", "Part");
             }
             catch (Exception)

@@ -38,12 +38,11 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
 
-            <recaptcha-v3 form-id="registerForm" action="submit" class="w-100 btn btn-lg btn-primary">Register</recaptcha-v3>
+            <button action="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>
 </div>
 
 @section Scripts {
-    <recaptcha-script />
     <partial name="_ValidationScriptsPartial" />
 }

@@ -167,7 +167,7 @@
             {
                 await this.equipmentService.DeleteAsync(id);
 
-                TempData[WarningMessage] = "Item successfuly deleted!";
+                TempData[WarningMessage] = "Item was deleted.";
                 return RedirectToAction("All", "Equipment");
             }
             catch (Exception)

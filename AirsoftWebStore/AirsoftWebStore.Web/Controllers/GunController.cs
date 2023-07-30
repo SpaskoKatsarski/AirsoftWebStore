@@ -215,7 +215,7 @@
             {
                 await this.gunService.DeleteAsync(id);
 
-                TempData[WarningMessage] = "The replica was removed!";
+                TempData[WarningMessage] = "Item was deleted.";
                 return RedirectToAction("All", "Gun");
             }
             catch (Exception)
