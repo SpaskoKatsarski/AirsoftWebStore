@@ -84,7 +84,7 @@
             string currentName = await this.gunService.GetCurrentNameAsync(model.Id!);
             if (nameExists && model.Name != currentName)
             {
-                ModelState.AddModelError(nameof(model.Name), "Equipment with this name already exists!");
+                ModelState.AddModelError(nameof(model.Name), "Replica with this name already exists!");
             }
 
             bool categoryExists = await this.categoryService.ExistsByIdAsync(model.CategoryId);
