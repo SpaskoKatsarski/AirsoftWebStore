@@ -16,10 +16,6 @@
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(PhoneNumberMaxLength)]
-        public string PhoneNumber { get; set; } = null!;
-
-        [Required]
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
 

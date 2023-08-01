@@ -25,7 +25,7 @@
         [Required]
         public decimal Money { get; set; }
 
-        public bool? HasGunsmithRequest { get; set; }
+        public bool HasGunsmithRequest { get; set; }
 
         [ForeignKey(nameof(Cart))]
         public Guid? CartId { get; set; }

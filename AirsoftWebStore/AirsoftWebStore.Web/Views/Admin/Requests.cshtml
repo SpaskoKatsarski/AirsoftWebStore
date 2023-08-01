@@ -1,0 +1,24 @@
+﻿@model IEnumerable<AllRequestsViewModel>
+
+@{
+    ViewBag.Title = "Requests";
+}
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">No requests</h2>
+}
+else
+{
+    <ul class="list-group list-group-light">
+        @foreach (AllRequestsViewModel request in Model)
+        {
+            <li class="list-group-item">
+                @request.Email (@request.FirstName @request.LastName)
+                <a asp-controller="Admin" asp-action="Approve" asp-route-userId="@request.UserId" class="btn btn-success">Approve</a>
+                <a asp-controller="Admin" asp-action="Decline" asp-route-userId="@request.UserId" class="btn btn-danger">Decline</a>
+            </li>
+        }
+    </ul>
+
+}

@@ -4,6 +4,7 @@ using AirsoftWebStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AirsoftWebStore.Data.Migrations
 {
     [DbContext(typeof(AirsoftStoreDbContext))]
-    partial class AirsoftStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230801175637_PhoneNumRemovedFromGunsmith")]
+    partial class PhoneNumRemovedFromGunsmith
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +54,7 @@ namespace AirsoftWebStore.Data.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasDefaultValue("Test");
 
-                    b.Property<bool>("HasGunsmithRequest")
+                    b.Property<bool?>("HasGunsmithRequest")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
@@ -261,7 +263,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("68576a26-205f-4a5c-b5ad-37f5958aa2f8"),
+                            Id = new Guid("9b7d7220-5c15-40aa-959b-a3b9f52ca712"),
                             Description = "For high precision and really good shots. These BBs are going to like you a lot! They are competition grade and are really balanced.",
                             ImageUrl = "https://m.media-amazon.com/images/I/51QY6Y7klQL._AC_UF1000,1000_QL80_.jpg",
                             IsActive = false,
@@ -310,7 +312,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2aad4078-ccd4-4ec4-9e4a-320e486ac589"),
+                            Id = new Guid("30357673-5c51-4364-86c4-34bc1b75f0ae"),
                             Description = "The first aid kit can be attached using a Velcro panel to the equipment compatible with the MOLLE system or directly to the Velcro straps. The first aid kit also includes a tape with a buckle that will also help compress the contents of the pouch.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_Large-tear-off-first-aid-kit-Black-1152235193_1.webp",
                             IsActive = false,
@@ -320,7 +322,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f7048e0f-606b-4f52-8d39-0d39b47c8ef4"),
+                            Id = new Guid("ebaaecbb-54b4-4cd6-8d4f-381df1f3e2cb"),
                             Description = "Uniform clothing in the original and unique Multi-environmental Adaptive Pattern camouflage, intended for civilian and professional users who are interested in the military and actively spend their time outdoors - as well as in difficult and extreme conditions.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_CJP-02-Pro-Combat-Jacket-MAPA-R-1152234971_1.webp",
                             IsActive = false,
@@ -330,7 +332,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0172fc2f-0fe4-4a6e-8051-67111476ede5"),
+                            Id = new Guid("a8d0dd12-7d3b-4269-8a2e-c0631b6be034"),
                             Description = "The light protective helmet LHO-01 is the first bulletproof high cut helmet produced by MASKPOL designed for the civilian market. It is designed to protect the wearer's head against direct shrapnel wounds and certain small arms projectiles.",
                             ImageUrl = "https://static4.gunfire.com/eng_pm_Ballistic-helmet-LHO-01-Olive-1152235163_1.webp",
                             IsActive = false,
@@ -392,7 +394,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("80919db8-d367-4304-8c7a-ceb13fea0618"),
+                            Id = new Guid("79cc3172-244f-4bce-aad3-cb88505113ad"),
                             CategoryId = 1,
                             Description = "Specna Arms proudly presents the FLEX line of replicas. An affordable price combined with an innovative quick spring change system, great performance straight out of the box and high-quality components makes this series an excellent choice for both beginners and experienced airsoft players alike.",
                             ImageUrl = "https://www.zerooneairsoft.com/products_image_15055_0.jpg",
@@ -405,7 +407,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("baecdaf2-f11b-412c-9c13-644d03af0210"),
+                            Id = new Guid("0d71fc90-8cf2-48a2-bd9d-58c46098f8e9"),
                             CategoryId = 2,
                             Description = "Double Bell brand airsoft replica powered by green gas. The grip facings are made of plastic. The breech drop lever and decocker are made of steel. The skeleton, lock, external barrel and the rest of the components are made of aluminium and zinc alloy.",
                             ImageUrl = "https://static4.gunfire.com/eng_pm_P226-pistol-replica-778-Tan-1152235155_1.webp",
@@ -418,7 +420,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("57e46f7c-968d-498f-9ab7-19833c459558"),
+                            Id = new Guid("86eafdec-99b0-4ba7-ad74-14add116e3f4"),
                             CategoryId = 4,
                             Description = "This sniper rifle will win make you feel like a real soldier. With its silence and long range, you will be able to make really good shots and the enemies will wonder what had happened to them after.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_TAC-41-A-airsoft-sniper-rifle-Wolf-Grey-1152234909_1.webp",
@@ -431,7 +433,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8a3be399-83fa-4918-bbaa-a719d96a460b"),
+                            Id = new Guid("7dd0b2aa-dd70-41ff-a4d1-65da6cab0d58"),
                             CategoryId = 5,
                             Description = "GF Custom Division is an idea conceived in the heads of the Gunfire airsoft team. We offer you the highest quality replicas, modified and configured by us, using only the best, tried and tested parts and accessories. Each element serves a specific purpose - these are exactly the configurations that we would like to use in the playing field ourselves. Many years of airsoft experience helps us in working on custom airsoft guns like this one, so we can safely say that GF Custom Division is a project created 100% by players for players.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_8871-Shotgun-Replica-Corpo-Wars-WGTO-1152234920_1.webp",
@@ -444,7 +446,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a7467d2f-c168-40bf-b9e4-e10708d22aba"),
+                            Id = new Guid("e33969c1-db97-4bcd-bc96-1abd471c954d"),
                             CategoryId = 1,
                             Description = "The EDGE 2.0 ™ series introduces a completely new quality to the Specna Arms replica family, adding new functionalities and innovations to the tried and tested design. As a result, Specna Arms EDGE 2.0 ™ carbines offer an exceptional high level of craftsmanship and technical advancement straight out of the box.",
                             ImageUrl = "https://static5.gunfire.com/eng_pm_SA-H22-EDGE-2-0-TM-Carbine-Replica-black-1152225956_1.webp",
@@ -457,7 +459,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5208fc15-b6bc-411c-bf51-aea4fa7b88d0"),
+                            Id = new Guid("398238a3-f719-4fb6-a121-762e325eb454"),
                             CategoryId = 1,
                             Description = "Specna Arms meets the expectations of clients by presenting the CORE™ line of products - an exceptional series of replicas that introduces a new quality to the market. Attractive price in combination with an innovative spring exchange system as well as high-quality materials make this replica suitable for beginners and seasoned airsoft players alike.",
                             ImageUrl = "https://static5.gunfire.com/eng_pm_SA-C10-PDW-CORE-TM-Carbine-Replica-Black-1152225067_1.webp",
@@ -470,7 +472,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1b83104a-f1f9-4177-bf77-84296fd129ce"),
+                            Id = new Guid("415f0a35-7c62-4e0b-a0c7-2ba5d2682503"),
                             CategoryId = 1,
                             Description = "Specna Arms meets the expectations of clients by presenting the CORE™ line of products - an exceptional series of replicas that introduces a new quality to the market. An attractive price in combination with an innovative spring change system as well as high-quality materials make this replica suitable for beginners and seasoned airsoft players alike.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_SA-C05-CORE-TM-Carbine-Replica-1152215724_1.webp",
@@ -483,7 +485,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d43eb991-c60f-49d5-9416-1ff69504e9cf"),
+                            Id = new Guid("b08b882d-6143-4d2c-bc71-d72793c25e33"),
                             CategoryId = 1,
                             Description = "The receiver, stock slide and an SF stock that holds the battery as well as the pistol grip were made of nylon fiber reinforced polymer. Remaining components such as the barrel, handguard, flash hider, enlarged charging handle and tactical sling swivels were made of metal (parts made of steel include the screws, pins, shell ejection window and mock bolt carrier). The receiver bears markings and a serial number.",
                             ImageUrl = "https://static4.gunfire.com/eng_pm_SA-C22-CORE-TM-Carbine-Replica-Chaos-Bronze-1152231391_1.webp",
@@ -496,7 +498,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("afc5ad30-8de2-495d-b40c-0ec9318c2caf"),
+                            Id = new Guid("4d39b5db-aeb2-422a-a955-93e579984859"),
                             CategoryId = 1,
                             Description = "The replica’s parts are very well aligned - in a way that could be thus far noticed solely in replicas by such top-tier manufacturers as G&P or Classic Army, the replica is also perfectly balanced. This allows for an almost ideal maneuverability of the replica and its weight is almost unnoticeable once the replica has been shouldered.",
                             ImageUrl = "https://static1.gunfire.com/eng_pm_SA-H11-ONE-TM-Carbine-Replica-Black-1152227616_1.webp",
@@ -509,7 +511,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("abd1147e-62d3-4e63-b398-9efce577a19c"),
+                            Id = new Guid("d18f18f3-1603-4e7d-b6d2-f664be4f7212"),
                             CategoryId = 4,
                             Description = "A spring action replica of a sniper rifle. It is a bolt-action replica, which means that it has to be reloaded after each shot. The cradle with the stock were made from a durable polymer. Metal was used in the manufacture process of such elements as the barrel, trigger guard, bolt carrier, magwell and the charging handle.",
                             ImageUrl = "https://static3.gunfire.com/eng_pm_SW-04-Sniper-Rifle-Replica-with-Scope-and-Bipod-Olive-Drab-1152194766_1.webp",
@@ -522,7 +524,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ca09ab94-98df-4cf2-a660-64084402b990"),
+                            Id = new Guid("2d94bae2-5cb0-4ddd-9803-a64ada1778f7"),
                             CategoryId = 4,
                             Description = "SMC-9 is a first construction of this type by G&G on the market. It is a combination of a submachine gun and a GTP9 pistol that came together into a unique construction. Thanks to its size, it is ideal for CQB games. Parts taken from GTP9 replica include the frame and the trigger mechanism - the barrel, chamber, cylinder set all belong to the conversion. Thanks to a special mechanism, the replica can fire in semi-auto as well as full-auto modes.",
                             ImageUrl = "https://static3.gunfire.com/eng_pm_SW-04-Sniper-Rifle-Replica-with-Scope-and-Bipod-Olive-Drab-1152194766_1.webp",
@@ -535,7 +537,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("48fd95a0-5c43-4bde-a1d5-b6c5821a0fb8"),
+                            Id = new Guid("887c01aa-86c5-4f31-9c15-56967c516967"),
                             CategoryId = 6,
                             Description = "The grenade launcher replica is made of durable plastic and metal. The elements such as the barrel, the front iron aiming sights and the RIS rails are made of metal. The replica’s stock, the pistol grip, the body and the rear iron aiming sight are made of durable plastic.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_GL-06-grenade-launcher-1152195090_1.webp",
@@ -613,7 +615,7 @@ namespace AirsoftWebStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("31c65fcc-5efc-45b8-88bb-69262d871808"),
+                            Id = new Guid("c44ed93d-4dc7-4b91-9dfe-2483bb6f2ca5"),
                             CategoryId = 4,
                             Description = "Fess 1-8x is a durable most attractive price-wise driven hunt scope with a variable magnification in the Buckler family that does an exceptional job at satisfying the needs of hunters, dynamic sports shooters and tactical shooters.",
                             ImageUrl = "https://static2.gunfire.com/eng_pm_Fess-II-1-8x24-Driven-Hunt-Scope-1152224248_1.webp",
@@ -625,7 +627,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bbea2959-ceca-444f-b058-8dc6fcf33f2b"),
+                            Id = new Guid("035a3e92-743a-497c-8f83-5fe6b71844dc"),
                             CategoryId = 1,
                             Description = "A vertical forward grip made of metal intended for the attachment to KeyMod mounting system rails. Inside the mount is a small compartment for miscellaneous items. Features a rubber, anti-slip texture that improves the grip.",
                             ImageUrl = "https://static3.gunfire.com/eng_pm_KeyMod-Vertical-Grip-tan-1152221218_1.webp",
@@ -637,7 +639,7 @@ namespace AirsoftWebStore.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d2b7cf8c-3bc1-4612-9473-a3d38b612506"),
+                            Id = new Guid("5b632fe8-3fe8-41d3-a006-f0d5a3a34e70"),
                             CategoryId = 1,
                             Description = "Shorter version of the angled front grip by PTS, made of a single piece of aluminum. Thanks to its compatibility with the M-LOK system, it can be mounted on any rail in this standard. Equipping the rifle with a front grip improves comfort and better control during fire.",
                             ImageUrl = "https://static4.gunfire.com/eng_pm_Fortis-Shift-TM-Short-Angle-Grip-Dark-Earth-1152230344_1.webp",

@@ -1,8 +1,13 @@
-﻿@using static AirsoftWebStore.Common.GeneralApplicationConstants;
+﻿@using AirsoftWebStore.Services.Contracts;
+@using AirsoftWebStore.Web.Infrastructure.Extensions;
+@using static AirsoftWebStore.Common.GeneralApplicationConstants;
+
+@inject IGunsmithService gunsmithService;
 
 @{
     bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;
     bool isUserAdmin = isAuthenticated && User.IsInRole(AdminRoleName);
+    bool isUserGunsmith = isAuthenticated && await gunsmithService.IsGunsmithAsync(User.GetId()!);
 }
 
 <!DOCTYPE html>
@@ -46,6 +51,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Consumative" asp-action="All">Consumatives</a>
                         </li>
 
+                        @if (isAuthenticated && !isUserGunsmith && !isUserAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Gunsmith" asp-action="RequestToBecome" asp-route-userId="@User.GetId().ToString()">Request for Gunsmith</a>
+                            </li>
+                        }
+
                         @if (isUserAdmin)
                         {
                             <li class="nav-item">
@@ -59,6 +71,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Consumative" asp-action="Add">Add Consumative</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Requests">Requests</a>
                             </li>
                         }
 

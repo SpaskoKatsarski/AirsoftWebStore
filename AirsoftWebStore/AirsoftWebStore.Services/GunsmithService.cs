@@ -5,7 +5,6 @@
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Services.Contracts;
-    using AirsoftWebStore.Web.ViewModels.Gunsmith;
 
     public class GunsmithService : IGunsmithService
     {
@@ -16,16 +15,38 @@
             this.context = context;
         }
 
-        public async Task BecomeGunsmithAsync(string userId, BecomeGunsmithFormModel model)
+        public async Task BecomeGunsmithAsync(string userId)
         {
+            ApplicationUser? user = await this.context.Users
+                .FindAsync(Guid.Parse(userId));
+
+            if (user == null)
+            {
+                throw new Exception("User with the provided ID does not exist!");
+            }
+
             Gunsmith gunsmith = new Gunsmith()
             {
                 UserId = Guid.Parse(userId),
-                PhoneNumber = model.PhoneNumber
             };
+
+            user.HasGunsmithRequest = false;
 
             await this.context.Gunsmiths.AddAsync(gunsmith);
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task RemoveRequestAsync(string userId)
+        {
+            ApplicationUser? user = await this.context.Users
+                .FindAsync(Guid.Parse(userId));
+
+            if (user == null)
+            {
+                throw new Exception("User with the provided ID does not exist!");
+            }
+
+            user.HasGunsmithRequest = false;
         }
 
         public async Task<bool> IsGunsmithAsync(string userId)
@@ -34,6 +55,34 @@
                 .AnyAsync(g => g.UserId.ToString() == userId);
 
             return result;
+        }
+
+        public async Task AddUserRequestAsync(string userId)
+        {
+            ApplicationUser? user = await this.context.Users
+                .FindAsync(Guid.Parse(userId));
+
+            if (user == null)
+            {
+                throw new Exception("User with the provided ID does not exist!");
+            }
+
+            user.HasGunsmithRequest = true;
+
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task<bool> HasUserSentRequestAsync(string userId)
+        {
+            ApplicationUser? user = await this.context.Users
+                .FindAsync(Guid.Parse(userId));
+
+            if (user == null)
+            {
+                throw new Exception("User with the provided ID does not exist!");
+            }
+
+            return user.HasGunsmithRequest!;
         }
     }
 }
