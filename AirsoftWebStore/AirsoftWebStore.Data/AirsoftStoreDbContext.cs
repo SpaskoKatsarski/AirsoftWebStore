@@ -14,6 +14,8 @@
         {
         }
 
+        public DbSet<Gunsmith> Gunsmiths { get; set; } = null!;
+
         public DbSet<Category> Categories { get; set; } = null!;
 
         public DbSet<Gun> Guns { get; set; } = null!;

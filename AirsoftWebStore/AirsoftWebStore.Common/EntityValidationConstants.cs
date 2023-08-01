@@ -97,5 +97,11 @@
             public const int PasswordMinLength = 5;
             public const int PasswordMaxLength = 100;
         }
+
+        public static class Gunsmith
+        {
+            public const int PhoneNumberMinLength = 7;
+            public const int PhoneNumberMaxLength = 15;
+        }
     }
 }

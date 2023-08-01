@@ -61,9 +61,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app
-    .SeedAdministrator(AdminEmail)
-    .SeedModerator(ModeratorEmail);
+app.SeedAdministrator(AdminEmail);
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();

@@ -16,6 +16,10 @@
             builder
                 .Property(u => u.LastName)
                 .HasDefaultValue("Test");
+
+            builder
+                .Property(u => u.HasGunsmithRequest)
+                .HasDefaultValue(false);
         }
     }
 }
