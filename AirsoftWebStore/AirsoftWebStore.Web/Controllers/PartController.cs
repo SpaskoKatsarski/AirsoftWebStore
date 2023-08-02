@@ -268,18 +268,15 @@
             return RedirectToAction("Index", "Home");
         }
 
-        private async Task<IActionResult> HandleUserRights()
+        private async Task HandleUserRights()
         {
             bool isGunsmith = await this.gunsmithService.IsGunsmithAsync(User.GetId()!);
             bool isAdmin = User.IsInRole(AdminRoleName);
 
             if (!isGunsmith && !isAdmin)
             {
-                TempData[ErrorMessage] = "You must become a Gunsmith in order to do this action!";
-                return RedirectToAction("Index", "Home");
+                throw new InvalidOperationException("You must become a Gunsmith in order to do this action!");
             }
-
-            return Ok();
         }
     }
 }
