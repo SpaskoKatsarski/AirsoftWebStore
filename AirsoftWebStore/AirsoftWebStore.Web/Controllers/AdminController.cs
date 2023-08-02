@@ -1,11 +1,14 @@
 ﻿namespace AirsoftWebStore.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Admin;
     using static Common.NotificationMessages;
+    using static Common.GeneralApplicationConstants;
 
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IAdminService adminService;
@@ -19,6 +22,12 @@
 
         public async Task<IActionResult> Requests()
         {
+            if (!User.IsInRole(AdminRoleName))
+            {
+                TempData[ErrorMessage] = "Only administrators have access to requests!";
+                return RedirectToAction("Index", "Home");
+            }
+
             IEnumerable<AllRequestsViewModel> models = await this.adminService.GetAllReqeustsAsync();
 
             return View(models);
@@ -26,6 +35,12 @@
 
         public async Task<IActionResult> Approve(string userId, string userEmail)
         {
+            if (!User.IsInRole(AdminRoleName))
+            {
+                TempData[ErrorMessage] = "Only administrators can approve requests!";
+                return RedirectToAction("Index", "Home");
+            }
+
             if (await this.gunsmithService.IsGunsmithAsync(userId))
             {
                 TempData[ErrorMessage] = "User is already a gunsmith!";
@@ -49,6 +64,12 @@
 
         public async Task<IActionResult> Decline(string userId, string userEmail)
         {
+            if (!User.IsInRole(AdminRoleName))
+            {
+                TempData[ErrorMessage] = "Only administrators can decline requests!";
+                return RedirectToAction("Index", "Home");
+            }
+
             try
             {
                 await this.gunsmithService.RemoveRequestAsync(userId);

@@ -1,10 +1,14 @@
 ﻿namespace AirsoftWebStore.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     using AirsoftWebStore.Services.Contracts;
+    using AirsoftWebStore.Web.Infrastructure.Extensions;
     using static Common.NotificationMessages;
+    using static Common.GeneralApplicationConstants;
 
+    [Authorize]
     public class GunsmithController : Controller
     {
         private readonly IGunsmithService gunsmithService;
@@ -16,11 +20,26 @@
 
         public async Task<IActionResult> RequestToBecome(string userId)
         {
-            // TODO: Dont let admins and non-authenticated users access this action!
-            // See why the button doesnt hide after clicking for request.
-            // In the admin controller check why when approving someone he doesnt disappear from the list of request.
+            if (userId == null)
+            {
+                userId = User.GetId()!;
+            }
+
+            bool isGunsmith = await this.gunsmithService.IsGunsmithAsync(userId);
+            bool isAdmin = User.IsInRole(AdminRoleName);
+
             try
             {
+                if (isGunsmith)
+                {
+                    throw new Exception("User is already a Gunsmith!");
+                }
+
+                if (isAdmin)
+                {
+                    throw new Exception("Admins cannot become a Gunsmith!");
+                }
+
                 await this.gunsmithService.AddUserRequestAsync(userId);
 
                 TempData[SuccessMessage] = "Request was sent successfully!";

@@ -6,16 +6,20 @@
     using AirsoftWebStore.Web.ViewModels.Equipment;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Services.Models.Equipment;
+    using AirsoftWebStore.Web.Infrastructure.Extensions;
     using static Common.NotificationMessages;
+    using static Common.GeneralApplicationConstants;
 
     [Authorize]
     public class EquipmentController : Controller
     {
         private readonly IEquipmentService equipmentService;
+        private readonly IGunsmithService gunsmithService;
 
-        public EquipmentController(IEquipmentService equipmentService)
+        public EquipmentController(IEquipmentService equipmentService, IGunsmithService gunsmithService)
         {
             this.equipmentService = equipmentService;
+            this.gunsmithService = gunsmithService;
         }
 
         [AllowAnonymous]
@@ -46,10 +50,16 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            // TODO: If the user is not a weapon creator, he should be redirected to become one
-            // If the user is not a creator, add to tempData a message telling the user he should become a creator
-            // toastr will handle this
-            // Redirect to Become Creator page
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             EquipmentFormViewModel formModel = new EquipmentFormViewModel();
 
             return View(formModel);
@@ -58,6 +68,16 @@
         [HttpPost]
         public async Task<IActionResult> Add(EquipmentFormViewModel model)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool alreadyExists = await this.equipmentService.ExistsByNameAsync(model.Name);
             if (alreadyExists)
             {
@@ -86,6 +106,16 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool exists = await this.equipmentService.ExistsByIdAsync(id);
             if (!exists)
             {
@@ -100,6 +130,16 @@
         [HttpPost]
         public async Task<IActionResult> Edit(EquipmentFormViewModel model)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool nameExists = await this.equipmentService.ExistsByNameAsync(model.Name);
             string currentName = await this.equipmentService.GetCurrentNameAsync(model.Id!);
             if (nameExists && model.Name != currentName)
@@ -129,6 +169,16 @@
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool exists = await this.equipmentService.ExistsByIdAsync(id);
             if (!exists)
             {
@@ -145,6 +195,16 @@
         [HttpPost]
         public async Task<IActionResult> Delete(string id, EquipmentDeleteViewModel model)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool exists = await this.equipmentService.ExistsByIdAsync(id);
 
             if (!exists)
@@ -153,15 +213,6 @@
 
                 return RedirectToAction("All", "Equipment");
             }
-
-            // Check if user is weapon creator...
-            // Thats how:
-            //if (!isUserWeaponCreator)
-            //{
-            //    TempData[ErrorMessage] = "You must become a weapon creator in order to delete items!";
-
-            //    return this.RedirectToAction("Become", "WeaponCreator");
-            //}
 
             try
             {
@@ -181,6 +232,17 @@
             TempData[ErrorMessage] = "Unexpected error occurred! Please try again or contact administrator!";
 
             return RedirectToAction("Index", "Home");
+        }
+
+        private async Task HandleUserRights()
+        {
+            bool isGunsmith = await this.gunsmithService.IsGunsmithAsync(User.GetId()!);
+            bool isAdmin = User.IsInRole(AdminRoleName);
+
+            if (!isGunsmith && !isAdmin)
+            {
+                throw new InvalidOperationException("You must become a Gunsmith in order to do this action!");
+            }
         }
     }
 }

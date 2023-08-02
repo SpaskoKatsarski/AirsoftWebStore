@@ -30,7 +30,15 @@
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            await this.HandleUserRights();
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
 
             PartFormViewModel model = new PartFormViewModel()
             {
@@ -43,6 +51,16 @@
         [HttpPost]
         public async Task<IActionResult> Add(PartFormViewModel model)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool alreadyExists = await this.partService.ExistsByNameAsync(model.Name);
             if (alreadyExists)
             {
@@ -80,10 +98,19 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool exists = await this.partService.ExistsByIdAsync(id);
             if (!exists)
             {
-                // If id does not exist you should add an error message to the TempData, toastr will handle it, and redirect to all replicas
                 TempData[ErrorMessage] = "Part with the provided ID does not exist!";
                 return RedirectToAction("All", "Part");
             }
@@ -104,6 +131,16 @@
         [HttpPost]
         public async Task<IActionResult> Edit(PartFormViewModel model)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool categoryExists = await this.categoryService.ExistsByIdAsync(model.CategoryId);
             if (!categoryExists)
             {
@@ -135,6 +172,16 @@
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool exists = await this.partService.ExistsByIdAsync(id);
             if (!exists)
             {
@@ -153,10 +200,19 @@
             }
         }
 
-        // TODO: Really IMPORTANT! Only weapon creators can modify or delete items (and see the corresponding buttons)!
         [HttpPost]
         public async Task<IActionResult> Delete(string id, PartDeleteViewModel model)
         {
+            try
+            {
+                await this.HandleUserRights();
+            }
+            catch (InvalidOperationException e)
+            {
+                TempData[ErrorMessage] = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+
             bool partExists = await this.partService.ExistsByIdAsync(id);
 
             if (!partExists)
@@ -165,15 +221,6 @@
 
                 return RedirectToAction("All", "Part");
             }
-
-            // Check if user is weapon creator...
-            // Thats how:
-            //if (!isUserWeaponCreator)
-            //{
-            //    TempData[ErrorMessage] = "You must become a weapon creator in order to delete items!";
-
-            //    return this.RedirectToAction("Become", "WeaponCreator");
-            //}
 
             try
             {
@@ -200,7 +247,6 @@
             return View(queryModel);
         }
 
-        // TODO: Check for invalid id
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {

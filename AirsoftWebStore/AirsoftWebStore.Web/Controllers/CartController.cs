@@ -44,12 +44,7 @@
                 return RedirectToAction("Index", "Home");
             }
 
-            string? userId = ClaimsPrincipalExtensions.GetId(this.User);
-
-            if (userId == null)
-            {
-                // Error page or notify the user that he needs to log in
-            }
+            string userId = User.GetId()!;
 
             CartItem? item;
             if (productType == "gun")
@@ -144,7 +139,7 @@
             return RedirectToAction("ViewCart", "Cart");
         }
 
-        public async Task<IActionResult?> PurchaseAll()
+        public async Task<IActionResult> PurchaseAll()
         {
             string userId = this.User.GetId()!;
 
