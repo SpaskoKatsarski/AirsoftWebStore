@@ -6,24 +6,32 @@
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Part;
     using AirsoftWebStore.Services.Models.Part;
+    using AirsoftWebStore.Web.Infrastructure.Extensions;
     using static Common.NotificationMessages;
+    using static Common.GeneralApplicationConstants;
 
     [Authorize]
     public class PartController : Controller
     {
         private readonly IPartService partService;
         private readonly ICategoryService categoryService;
+        private readonly IGunsmithService gunsmithService;
 
-        public PartController(IPartService partService, ICategoryService categoryService)
+        public PartController(
+            IPartService partService,
+            ICategoryService categoryService, 
+            IGunsmithService gunsmithService)
         {
             this.partService = partService;
             this.categoryService = categoryService;
+            this.gunsmithService = gunsmithService;
         }
 
-        // Only weapon creator should be able to add parts
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+            await this.HandleUserRights();
+
             PartFormViewModel model = new PartFormViewModel()
             {
                 Categories = await this.categoryService.AllAsync()
@@ -212,6 +220,20 @@
         {
             TempData[ErrorMessage] = "Unexpected error occurred! Please try again or contact administrator!";
             return RedirectToAction("Index", "Home");
+        }
+
+        private async Task<IActionResult> HandleUserRights()
+        {
+            bool isGunsmith = await this.gunsmithService.IsGunsmithAsync(User.GetId()!);
+            bool isAdmin = User.IsInRole(AdminRoleName);
+
+            if (!isGunsmith && !isAdmin)
+            {
+                TempData[ErrorMessage] = "You must become a Gunsmith in order to do this action!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            return Ok();
         }
     }
 }

@@ -47,6 +47,8 @@
             }
 
             user.HasGunsmithRequest = false;
+
+            await this.context.SaveChangesAsync();
         }
 
         public async Task<bool> IsGunsmithAsync(string userId)
@@ -74,6 +76,11 @@
 
         public async Task<bool> HasUserSentRequestAsync(string userId)
         {
+            if (userId == null)
+            {
+                return false;
+            }
+
             ApplicationUser? user = await this.context.Users
                 .FindAsync(Guid.Parse(userId));
 

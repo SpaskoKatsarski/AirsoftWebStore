@@ -1,12 +1,17 @@
 ﻿@model EquipmentDetailsViewModel
 
+@using AirsoftWebStore.Services.Contracts;
+@using AirsoftWebStore.Web.Infrastructure.Extensions;
 @using static AirsoftWebStore.Common.GeneralApplicationConstants;
+
+@inject IGunsmithService gunsmithService;
 
 @{
     ViewBag.Title = "Details";
 
     bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;
     bool isUserAdmin = isAuthenticated && User.IsInRole(AdminRoleName);
+    bool isUserGunsmith = isAuthenticated && await gunsmithService.IsGunsmithAsync(User.GetId()!);
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -20,7 +25,7 @@
         <h2>@Model.Name</h2>
         <p><strong>Description:</strong> @Model.Description</p>
         <p><strong>Price:</strong> $@Model.Price</p>
-        
+
         @if (Model.Quantity == 0)
         {
             <span class="text-secondary">*Out of Stock*</span>
@@ -28,7 +33,10 @@
         else
         {
             <p><strong>Availible:</strong> @Model.Quantity</p>
-            <a class="btn btn-primary" asp-controller="Cart" asp-action="AddToCart" asp-route-itemId="@Model.Id.ToString()" asp-route-quantity="1" asp-route-productType="equipment">Add to Cart</a>
+            if (!isUserAdmin)
+            {
+                <a class="btn btn-primary" asp-controller="Cart" asp-action="AddToCart" asp-route-itemId="@Model.Id.ToString()" asp-route-quantity="1" asp-route-productType="equipment">Add to Cart</a>
+            }
         }
     </div>
 </div>
@@ -39,7 +47,7 @@
     <a asp-controller="Equipment" asp-action="All" class="btn btn-warning fw-bold">Back to all</a>
 </div>
 
-@if (isUserAdmin)
+@if (isUserAdmin || isUserGunsmith)
 {
     <div style="margin-top: 20px;">
         <a asp-controller="Equipment" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-warning">Edit</a>

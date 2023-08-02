@@ -24,13 +24,19 @@
             return View(models);
         }
 
-        public async Task<IActionResult> Approve(string userId)
+        public async Task<IActionResult> Approve(string userId, string userEmail)
         {
+            if (await this.gunsmithService.IsGunsmithAsync(userId))
+            {
+                TempData[ErrorMessage] = "User is already a gunsmith!";
+
+                return RedirectToAction("Requests", "Admin");
+            }
+
             try
             {
                 await this.gunsmithService.BecomeGunsmithAsync(userId);
 
-                string userEmail = User.Identity!.Name!;
                 TempData[SuccessMessage] = $"User with email '{userEmail}' is now a Gunsmith!";
             }
             catch (Exception e)
@@ -41,13 +47,12 @@
             return RedirectToAction("Requests", "Admin");
         }
 
-        public async Task<IActionResult> Decline(string userId)
+        public async Task<IActionResult> Decline(string userId, string userEmail)
         {
             try
             {
                 await this.gunsmithService.RemoveRequestAsync(userId);
 
-                string userEmail = User.Identity!.Name!;
                 TempData[WarningMessage] = $"User with email '{userEmail}' was rejected!";
             }
             catch (Exception e)
