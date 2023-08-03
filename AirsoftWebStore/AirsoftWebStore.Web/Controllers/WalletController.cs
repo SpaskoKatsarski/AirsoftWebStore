@@ -52,7 +52,7 @@
                 await this.walletService.DepositToUserAccountAsync(userId, model.Money);
 
                 TempData[SuccessMessage] = $"You have successfuly made a ${model.Money:f2} deposit!";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("ViewCart", "Cart");
             }
             catch (Exception)
             {

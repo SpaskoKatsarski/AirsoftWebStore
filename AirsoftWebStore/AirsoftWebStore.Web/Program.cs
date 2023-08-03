@@ -32,6 +32,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
     options.LogoutPath = "/User/Logout";
+    options.AccessDeniedPath = "/Home/Error/401";
 });
 
 builder.Services.AddApplicationServices(typeof(IGunService));
