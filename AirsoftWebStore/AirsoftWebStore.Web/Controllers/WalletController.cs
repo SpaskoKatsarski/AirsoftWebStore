@@ -9,6 +9,7 @@
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Wallet;
     using static AirsoftWebStore.Common.NotificationMessages;
+    using static Common.GeneralApplicationConstants;
 
     [Authorize]
     public class WalletController : Controller
@@ -23,6 +24,12 @@
         [HttpGet]
         public async Task<IActionResult> Deposit()
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+                TempData[ErrorMessage] = "Admins cannot deposit money!";
+                return RedirectToAction("Index", "Home");
+            }
+
             string userId = this.User.GetId()!;
             decimal currentMoney = await this.walletService.GetMoneyForUserByIdAsync(userId);
             string email = this.User.FindFirst(ClaimTypes.Name)!.Value;
