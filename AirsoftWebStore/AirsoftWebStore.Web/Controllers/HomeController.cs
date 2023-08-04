@@ -1,12 +1,11 @@
 ﻿namespace AirsoftWebStore.Web.Controllers
 {
-    using System.Security.Claims;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Home;
+    using static Common.GeneralApplicationConstants;
 
     public class HomeController : Controller
     {
@@ -19,6 +18,11 @@
 
         public async Task<IActionResult> Index()
         {
+            if (User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
+
             IEnumerable<IndexViewModel> model = await this.gunService.GetTopThreeWithMostCountsAsync();
 
             return View(model);

@@ -36,4 +36,9 @@
     <_ContentIncludedByDefault Remove="Views\Equipment\Edit.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
 </Project>
