@@ -9,9 +9,5 @@
     [Authorize(Roles = AdminRoleName)]
     public class BaseAdminController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
     }
 }

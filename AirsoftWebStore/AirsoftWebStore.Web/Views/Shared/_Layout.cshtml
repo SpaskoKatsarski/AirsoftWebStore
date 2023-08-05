@@ -1,4 +1,4 @@
-﻿@using AirsoftWebStore.Services.Contracts;
+﻿﻿@using AirsoftWebStore.Services.Contracts;
 @using AirsoftWebStore.Web.Infrastructure.Extensions;
 @using static AirsoftWebStore.Common.GeneralApplicationConstants;
 
@@ -73,12 +73,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Consumative" asp-action="Add">Add Consumative</a>
                             </li>
-                            @if (isUserAdmin)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Requests">Requests</a>
-                                </li>
-                            }
                         }
 
                         @if (isAuthenticated && !isUserAdmin)

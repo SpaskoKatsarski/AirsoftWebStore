@@ -82,4 +82,4 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
-app.Run();
+await app.RunAsync();

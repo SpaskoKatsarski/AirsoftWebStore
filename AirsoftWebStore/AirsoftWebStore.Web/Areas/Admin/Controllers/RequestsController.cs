@@ -1,33 +1,24 @@
-﻿namespace AirsoftWebStore.Web.Controllers
+﻿namespace AirsoftWebStore.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
 
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Admin;
-    using static Common.NotificationMessages;
-    using static Common.GeneralApplicationConstants;
+    using static AirsoftWebStore.Common.NotificationMessages;
 
-    [Authorize]
-    public class AdminController : Controller
+    public class RequestsController : BaseAdminController
     {
         private readonly IAdminService adminService;
         private readonly IGunsmithService gunsmithService;
 
-        public AdminController(IAdminService adminService, IGunsmithService gunsmithService)
+        public RequestsController(IAdminService adminService, IGunsmithService gunsmithService)
         {
             this.adminService = adminService;
             this.gunsmithService = gunsmithService;
         }
 
-        public async Task<IActionResult> Requests()
+        public async Task<IActionResult> All()
         {
-            if (!User.IsInRole(AdminRoleName))
-            {
-                TempData[ErrorMessage] = "Only administrators have access to requests!";
-                return RedirectToAction("Index", "Home");
-            }
-
             IEnumerable<AllRequestsViewModel> models = await this.adminService.GetAllReqeustsAsync();
 
             return View(models);
@@ -35,12 +26,6 @@
 
         public async Task<IActionResult> Approve(string userId, string userEmail)
         {
-            if (!User.IsInRole(AdminRoleName))
-            {
-                TempData[ErrorMessage] = "Only administrators can approve requests!";
-                return RedirectToAction("Index", "Home");
-            }
-
             if (await this.gunsmithService.IsGunsmithAsync(userId))
             {
                 TempData[ErrorMessage] = "User is already a gunsmith!";
@@ -64,12 +49,6 @@
 
         public async Task<IActionResult> Decline(string userId, string userEmail)
         {
-            if (!User.IsInRole(AdminRoleName))
-            {
-                TempData[ErrorMessage] = "Only administrators can decline requests!";
-                return RedirectToAction("Index", "Home");
-            }
-
             try
             {
                 await this.gunsmithService.RemoveRequestAsync(userId);
