@@ -17,3 +17,10 @@ This is an Airsoft Store web application built using ASP.NET Core MVC. The appli
 - Cart Functionality
 - Gunsmith Request System
 - Admin Area for Administrators
+
+## Administrator Credentials
+
+To access the Administrator account and manage user requests, use the following credentials:
+
+- Email: `admin@soldier.eu`
+- Password: `admin123`
