@@ -5,6 +5,7 @@
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Admin;
     using static AirsoftWebStore.Common.NotificationMessages;
+    using static AirsoftWebStore.Common.GeneralApplicationConstants;
 
     public class RequestsController : BaseAdminController
     {
@@ -30,7 +31,7 @@
             {
                 TempData[ErrorMessage] = "User is already a gunsmith!";
 
-                return RedirectToAction("Requests", "Admin");
+                return RedirectToAction("All", "Requests", new { Area = AdminAreaName });
             }
 
             try
@@ -44,7 +45,7 @@
                 TempData[ErrorMessage] = e.Message;
             }
 
-            return RedirectToAction("Requests", "Admin");
+            return RedirectToAction("All", "Requests", new { Area = AdminAreaName });
         }
 
         public async Task<IActionResult> Decline(string userId, string userEmail)
@@ -60,7 +61,7 @@
                 TempData[ErrorMessage] = e.Message;
             }
 
-            return RedirectToAction("Requests", "Admin");
+            return RedirectToAction("All", "Requests", new { Area = AdminAreaName });
         }
     }
 }

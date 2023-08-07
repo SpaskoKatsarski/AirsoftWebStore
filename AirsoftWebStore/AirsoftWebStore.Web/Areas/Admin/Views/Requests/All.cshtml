@@ -15,8 +15,8 @@ else
         {
             <li class="list-group-item">
                 @request.Email (@request.FirstName @request.LastName)
-                <a asp-area="Admin" asp-controller="User" asp-action="Approve" asp-route-userId="@request.UserId" asp-route-userEmail="@request.Email" class="btn btn-success">Approve</a>
-                <a asp-area="Admin" asp-controller="User" asp-action="Decline" asp-route-userId="@request.UserId" asp-route-userEmail="@request.Email" class="btn btn-danger">Decline</a>
+                <a asp-area="Admin" asp-controller="Requests" asp-action="Approve" asp-route-userId="@request.UserId" asp-route-userEmail="@request.Email" class="btn btn-success">Approve</a>
+                <a asp-area="Admin" asp-controller="Requests" asp-action="Decline" asp-route-userId="@request.UserId" asp-route-userEmail="@request.Email" class="btn btn-danger">Decline</a>
             </li>
         }
     </ul>
