@@ -12,8 +12,15 @@ This is an Airsoft Store web application built using ASP.NET Core MVC. The appli
 - User Roles:
   - Normal User
   - Gunsmith (with additional product management privileges)
-  - Administrator (with approval/rejection authority)
+  - Administrator (with approval/rejection authority, user statistics and managing Gunsmiths)
 - Product Catalog
-- Cart Functionality
+- Cart and Deposit Money Functionality
 - Gunsmith Request System
 - Admin Area for Administrators
+
+## Administrator Credentials
+
+To access the Administrator account and manage user requests, use the following credentials:
+
+- Email: `admin@soldier.eu`
+- Password: `admin123`
