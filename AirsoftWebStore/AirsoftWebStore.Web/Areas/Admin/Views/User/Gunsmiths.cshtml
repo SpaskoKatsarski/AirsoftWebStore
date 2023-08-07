@@ -9,33 +9,40 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th><label>Email</label></th>
-            <th><label>Full Name</label></th>
-            <th><label>Online</label></th>
-            <th><label>Manage</label></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td><label>@user.Email</label></td>
-                <td><label>@user.FullName</label></td>
-                <td>
-                    @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
-                    {
-                        <label>✔</label>
-                    }
-                    else
-                    {
-                        <label>❌</label>
-                    }
-                </td>
-                <td><a asp-area="Admin" asp-controller="User" asp-action="RemoveGunsmith" asp-route-userId="@user.Id" asp-route-userEmail="@user.Email" class="btn btn-danger">Demote</a></td>
+                <th><label>Email</label></th>
+                <th><label>Full Name</label></th>
+                <th><label>Online</label></th>
+                <th><label>Manage</label></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td><label>@user.Email</label></td>
+                    <td><label>@user.FullName</label></td>
+                    <td>
+                        @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
+                        {
+                            <label>✔</label>
+                        }
+                        else
+                        {
+                            <label>❌</label>
+                        }
+                    </td>
+                    <td><a asp-area="Admin" asp-controller="User" asp-action="RemoveGunsmith" asp-route-userId="@user.Id" asp-route-userEmail="@user.Email" class="btn btn-danger">Demote</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-center">No gunsmiths</p>
+}

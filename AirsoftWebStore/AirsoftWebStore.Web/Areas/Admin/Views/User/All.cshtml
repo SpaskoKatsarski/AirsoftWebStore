@@ -9,42 +9,52 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th><label>Email</label></th>
-            <th><label>Full Name</label></th>
-            <th><label>Gunsmith</label></th>
-            <th><label>Online</label></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
+@if (Model.Any())
+{
+    <table class="table table-striped">
+
+        <thead>
             <tr>
-                <td><label>@user.Email</label></td>
-                <td><label>@user.FullName</label></td>
-                <td class="align-items-center">
-                    @if (user.IsGunsmith)
-                    {
-                        <label>✔</label>
-                    }
-                    else
-                    {
-                        <label>❌</label>
-                    }
-                </td>
-                <td>
-                    @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
-                    {
-                        <label>✔</label>
-                    }
-                    else
-                    {
-                        <label class="text-center">❌</label>
-                    }
-                </td>
+                <th><label>Email</label></th>
+                <th><label>Full Name</label></th>
+                <th><label>Gunsmith</label></th>
+                <th><label>Online</label></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td><label>@user.Email</label></td>
+                    <td><label>@user.FullName</label></td>
+                    <td class="align-items-center">
+                        @if (user.IsGunsmith)
+                        {
+                            <label>✔</label>
+                        }
+                        else
+                        {
+                            <label>❌</label>
+                        }
+                    </td>
+                    <td>
+                        @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
+                        {
+                            <label>✔</label>
+                        }
+                        else
+                        {
+                            <label class="text-center">❌</label>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-center">No users</p>
+}
