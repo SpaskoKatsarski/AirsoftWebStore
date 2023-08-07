@@ -23,7 +23,7 @@
                 {
                     Id = u.Id.ToString(),
                     Email = u.Email,
-                    FullName = u.FirstName + " " + u.LastName,
+                    FullName = $"{u.FirstName} {u.LastName}",
                     IsGunsmith = false
                 })
                 .ToListAsync();

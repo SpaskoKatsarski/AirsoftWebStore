@@ -1,8 +1,14 @@
 ﻿namespace AirsoftWebStore.Services.Contracts
 {
+    using AirsoftWebStore.Web.ViewModels.Gunsmith;
+
     public interface IGunsmithService
     {
+        Task<IEnumerable<GunsmithViewModel>> AllAsync();
+
         Task BecomeGunsmithAsync(string userId);
+
+        Task RemoveGunsmithAsync(string userId);
 
         Task RemoveRequestAsync(string userId);
 

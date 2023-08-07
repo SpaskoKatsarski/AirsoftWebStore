@@ -1,9 +1,9 @@
 ﻿@using AirsoftWebStore.Web.Infrastructure.Middlewares;
 
-@model IEnumerable<UserViewModel>
+@model IEnumerable<GunsmithViewModel>
 
 @{
-    ViewBag.Title = "All Users";
+    ViewBag.Title = "All Gunsmiths";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -14,8 +14,8 @@
         <tr>
             <th><label>Email</label></th>
             <th><label>Full Name</label></th>
-            <th><label>Gunsmith</label></th>
             <th><label>Online</label></th>
+            <th><label>Manage</label></th>
         </tr>
     </thead>
     <tbody>
@@ -24,8 +24,8 @@
             <tr>
                 <td><label>@user.Email</label></td>
                 <td><label>@user.FullName</label></td>
-                <td class="align-items-center">
-                    @if (user.IsGunsmith)
+                <td>
+                    @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
                     {
                         <label>✔</label>
                     }
@@ -34,16 +34,7 @@
                         <label>❌</label>
                     }
                 </td>
-                <td>
-                    @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
-                    {
-                        <label>✔</label>
-                    }
-                    else
-                    {
-                        <label class="text-center">❌</label>
-                    }
-                </td>
+                <td><a asp-area="Admin" asp-controller="User" asp-action="RemoveGunsmith" asp-route-userId="@user.Id" asp-route-userEmail="@user.Email" class="btn btn-danger">Demote</a></td>
             </tr>
         }
     </tbody>
