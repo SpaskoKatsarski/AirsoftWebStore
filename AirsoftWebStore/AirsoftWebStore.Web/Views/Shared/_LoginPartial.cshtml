@@ -7,13 +7,11 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserService UserService
 
-@{
-    string userFullName = await UserService.GetFullNameByEmailAsync(User.Identity?.Name!);
-}
-
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        string userFullName = await UserService.GetFullNameByEmailAsync(User.Identity?.Name!);
+
         <li class="nav-item">
             <a class="nav-link text-dark">Hello, @userFullName</a>
         </li>
