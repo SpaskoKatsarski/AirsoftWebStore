@@ -30,7 +30,7 @@
 
             foreach (UserViewModel user in users)
             {
-                bool isGunsmith = await this.context.Gunsmiths.AnyAsync(g => g.UserId.ToString() == user.Id)
+                bool isGunsmith = await this.context.Gunsmiths.AnyAsync(g => g.UserId.ToString() == user.Id);
 
                 if (isGunsmith)
                 {

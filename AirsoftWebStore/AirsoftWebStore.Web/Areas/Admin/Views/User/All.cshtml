@@ -1,5 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<UserViewModel>
+
 @{
+    ViewBag.Title = "All Users";
 }
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Email</label></th>
+            <th><label>Full Name</label></th>
+            <th><label>Gunsmith</label></th>
+            @*<th><label>Online</label></th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td><label>@user.Email</label></td>
+                <td><label>@user.FullName</label></td>
+                <td>
+                    @if (user.IsGunsmith)
+                    {
+                        <label>✔</label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
