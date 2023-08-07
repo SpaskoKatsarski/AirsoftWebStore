@@ -39,6 +39,8 @@
                 Id = Guid.Parse("8e445865-a24d-4543-a6c6-9443d048cdb9"), // primary key
                 UserName = AdminEmail,
                 NormalizedUserName = AdminEmail.ToUpper(),
+                Email = AdminEmail,
+                NormalizedEmail = AdminEmail.ToUpper(),
                 EmailConfirmed = false,
                 PasswordHash = hasher.HashPassword(null, "admin123"),
                 SecurityStamp = "1BC726483DA146C7AB96961EBD8FA88B",

@@ -8,8 +8,6 @@ using AirsoftWebStore.Web.Infrastructure.Extensions;
 using AirsoftWebStore.Services.Contracts;
 using AirsoftWebStore.Web.Infrastructure.ModelBinders;
 
-using static AirsoftWebStore.Common.GeneralApplicationConstants;
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -69,8 +67,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.EnableOnlineUsersCheck();
-
-//app.SeedAdministrator(AdminEmail);
 
 app.UseEndpoints(endpoints =>
 {
