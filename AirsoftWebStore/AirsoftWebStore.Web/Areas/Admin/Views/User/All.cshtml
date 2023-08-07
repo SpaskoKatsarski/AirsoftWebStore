@@ -1,4 +1,6 @@
-﻿@model IEnumerable<UserViewModel>
+﻿@using AirsoftWebStore.Web.Infrastructure.Middlewares;
+
+@model IEnumerable<UserViewModel>
 
 @{
     ViewBag.Title = "All Users";
@@ -13,7 +15,7 @@
             <th><label>Email</label></th>
             <th><label>Full Name</label></th>
             <th><label>Gunsmith</label></th>
-            @*<th><label>Online</label></th>*@
+            <th><label>Online</label></th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +26,16 @@
                 <td><label>@user.FullName</label></td>
                 <td>
                     @if (user.IsGunsmith)
+                    {
+                        <label>✔</label>
+                    }
+                    else
+                    {
+                        <label class="text-center">❌</label>
+                    }
+                </td>
+                <td>
+                    @if (OnlineUsersMiddleware.CheckIfUserIsOnline(user.Id))
                     {
                         <label>✔</label>
                     }

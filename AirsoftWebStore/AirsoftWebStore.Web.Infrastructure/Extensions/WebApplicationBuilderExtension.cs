@@ -7,6 +7,7 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using AirsoftWebStore.Data.Models;
+    using AirsoftWebStore.Web.Infrastructure.Middlewares;
     using static Common.GeneralApplicationConstants;
 
     public static class WebApplicationBuilderExtension
@@ -66,6 +67,11 @@
             .GetResult();
 
             return builder;
+        }
+
+        public static IApplicationBuilder EnableOnlineUsersCheck(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<OnlineUsersMiddleware>();
         }
     }
 }
