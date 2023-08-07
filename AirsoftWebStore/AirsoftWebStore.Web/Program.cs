@@ -70,7 +70,7 @@ app.UseAuthorization();
 
 app.EnableOnlineUsersCheck();
 
-app.SeedAdministrator(AdminEmail);
+//app.SeedAdministrator(AdminEmail);
 
 app.UseEndpoints(endpoints =>
 {
