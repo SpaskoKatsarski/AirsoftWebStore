@@ -21,7 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirsoftWebStore.Services", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirsoftWebStore.Web.Infrastructure", "AirsoftWebStore.Web.Infrastructure\AirsoftWebStore.Web.Infrastructure.csproj", "{EC6D4113-D3B7-46CF-9AAA-C5DD3F473C70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirsoftWebStore.Services.Models", "AirsoftWebStore.Services.Models\AirsoftWebStore.Services.Models.csproj", "{125E5B8D-DFFB-49F0-A2DA-45C21C2E8144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirsoftWebStore.Services.Models", "AirsoftWebStore.Services.Models\AirsoftWebStore.Services.Models.csproj", "{125E5B8D-DFFB-49F0-A2DA-45C21C2E8144}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5A7686FE-D9A3-46B9-8F43-4EC655EC724B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirsoftWebStore.Services.Tests", "AirsoftWebStore.Services.Tests\AirsoftWebStore.Services.Tests.csproj", "{CEBD0C90-7CE4-4F69-9A5C-E6B2329B92E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,10 @@ Global
 		{125E5B8D-DFFB-49F0-A2DA-45C21C2E8144}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{125E5B8D-DFFB-49F0-A2DA-45C21C2E8144}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{125E5B8D-DFFB-49F0-A2DA-45C21C2E8144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEBD0C90-7CE4-4F69-9A5C-E6B2329B92E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBD0C90-7CE4-4F69-9A5C-E6B2329B92E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBD0C90-7CE4-4F69-9A5C-E6B2329B92E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBD0C90-7CE4-4F69-9A5C-E6B2329B92E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +76,7 @@ Global
 		{C1666D8D-1357-4275-97AE-3B87802255DE} = {0DDA8CA6-A2DE-4AB5-91A7-3057A30BC424}
 		{EC6D4113-D3B7-46CF-9AAA-C5DD3F473C70} = {7F3CF3C3-4311-4A3D-A02C-8559936B5D87}
 		{125E5B8D-DFFB-49F0-A2DA-45C21C2E8144} = {0DDA8CA6-A2DE-4AB5-91A7-3057A30BC424}
+		{CEBD0C90-7CE4-4F69-9A5C-E6B2329B92E7} = {5A7686FE-D9A3-46B9-8F43-4EC655EC724B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D33CBBD-72C9-489E-A6BB-A436243B9EF3}

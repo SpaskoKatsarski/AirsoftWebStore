@@ -13,6 +13,10 @@
         public AirsoftStoreDbContext(DbContextOptions<AirsoftStoreDbContext> options)
             : base(options)
         {
+            if (!this.Database.IsRelational())
+            {
+                this.Database.EnsureCreated();
+            }
         }
 
         public DbSet<Gunsmith> Gunsmiths { get; set; } = null!;
