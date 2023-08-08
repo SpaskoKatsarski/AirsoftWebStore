@@ -19,6 +19,6 @@ namespace AirsoftWebStore.Web.ViewModels.Part
 
         public int Quantity { get; set; }
 
-        public int CategoryId { get; set; }
+        public string Category { get; set; }
     }
 }

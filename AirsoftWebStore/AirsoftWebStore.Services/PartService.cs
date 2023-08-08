@@ -89,6 +89,7 @@
             Part? part = await this.context.Parts
                 .AsNoTracking()
                 .Where(p => p.IsActive)
+                .Include(p => p.Category)
                 .FirstAsync(p => p.Id.ToString() == id);
 
             PartDetailViewModel partModel = new PartDetailViewModel()
@@ -100,7 +101,7 @@
                 ImageUrl = part.ImageUrl,
                 Price=  part.Price,
                 Quantity = part.Quantity,
-                CategoryId = part.CategoryId
+                Category = part.Category.Name
             };
             
             return partModel;
