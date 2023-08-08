@@ -46,8 +46,7 @@
                 User = GunsmithUser
             };
 
-            dbContext.Users.Add(GunsmithUser);
-            dbContext.Users.Add(NormalUser);
+            dbContext.Users.AddRange(GunsmithUser, NormalUser);
             dbContext.Gunsmiths.Add(Gunsmith);
 
             dbContext.SaveChanges();

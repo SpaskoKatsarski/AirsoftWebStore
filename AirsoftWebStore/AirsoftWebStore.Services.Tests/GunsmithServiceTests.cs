@@ -14,11 +14,6 @@ namespace AirsoftWebStore.Services.Tests
 
         private IGunsmithService gunsmithService;
 
-        public GunsmithServiceTests()
-        {
-
-        }
-
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
@@ -35,8 +30,9 @@ namespace AirsoftWebStore.Services.Tests
         [SetUp]
         public void SetUp()
         {
-            //this.dbContext = new AirsoftStoreDbContext(this.dbOptions);
-            //SeedDatabase(this.dbContext);
+            dbContext.Database.EnsureDeleted();
+            dbContext.Database.EnsureCreated();
+            SeedDatabase(this.dbContext);
         }
 
         [Test]
