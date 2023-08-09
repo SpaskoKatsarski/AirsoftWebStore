@@ -14,8 +14,8 @@
                 Id = 5,
                 Name = "Test-Rifle"
             };
-            dbContext.Categories.Add(Category);
 
+            dbContext.Categories.Add(Category);
             dbContext.SaveChanges();
         }
     }
