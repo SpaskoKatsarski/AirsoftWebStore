@@ -3,12 +3,9 @@
     using System.Reflection;
 
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
-    using AirsoftWebStore.Data.Models;
     using AirsoftWebStore.Web.Infrastructure.Middlewares;
-    using static Common.GeneralApplicationConstants;
 
     public static class WebApplicationBuilderExtension
     {
