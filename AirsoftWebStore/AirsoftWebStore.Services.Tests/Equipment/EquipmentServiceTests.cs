@@ -55,6 +55,7 @@
             Assert.AreEqual(count, expectedCount);
         }
 
+        // TODO: Check why in the service the methods do not execute and directly returns into the test method
         [Test]
         public async Task EditShouldWorkCorrectly()
         {
@@ -75,6 +76,13 @@
             string actualName = dbContext.Equipments.Find(Guid.Parse("be744b7acfef47f1a3f5fce7d1914a35"))!.Name;
 
             Assert.AreEqual(actualName, expectedName);
+        }
+
+        [Test]
+        public async Task DeleteShouldWorkCorrectly()
+        {
+            await this.equipmentService.DeleteAsync("be744b7acfef47f1a3f5fce7d1914a35");
+            Assert.IsFalse(Equipment.IsActive);
         }
     }
 }
