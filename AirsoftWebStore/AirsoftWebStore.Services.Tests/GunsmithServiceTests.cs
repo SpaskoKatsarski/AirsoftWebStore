@@ -14,7 +14,7 @@ namespace AirsoftWebStore.Services.Tests
 
         private IGunsmithService gunsmithService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void OneTimeSetup()
         {
             this.dbOptions = new DbContextOptionsBuilder<AirsoftStoreDbContext>()
@@ -27,10 +27,9 @@ namespace AirsoftWebStore.Services.Tests
             this.gunsmithService = new GunsmithService(this.dbContext);
         }
 
-        [SetUp]
-        public void SetUp()
+        [TearDown]
+        public void TearDown()
         {
-            dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
             SeedDatabase(this.dbContext);
         }
@@ -121,6 +120,73 @@ namespace AirsoftWebStore.Services.Tests
             await gunsmithService.RemoveRequestAsync(NormalUser.Id.ToString());
 
             Assert.IsFalse(NormalUser.HasGunsmithRequest);
+        }
+
+        [Test]
+        public void RemoveRequestShouldThrowWhenUserDoesntExist()
+        {
+            string invalidId = "X";
+
+            Assert.ThrowsAsync<Exception>(async Task () =>
+            {
+                await this.gunsmithService.RemoveRequestAsync(invalidId);
+            }, "User with the provided ID does not exist!");
+        }
+
+        [Test]
+        public async Task AddUserRequestShouldWorkWithExistingUser()
+        {
+            await this.gunsmithService.AddUserRequestAsync(NormalUser.Id.ToString());
+
+            Assert.IsTrue(NormalUser.HasGunsmithRequest);
+        }
+
+        [Test]
+        public void AddUserRequestShouldThrowWhenUserDoesntExist()
+        {
+            string invalidId = "X";
+
+            Assert.ThrowsAsync<Exception>(async Task () =>
+            {
+                await this.gunsmithService.AddUserRequestAsync(invalidId);
+            }, "User with the provided ID does not exist!");
+        }
+
+        [Test]
+        public async Task HasUserSentRequestShouldReturnTrueWhenHas()
+        {
+            NormalUser.HasGunsmithRequest = true;
+
+            bool hasSent = await this.gunsmithService.HasUserSentRequestAsync(NormalUser.Id.ToString());
+
+            Assert.IsTrue(hasSent);
+        }
+
+        [Test]
+        public async Task HasUserSentRequestShouldReturnFalseWhenHasNot()
+        {
+            bool hasSent = await this.gunsmithService.HasUserSentRequestAsync(NormalUser.Id.ToString());
+
+            Assert.IsFalse(hasSent);
+        }
+
+        [Test]
+        public async Task HasUserSentRequestShouldReturnFalseWhenIdIsNotProvided()
+        {
+            bool hasSent = await this.gunsmithService.HasUserSentRequestAsync(null);
+
+            Assert.IsFalse(hasSent);
+        }
+
+        [Test]
+        public void HasUserSentRequestShouldThrowWhenIdIsInvalid()
+        {
+            string invalidId = "X";
+
+            Assert.ThrowsAsync<Exception>(async Task () =>
+            {
+                await this.gunsmithService.HasUserSentRequestAsync(invalidId);
+            }, "User with the provided ID does not exist!");
         }
     }
 }

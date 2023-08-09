@@ -77,15 +77,17 @@
 
         public async Task RemoveRequestAsync(string userId)
         {
-            ApplicationUser? user = await this.context.Users
-                .FindAsync(Guid.Parse(userId));
-
-            if (user == null)
+            bool exists = await this.context.Users
+                .AnyAsync(u => u.Id.ToString() == userId);
+            if (!exists)
             {
                 throw new Exception("User with the provided ID does not exist!");
             }
 
-            user.HasGunsmithRequest = false;
+            ApplicationUser? user = await this.context.Users
+                .FindAsync(Guid.Parse(userId));
+
+            user!.HasGunsmithRequest = false;
 
             await this.context.SaveChangesAsync();
         }
@@ -100,15 +102,17 @@
 
         public async Task AddUserRequestAsync(string userId)
         {
-            ApplicationUser? user = await this.context.Users
-                .FindAsync(Guid.Parse(userId));
-
-            if (user == null)
+            bool exists = await this.context.Users
+                .AnyAsync(u => u.Id.ToString() == userId);
+            if (!exists)
             {
                 throw new Exception("User with the provided ID does not exist!");
             }
 
-            user.HasGunsmithRequest = true;
+            ApplicationUser? user = await this.context.Users
+                .FindAsync(Guid.Parse(userId));
+
+            user!.HasGunsmithRequest = true;
 
             await this.context.SaveChangesAsync();
         }
@@ -120,15 +124,17 @@
                 return false;
             }
 
-            ApplicationUser? user = await this.context.Users
-                .FindAsync(Guid.Parse(userId));
-
-            if (user == null)
+            bool exists = await this.context.Users
+                .AnyAsync(u => u.Id.ToString() == userId);
+            if (!exists)
             {
                 throw new Exception("User with the provided ID does not exist!");
             }
 
-            return user.HasGunsmithRequest!;
+            ApplicationUser? user = await this.context.Users
+                .FindAsync(Guid.Parse(userId));
+
+            return user!.HasGunsmithRequest!;
         }
     }
 }

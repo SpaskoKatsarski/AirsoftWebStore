@@ -1,9 +1,10 @@
 ﻿namespace AirsoftWebStore.Services
 {
+    using Microsoft.EntityFrameworkCore;
+
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Category;
-    using Microsoft.EntityFrameworkCore;
 
     public class CategoryService : ICategoryService
     {
