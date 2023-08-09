@@ -5,7 +5,7 @@ namespace AirsoftWebStore.Services.Tests
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Gunsmith;
-    using static DatabaseSeeder;
+    using static GunsmithDatabaseSeeder;
 
     public class GunsmithServiceTests
     {
@@ -15,14 +15,14 @@ namespace AirsoftWebStore.Services.Tests
         private IGunsmithService gunsmithService;
 
         [SetUp]
-        public void OneTimeSetup()
+        public void SetUp()
         {
             this.dbOptions = new DbContextOptionsBuilder<AirsoftStoreDbContext>()
                 .UseInMemoryDatabase("AirsoftStoreInMemory" + Guid.NewGuid().ToString())
                 .Options;
 
             this.dbContext = new AirsoftStoreDbContext(this.dbOptions);
-            SeedDatabase(this.dbContext);
+            SeedDatabaseForGunsmith(this.dbContext);
 
             this.gunsmithService = new GunsmithService(this.dbContext);
         }
@@ -30,8 +30,8 @@ namespace AirsoftWebStore.Services.Tests
         [TearDown]
         public void TearDown()
         {
-            dbContext.Database.EnsureCreated();
-            SeedDatabase(this.dbContext);
+            this.dbContext.Database.EnsureCreated();
+            SeedDatabaseForGunsmith(this.dbContext);
         }
 
         [Test]

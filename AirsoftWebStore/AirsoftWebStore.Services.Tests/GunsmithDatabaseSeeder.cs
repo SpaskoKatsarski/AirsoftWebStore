@@ -3,14 +3,15 @@
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Data.Models;
 
-    public static class DatabaseSeeder
+    public static class GunsmithDatabaseSeeder
     {
         public static ApplicationUser GunsmithUser;
         public static ApplicationUser NormalUser;
         public static Gunsmith Gunsmith;
 
-        public static void SeedDatabase(AirsoftStoreDbContext dbContext)
+        public static void SeedDatabaseForGunsmith(AirsoftStoreDbContext dbContext)
         {
+            // GunsmithService data seeding
             GunsmithUser = new ApplicationUser()
             {
                 UserName = "Pesho",
