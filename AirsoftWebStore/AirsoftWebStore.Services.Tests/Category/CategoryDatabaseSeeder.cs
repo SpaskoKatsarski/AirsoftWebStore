@@ -1,4 +1,4 @@
-﻿namespace AirsoftWebStore.Services.Tests
+﻿namespace AirsoftWebStore.Services.Tests.Category
 {
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Data.Models;

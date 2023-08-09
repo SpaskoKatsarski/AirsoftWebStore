@@ -1,4 +1,4 @@
-﻿namespace AirsoftWebStore.Services.Tests
+﻿namespace AirsoftWebStore.Services.Tests.Gunsmith
 {
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Data.Models;
@@ -11,7 +11,6 @@
 
         public static void SeedDatabaseForGunsmith(AirsoftStoreDbContext dbContext)
         {
-            // GunsmithService data seeding
             GunsmithUser = new ApplicationUser()
             {
                 UserName = "Pesho",

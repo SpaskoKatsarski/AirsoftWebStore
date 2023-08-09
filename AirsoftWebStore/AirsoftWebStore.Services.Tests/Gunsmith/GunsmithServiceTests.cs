@@ -1,4 +1,4 @@
-namespace AirsoftWebStore.Services.Tests
+namespace AirsoftWebStore.Services.Tests.Gunsmith
 {
     using Microsoft.EntityFrameworkCore;
 
@@ -17,21 +17,21 @@ namespace AirsoftWebStore.Services.Tests
         [SetUp]
         public void SetUp()
         {
-            this.dbOptions = new DbContextOptionsBuilder<AirsoftStoreDbContext>()
+            dbOptions = new DbContextOptionsBuilder<AirsoftStoreDbContext>()
                 .UseInMemoryDatabase("AirsoftStoreInMemory" + Guid.NewGuid().ToString())
                 .Options;
 
-            this.dbContext = new AirsoftStoreDbContext(this.dbOptions);
-            SeedDatabaseForGunsmith(this.dbContext);
+            dbContext = new AirsoftStoreDbContext(dbOptions);
+            SeedDatabaseForGunsmith(dbContext);
 
-            this.gunsmithService = new GunsmithService(this.dbContext);
+            gunsmithService = new GunsmithService(dbContext);
         }
 
         [TearDown]
         public void TearDown()
         {
-            this.dbContext.Database.EnsureCreated();
-            SeedDatabaseForGunsmith(this.dbContext);
+            dbContext.Database.EnsureCreated();
+            SeedDatabaseForGunsmith(dbContext);
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace AirsoftWebStore.Services.Tests
         {
             string userId = GunsmithUser.Id.ToString();
 
-            bool result = await this.gunsmithService.IsGunsmithAsync(userId);
+            bool result = await gunsmithService.IsGunsmithAsync(userId);
 
             Assert.IsTrue(result);
         }
@@ -49,7 +49,7 @@ namespace AirsoftWebStore.Services.Tests
         {
             string userId = NormalUser.Id.ToString();
 
-            bool result = await this.gunsmithService.IsGunsmithAsync(userId);
+            bool result = await gunsmithService.IsGunsmithAsync(userId);
 
             Assert.IsFalse(result);
         }
@@ -57,10 +57,10 @@ namespace AirsoftWebStore.Services.Tests
         [Test]
         public async Task AllShouldReturnAllGunsmiths()
         {
-            ICollection<GunsmithViewModel> gunsmiths = (ICollection<GunsmithViewModel>)await this.gunsmithService.AllAsync();
+            ICollection<GunsmithViewModel> gunsmiths = (ICollection<GunsmithViewModel>)await gunsmithService.AllAsync();
 
             int returnedCount = gunsmiths.Count();
-            int actualCount = this.dbContext.Gunsmiths.Count();
+            int actualCount = dbContext.Gunsmiths.Count();
 
             Assert.AreEqual(returnedCount, actualCount);
         }
@@ -73,7 +73,7 @@ namespace AirsoftWebStore.Services.Tests
 
             // Act
             await gunsmithService.BecomeGunsmithAsync(userId);
-            bool isUserGunsmith = await this.gunsmithService.IsGunsmithAsync(userId);
+            bool isUserGunsmith = await gunsmithService.IsGunsmithAsync(userId);
 
             // Assert
             Assert.IsFalse(NormalUser.HasGunsmithRequest);
@@ -85,7 +85,7 @@ namespace AirsoftWebStore.Services.Tests
         {
             await gunsmithService.RemoveGunsmithAsync(GunsmithUser.Id.ToString());
 
-            bool isGunsmith = await this.gunsmithService.IsGunsmithAsync(GunsmithUser.Id.ToString());
+            bool isGunsmith = await gunsmithService.IsGunsmithAsync(GunsmithUser.Id.ToString());
 
             Assert.IsFalse(isGunsmith);
         }
@@ -97,7 +97,7 @@ namespace AirsoftWebStore.Services.Tests
 
             Assert.ThrowsAsync<Exception>(async Task () =>
             {
-                await this.gunsmithService.RemoveGunsmithAsync(invalidId);
+                await gunsmithService.RemoveGunsmithAsync(invalidId);
             }, "User with the provided ID does not exist!");
         }
 
@@ -108,7 +108,7 @@ namespace AirsoftWebStore.Services.Tests
 
             Assert.ThrowsAsync<Exception>(async Task () =>
             {
-                await this.gunsmithService.RemoveGunsmithAsync(notGunsmithId);
+                await gunsmithService.RemoveGunsmithAsync(notGunsmithId);
             }, "Gunsmith with the provided ID does not exist!");
         }
 
@@ -129,14 +129,14 @@ namespace AirsoftWebStore.Services.Tests
 
             Assert.ThrowsAsync<Exception>(async Task () =>
             {
-                await this.gunsmithService.RemoveRequestAsync(invalidId);
+                await gunsmithService.RemoveRequestAsync(invalidId);
             }, "User with the provided ID does not exist!");
         }
 
         [Test]
         public async Task AddUserRequestShouldWorkWithExistingUser()
         {
-            await this.gunsmithService.AddUserRequestAsync(NormalUser.Id.ToString());
+            await gunsmithService.AddUserRequestAsync(NormalUser.Id.ToString());
 
             Assert.IsTrue(NormalUser.HasGunsmithRequest);
         }
@@ -148,7 +148,7 @@ namespace AirsoftWebStore.Services.Tests
 
             Assert.ThrowsAsync<Exception>(async Task () =>
             {
-                await this.gunsmithService.AddUserRequestAsync(invalidId);
+                await gunsmithService.AddUserRequestAsync(invalidId);
             }, "User with the provided ID does not exist!");
         }
 
@@ -157,7 +157,7 @@ namespace AirsoftWebStore.Services.Tests
         {
             NormalUser.HasGunsmithRequest = true;
 
-            bool hasSent = await this.gunsmithService.HasUserSentRequestAsync(NormalUser.Id.ToString());
+            bool hasSent = await gunsmithService.HasUserSentRequestAsync(NormalUser.Id.ToString());
 
             Assert.IsTrue(hasSent);
         }
@@ -165,7 +165,7 @@ namespace AirsoftWebStore.Services.Tests
         [Test]
         public async Task HasUserSentRequestShouldReturnFalseWhenHasNot()
         {
-            bool hasSent = await this.gunsmithService.HasUserSentRequestAsync(NormalUser.Id.ToString());
+            bool hasSent = await gunsmithService.HasUserSentRequestAsync(NormalUser.Id.ToString());
 
             Assert.IsFalse(hasSent);
         }
@@ -173,7 +173,7 @@ namespace AirsoftWebStore.Services.Tests
         [Test]
         public async Task HasUserSentRequestShouldReturnFalseWhenIdIsNotProvided()
         {
-            bool hasSent = await this.gunsmithService.HasUserSentRequestAsync(null);
+            bool hasSent = await gunsmithService.HasUserSentRequestAsync(null);
 
             Assert.IsFalse(hasSent);
         }
@@ -185,7 +185,7 @@ namespace AirsoftWebStore.Services.Tests
 
             Assert.ThrowsAsync<Exception>(async Task () =>
             {
-                await this.gunsmithService.HasUserSentRequestAsync(invalidId);
+                await gunsmithService.HasUserSentRequestAsync(invalidId);
             }, "User with the provided ID does not exist!");
         }
     }

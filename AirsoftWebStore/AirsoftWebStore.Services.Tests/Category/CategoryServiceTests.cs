@@ -1,4 +1,4 @@
-﻿namespace AirsoftWebStore.Services.Tests
+﻿namespace AirsoftWebStore.Services.Tests.Category
 {
     using Microsoft.EntityFrameworkCore;
 
@@ -18,23 +18,23 @@
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            this.dbOptions = new DbContextOptionsBuilder<AirsoftStoreDbContext>()
+            dbOptions = new DbContextOptionsBuilder<AirsoftStoreDbContext>()
                 .UseInMemoryDatabase("AirsoftStoreInMemory" + Guid.NewGuid().ToString())
                 .Options;
 
-            this.dbContext = new AirsoftStoreDbContext(dbOptions);
-            SeedDatabaseForCategory(this.dbContext);
+            dbContext = new AirsoftStoreDbContext(dbOptions);
+            SeedDatabaseForCategory(dbContext);
 
-            this.categoryService = new CategoryService(dbContext);
+            categoryService = new CategoryService(dbContext);
         }
 
         [Test]
         public async Task AllShouldReturnCorrectCount()
         {
-            ICollection<CategoryFormViewModel> models = (ICollection<CategoryFormViewModel>)await this.categoryService.AllAsync();
+            ICollection<CategoryFormViewModel> models = (ICollection<CategoryFormViewModel>)await categoryService.AllAsync();
 
             int actualCount = models.Count();
-            int expectedCount = this.dbContext.Categories.Count();
+            int expectedCount = dbContext.Categories.Count();
 
             Assert.AreEqual(actualCount, expectedCount);
         }
@@ -42,10 +42,10 @@
         [Test]
         public async Task AllNamesShouldReturnCorrectCount()
         {
-            ICollection<string> models = (ICollection<string>)await this.categoryService.AllNamesAsync();
+            ICollection<string> models = (ICollection<string>)await categoryService.AllNamesAsync();
 
             int actualCount = models.Count();
-            int expectedCount = this.dbContext.Categories.Count();
+            int expectedCount = dbContext.Categories.Count();
 
             Assert.AreEqual(actualCount, expectedCount);
         }
@@ -53,7 +53,7 @@
         [Test]
         public async Task ExistsByIdShouldReturnTrueWhenExists()
         {
-            bool result = await this.categoryService.ExistsByIdAsync(5);
+            bool result = await categoryService.ExistsByIdAsync(5);
 
             Assert.IsTrue(result);
         }
@@ -61,7 +61,7 @@
         [Test]
         public async Task ExistsByIdShouldReturnFalseWhenDoesntExist()
         {
-            bool result = await this.categoryService.ExistsByIdAsync(10);
+            bool result = await categoryService.ExistsByIdAsync(10);
 
             Assert.IsFalse(result);
         }
