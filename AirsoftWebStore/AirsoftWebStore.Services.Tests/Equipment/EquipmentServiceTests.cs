@@ -84,5 +84,13 @@
             await this.equipmentService.DeleteAsync("be744b7acfef47f1a3f5fce7d1914a35");
             Assert.IsFalse(Equipment.IsActive);
         }
+
+        [Test]
+        public async Task ExistsByIdShouldReturnTrueWhenExists()
+        {
+            bool result = await this.equipmentService.ExistsByIdAsync("be744b7acfef47f1a3f5fce7d1914a35");
+
+            Assert.IsTrue(result);
+        }
     }
 }
