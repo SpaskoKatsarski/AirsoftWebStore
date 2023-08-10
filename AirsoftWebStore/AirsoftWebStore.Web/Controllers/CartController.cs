@@ -134,9 +134,16 @@
 
         public async Task<IActionResult> RemoveItem(string itemId)
         {
-            await this.cartService.RemoveItemFromCart(itemId);
+            try
+            {
+                await this.cartService.RemoveItemFromCart(itemId);
 
-            return RedirectToAction("ViewCart", "Cart");
+                return RedirectToAction("ViewCart", "Cart");
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
 
         public async Task<IActionResult> PurchaseAll()
