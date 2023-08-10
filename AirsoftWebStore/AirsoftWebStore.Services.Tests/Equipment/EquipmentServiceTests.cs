@@ -32,6 +32,8 @@
         {
             dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
+            // TODO: Check why the db context is the original but not the inMemory one
+            SeedDatabaseForEquipment(this.dbContext);
         }
 
         [Test]
@@ -50,9 +52,9 @@
 
             await this.equipmentService.AddAsync(model);
 
-            int count = dbContext.Equipments.Count();
+            int actualCount = dbContext.Equipments.Count();
 
-            Assert.AreEqual(count, expectedCount);
+            Assert.AreEqual(actualCount, expectedCount);
         }
 
         // TODO: Check why in the service the methods do not execute and directly returns into the test method
