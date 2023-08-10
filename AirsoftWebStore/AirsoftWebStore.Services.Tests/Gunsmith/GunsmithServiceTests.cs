@@ -14,8 +14,8 @@ namespace AirsoftWebStore.Services.Tests.Gunsmith
 
         private IGunsmithService gunsmithService;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
             dbOptions = new DbContextOptionsBuilder<AirsoftStoreDbContext>()
                 .UseInMemoryDatabase("AirsoftStoreInMemory" + Guid.NewGuid().ToString())

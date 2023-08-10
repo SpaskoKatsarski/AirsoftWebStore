@@ -5,17 +5,17 @@
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Web.ViewModels.Equipment;
-    using static EquipmentDatabaseSeeder;
+    using static ConsumativeDatabaseSeeder;
 
-    public class EquipmentServiceTests
+    public class ConsumativeServiceTests
     {
         private DbContextOptions<AirsoftStoreDbContext> dbOptions;
         private AirsoftStoreDbContext dbContext;
 
         private IEquipmentService equipmentService;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
         {
             dbOptions = new DbContextOptionsBuilder<AirsoftStoreDbContext>()
                 .UseInMemoryDatabase("AirsoftStoreInMemory" + Guid.NewGuid().ToString())
@@ -32,7 +32,6 @@
         {
             dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
-            // TODO: Check why the db context is the original but not the inMemory one
             SeedDatabaseForEquipment(this.dbContext);
         }
 
@@ -57,7 +56,6 @@
             Assert.AreEqual(actualCount, expectedCount);
         }
 
-        // TODO: Check why in the service the methods do not execute and directly returns into the test method
         [Test]
         public async Task EditShouldWorkCorrectly()
         {
@@ -65,7 +63,7 @@
 
             EquipmentFormViewModel model = new EquipmentFormViewModel()
             {
-                Id = "be744b7acfef47f1a3f5fce7d1914a35",
+                Id = Equipment.Id.ToString(),
                 Name = "Test",
                 Description = "Testtestetetetetetetaetetetetetetetetetetetetetete",
                 ImageUrl = "https://static2.gunfire.com/eng_pm_Large-tear-off-first-aid-kit-Black-1152235193_1.webp",
@@ -75,7 +73,7 @@
 
             await this.equipmentService.EditAsync(model);
 
-            string actualName = dbContext.Equipments.Find(Guid.Parse("be744b7acfef47f1a3f5fce7d1914a35"))!.Name;
+            string actualName = dbContext.Equipments.Find(Guid.Parse(Equipment.Id.ToString()))!.Name;
 
             Assert.AreEqual(actualName, expectedName);
         }
@@ -83,14 +81,14 @@
         [Test]
         public async Task DeleteShouldWorkCorrectly()
         {
-            await this.equipmentService.DeleteAsync("be744b7acfef47f1a3f5fce7d1914a35");
+            await this.equipmentService.DeleteAsync(Equipment.Id.ToString());
             Assert.IsFalse(Equipment.IsActive);
         }
 
         [Test]
         public async Task ExistsByIdShouldReturnTrueWhenExists()
         {
-            bool result = await this.equipmentService.ExistsByIdAsync("be744b7acfef47f1a3f5fce7d1914a35");
+            bool result = await this.equipmentService.ExistsByIdAsync(Equipment.Id.ToString());
 
             Assert.IsTrue(result);
         }
