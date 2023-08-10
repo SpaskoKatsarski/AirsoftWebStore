@@ -18,7 +18,6 @@
             this.context = context;
         }
 
-        // Add configuration for Consumatives beacuse IsActive will be false by default
         public async Task<AllConsumativesFilteredAndSortedServiceModel> AllAsync(AllConsumativesQueryModel queryModel)
         {
             IQueryable<Consumative> consumativesQuery = this.context.Consumatives

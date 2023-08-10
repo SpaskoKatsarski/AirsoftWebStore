@@ -131,5 +131,39 @@
 
             Assert.IsFalse(exists);
         }
+
+        [Test]
+        public async Task ExistsByNameAsyncShouldReturnTrueWhenExists()
+        {
+            bool exists = await this.consumativeService.ExistsByNameAsync(Consumative.Name);
+
+            Assert.IsTrue(exists);
+        }
+
+        [Test]
+        public async Task ExistsByNameAsyncShouldReturnFalseWhenDoesntExist()
+        {
+            const string invalidName = "X";
+
+            bool result = await this.consumativeService.ExistsByNameAsync(invalidName);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public async Task GetCurrentNameShouldReturnCorrectName()
+        {
+            string name = await this.consumativeService.GetCurrentNameAsync(Consumative.Id.ToString());
+
+            Assert.AreEqual(name, Consumative.Name);
+        }
+
+        [Test]
+        public async Task GetConsumativeByIdShouldWorkCorrectly()
+        {
+            Data.Models.Consumative consumative = await this.consumativeService.GetConsumativeByIdAsync(Consumative.Id.ToString());
+
+            Assert.AreEqual(consumative.Id.ToString(), Consumative.Id.ToString());
+        }
     }
 }
