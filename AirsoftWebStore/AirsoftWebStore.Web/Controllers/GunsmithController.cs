@@ -27,6 +27,7 @@
 
             bool isGunsmith = await this.gunsmithService.IsGunsmithAsync(userId);
             bool isAdmin = User.IsInRole(AdminRoleName);
+            bool hasSent = await this.gunsmithService.HasUserSentRequestAsync(userId);
 
             try
             {
@@ -38,6 +39,11 @@
                 if (isAdmin)
                 {
                     throw new Exception("Admins cannot become a Gunsmith!");
+                }
+
+                if (hasSent)
+                {
+                    throw new Exception("You have already sent a request for Gunsmith!");
                 }
 
                 await this.gunsmithService.AddUserRequestAsync(userId);
