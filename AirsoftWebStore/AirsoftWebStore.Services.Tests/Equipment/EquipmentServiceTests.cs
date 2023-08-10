@@ -92,5 +92,78 @@
 
             Assert.IsTrue(result);
         }
+
+        [Test]
+        public async Task ExistsByIdShouldReturnFalseWhenDoesntExist()
+        {
+            const string invalidId = "X";
+
+            bool result = await this.equipmentService.ExistsByIdAsync(invalidId);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public async Task ExistsByNameShouldReturnTrueWhenExists()
+        {
+            bool result = await this.equipmentService.ExistsByNameAsync(Equipment.Name);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task ExistsByNameShouldReturnFalseWhenDoesntExist()
+        {
+            const string invalidName = "X";
+
+            bool result = await this.equipmentService.ExistsByNameAsync(invalidName);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public async Task GetForDetailsShouldReturnViewModelWithSameId()
+        {
+            EquipmentDetailsViewModel model = await this.equipmentService.GetForDetailsAsync(Equipment.Id.ToString());
+
+            Assert.AreEqual(model.Id, Equipment.Id.ToString());
+        }
+
+        [Test]
+        public async Task GetForEditShouldReturnViewModelWithSameId()
+        {
+            EquipmentFormViewModel model = await this.equipmentService.GetForEditAsync(Equipment.Id.ToString());
+
+            Assert.AreEqual(model.Id, Equipment.Id.ToString());
+        }
+
+        [Test]
+        public async Task GetForDeleteShouldReturnViewModelWithSameId()
+        {
+            EquipmentDeleteViewModel model = await this.equipmentService.GetForDeleteAsync(Equipment.Id.ToString());
+
+            string id = dbContext.Equipments
+                .Where(e => e.Name == model.Name && e.Id.ToString() == Equipment.Id.ToString())
+                .First()
+                .Id.ToString();
+
+            Assert.AreEqual(id, Equipment.Id.ToString());
+        }
+
+        [Test]
+        public async Task GetCurrentNameShouldWorkCorrect()
+        {
+            string actualName = await this.equipmentService.GetCurrentNameAsync(Equipment.Id.ToString());
+
+            Assert.AreEqual(actualName, Equipment.Name);
+        }
+
+        [Test]
+        public async Task GetEquipmentByIdShouldReturnCorrectEquipment()
+        {
+            Data.Models.Equipment equipment = await this.equipmentService.GetEquipmentByIdAsync(Equipment.Id.ToString());
+
+            Assert.AreEqual(equipment.Id.ToString(), Equipment.Id.ToString());
+        }
     }
 }

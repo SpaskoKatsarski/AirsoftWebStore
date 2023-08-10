@@ -3,7 +3,7 @@
     using Data;
     using Data.Models;
 
-    public class ConsumativeDatabaseSeeder
+    public static class ConsumativeDatabaseSeeder
     {
         public static Equipment Equipment;
 
