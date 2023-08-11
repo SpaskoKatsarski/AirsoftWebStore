@@ -210,7 +210,41 @@
                 .ThenInclude(c => c.Consumative)
                 .FirstAsync(c => c.BuyerId.ToString() == userId);
 
+            await this.RemoveUnavailibleItems(cart);
+
             return cart;
+        }
+
+        private async Task RemoveUnavailibleItems(Cart cart)
+        {
+            foreach (CartItem item in cart.CartItems)
+            {
+                string? itemType = this.GetTypeOfItem(item);
+                bool exists = false;
+
+                if (itemType == "gun")
+                {
+                    exists = await this.CheckIfItemStllExists(item.GunId.ToString()!, itemType);
+                }
+                else if (itemType == "part")
+                {
+                    exists = await this.CheckIfItemStllExists(item.PartId.ToString()!, itemType);
+                }
+                else if (itemType == "equipment")
+                {
+                    exists = await this.CheckIfItemStllExists(item.EquipmentId.ToString(), itemType);
+                }
+                else if (itemType == "consumative")
+                {
+                    exists = await this.CheckIfItemStllExists(item.ConsumativeId.ToString(), itemType);
+                }
+
+                if (!exists)
+                {
+                    context.CartItems.Remove(item);
+                    await this.context.SaveChangesAsync();
+                }
+            }
         }
 
         public async Task<CartViewModel> GetCartForVisualizationAsync(string userId)
@@ -296,6 +330,39 @@
             this.context.CartItems.RemoveRange(cart.CartItems);
 
             await this.context.SaveChangesAsync();
+        }
+
+        private async Task<bool> CheckIfItemStllExists(string id, string productType)
+        {
+            if (productType == "gun")
+            {
+                return await this.context.Guns
+                    .Where(g => g.IsActive)
+                    .AnyAsync(g => g.Id.ToString() == id);
+            }
+
+            if (productType == "part")
+            {
+                return await this.context.Parts
+                    .Where(p => p.IsActive)
+                    .AnyAsync(p => p.Id.ToString() == id);
+            }
+
+            if (productType == "equipment")
+            {
+                return await this.context.Equipments
+                    .Where(e => e.IsActive)
+                    .AnyAsync(e => e.Id.ToString() == id);
+            }
+
+            if (productType == "consumative")
+            {
+                return await this.context.Consumatives
+                    .Where(c => c.IsActive)
+                    .AnyAsync(c => c.Id.ToString() == id);
+            }
+
+            return false;
         }
 
         private string? GetTypeOfItem(CartItem item)

@@ -62,9 +62,9 @@
                         @if (isUserAdmin || isUserGunsmith)
                         {
                             <li class="nav-item dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton">
+                                <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuButton" style="cursor: pointer;">
                                     Add
-                                </button>
+                                </a>
                                 <div id="dropdownItems" class="dropdown-menu">
                                     <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Gun" asp-action="Add">Replica</a>
                                     <a class="dropdown-item nav-link text-dark" asp-area="" asp-controller="Part" asp-action="Add">Part</a>
