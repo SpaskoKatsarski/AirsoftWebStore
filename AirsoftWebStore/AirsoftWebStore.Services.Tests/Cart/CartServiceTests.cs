@@ -52,6 +52,24 @@
         }
 
         [Test]
+        public async Task RemoveItemFromCartShouldRemoveItem()
+        {
+            const int expectedItemsCount = 0;
+
+            CartItem cartItem = new CartItem()
+            {
+                Equipment = CartDatabaseSeeder.Equipment,
+                Quantity = 1
+            };
+
+            await this.cartService.AddItemAsync(cartItem, User.Id.ToString());
+            await this.cartService.RemoveItemFromCart(cartItem.Id.ToString());
+            int acutalItemsCount = (await this.cartService.GetCartForUserAsync(User.Id.ToString())).CartItems.Count;
+
+            Assert.AreEqual(expectedItemsCount, acutalItemsCount);
+        }
+
+        [Test]
         public async Task AddItemShouldAddTheItemIfDoesntExistInCart()
         {
             const int expectedItemsCount = 1;
@@ -172,7 +190,8 @@
         {
             await this.cartService.CreateCartForUserAsync(User.Id.ToString());
 
-            Assert.ThrowsAsync<ArgumentException>(async () => {
+            Assert.ThrowsAsync<ArgumentException>(async () =>
+            {
                 await this.cartService.CreateCartForUserAsync(User.Id.ToString());
             }, "User already has a cart!");
         }
@@ -182,7 +201,8 @@
         {
             const string invalidUserId = "X";
 
-            Assert.ThrowsAsync<Exception>(async () => {
+            Assert.ThrowsAsync<Exception>(async () =>
+            {
                 await this.cartService.CreateCartForUserAsync(invalidUserId);
             }, "User does not exist!");
         }
