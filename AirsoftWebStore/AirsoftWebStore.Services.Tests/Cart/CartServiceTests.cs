@@ -5,7 +5,6 @@
     using AirsoftWebStore.Data;
     using AirsoftWebStore.Services.Contracts;
     using AirsoftWebStore.Data.Models;
-    using AirsoftWebStore.Web.ViewModels.Cart;
     using static CartDatabaseSeeder;
 
     public class CartServiceTests
