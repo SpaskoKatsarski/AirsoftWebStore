@@ -22,11 +22,22 @@
 
         public async Task<IEnumerable<IndexViewModel>> GetTopThreeWithMostCountsAsync()
         {
+            int taken = 3;
+
+            int totalGuns = this.context.Guns.Count();
+
+            bool hasEnough = totalGuns >= 3;
+
+            if (!hasEnough)
+            {
+                taken = totalGuns;
+            }
+
             IEnumerable<IndexViewModel> model = await this.context.Guns
                 .AsNoTracking()
                 .Where(g => g.IsActive)
                 .OrderByDescending(g => g.Quantity)
-                .Take(3)
+                .Take(taken)
                 .Select(g => new IndexViewModel() 
                 {
                     Id = g.Id.ToString(),
@@ -162,7 +173,7 @@
                 .AsNoTracking()
                 .Where(g => g.IsActive)
                 .Include(g => g.Category)
-                .FirstAsync(g => g.Id.ToString() == id);
+                .FirstOrDefaultAsync(g => g.Id.ToString() == id);
 
             if (gun == null)
             {
