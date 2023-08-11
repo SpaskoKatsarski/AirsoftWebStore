@@ -172,7 +172,7 @@
                 Name = "SMC-9",
                 Manufacturer = "G&G Armament",
                 Description = "SMC-9 is a first construction of this type by G&G on the market. It is a combination of a submachine gun and a GTP9 pistol that came together into a unique construction. Thanks to its size, it is ideal for CQB games. Parts taken from GTP9 replica include the frame and the trigger mechanism - the barrel, chamber, cylinder set all belong to the conversion. Thanks to a special mechanism, the replica can fire in semi-auto as well as full-auto modes.",
-                ImageUrl = "https://static3.gunfire.com/eng_pm_SW-04-Sniper-Rifle-Replica-with-Scope-and-Bipod-Olive-Drab-1152194766_1.webp",
+                ImageUrl = "https://static5.gunfire.com/eng_pm_SMC-9-Submachine-Gun-Replica-Black-1152226182_1.webp",
                 Year = 2021,
                 Price = 440.25m,
                 Quantity = 7,

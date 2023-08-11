@@ -55,6 +55,61 @@
 
             equipmentItems.Add(equipment);
 
+            equipment = new Equipment()
+            {
+                Name = "Tactical HD-16 Bluetooth Active Headset",
+                Description = "Advanced active headset powered by a built-in battery.",
+                ImageUrl = "https://static5.gunfire.com/eng_pm_Tactical-HD-16-Bluetooth-Active-Headset-Olive-1152234035_1.webp",
+                Price = 123.50m,
+                Quantity = 3
+            };
+
+            equipmentItems.Add(equipment);
+
+            equipment = new Equipment()
+            {
+                Name = "Bowman Elite II headset",
+                Description = "The Bowman Elite II headset. The elastic head strap guarantees a proper placement of the headset on the head.",
+                ImageUrl = "https://static3.gunfire.com/eng_pm_Bowman-Elite-II-headset-FG-1152195615_1.webp",
+                Price = 18.30m,
+                Quantity = 6
+            };
+
+            equipmentItems.Add(equipment);
+
+            equipment = new Equipment()
+            {
+                Name = "Tactical headset ERM",
+                Description = "The ERM Headset is made out of durable plastic and metal. The ear pads and the headband padding have been equipped with covers to ensure high user comfort.",
+                ImageUrl = "https://static3.gunfire.com/eng_pm_Tactical-headset-ERM-Black-1152234028_1.webp",
+                Price = 60.45m,
+                Quantity = 9
+            };
+
+            equipmentItems.Add(equipment);
+
+            equipment = new Equipment()
+            {
+                Name = "Quick Release Plate Carrier Tactical Vest",
+                Description = "A Plate Carrier tactical vest made of durable nylon by GFC Tactical. The vest is adapted to carrying a set of ballistic inserts and its compatibility with MOLLE / PALS load-bearing system enables the attachment and any configuration of additional pouches, pockets or bags.",
+                ImageUrl = "https://static3.gunfire.com/eng_pm_Quick-Release-Plate-Carrier-Tactical-Vest-Tan-1152228378_1.webp",
+                Price = 74.80m,
+                Quantity = 10
+            };
+
+            equipmentItems.Add(equipment);
+
+            equipment = new Equipment()
+            {
+                Name = "VX Buckle Up Mag Rig Panel",
+                Description = "A panel by Viper Tactical made of durable nylon. The panel is dedicated for tactical vests in Buckle Up system and attachable using a hook and loop fastener and snap buckles.",
+                ImageUrl = "https://static5.gunfire.com/eng_pm_VX-Buckle-Up-Mag-Rig-Panel-Coyote-Brown-1152227952_1.webp",
+                Price = 40.70m,
+                Quantity = 6
+            };
+
+            equipmentItems.Add(equipment);
+            
             return equipmentItems;
         }
     }
