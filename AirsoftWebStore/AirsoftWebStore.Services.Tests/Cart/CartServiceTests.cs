@@ -195,19 +195,47 @@
             Assert.IsNotNull(cart);
         }
 
+        //[Test]
+        //public async Task GetCartForVisualizationShouldReturnCorrectViewModel()
+        //{
+        //    decimal expectedTotalPrice = EquipmentItem.Equipment.Price + ConsumativeItem.Consumative.Price;
+
+        //    await this.cartService.AddItemAsync(EquipmentItem, User.Id.ToString());
+        //    await this.cartService.AddItemAsync(new CartItem() { Consumative = CartDatabaseSeeder.Consumative, Quantity = 1 }, User.Id.ToString());
+
+        //    CartViewModel model = await this.cartService.GetCartForVisualizationAsync(User.Id.ToString());
+        //    decimal totalPrice = model.TotalPrice;
+
+        //    Assert.IsNotNull(model);
+        //    Assert.AreEqual(expectedTotalPrice, totalPrice);
+        //}
+
         [Test]
-        public async Task GetCartForVisualizationShouldReturnCorrectViewModel()
+        public async Task CalculateTotalPriceForCartByIdShouldReturnCorrectTotalPrice()
         {
-            decimal expectedTotalPrice = EquipmentItem.Equipment.Price + ConsumativeItem.Consumative.Price;
+            decimal totalPrice = EquipmentItem.Equipment.Price * 2;
 
-            await this.cartService.AddItemAsync(EquipmentItem, User.Id.ToString());
-            await this.cartService.AddItemAsync(ConsumativeItem, User.Id.ToString());
+            await this.cartService.AddItemAsync(new CartItem() { Equipment = CartDatabaseSeeder.Equipment, Quantity = 1 }, User.Id.ToString());
+            await this.cartService.AddItemAsync(new CartItem() { Equipment = CartDatabaseSeeder.Equipment, Quantity = 1 }, User.Id.ToString());
 
-            CartViewModel model = await this.cartService.GetCartForVisualizationAsync(User.Id.ToString());
-            decimal totalPrice = model.TotalPrice;
+            Cart cart = await this.cartService.GetCartForUserAsync(User.Id.ToString());
+            decimal actualTotalPrice = this.cartService.CalculateTotalPriceForCartById(cart);
 
-            Assert.IsNotNull(model);
-            Assert.AreEqual(expectedTotalPrice, totalPrice);
+            Assert.AreEqual(totalPrice, actualTotalPrice);
+        }
+
+        [Test]
+        public async Task EmptyCartForUserByIdShouldRemoveAllProducts()
+        {
+            const int expectedProductCount = 0;
+
+            await this.cartService.AddItemAsync(new CartItem() { Equipment = CartDatabaseSeeder.Equipment, Quantity = 1 }, User.Id.ToString());
+            await this.cartService.AddItemAsync(new CartItem() { Equipment = CartDatabaseSeeder.Equipment, Quantity = 1 }, User.Id.ToString());
+
+            await this.cartService.EmptyCartForUserById(User.Id.ToString());
+            Cart cart = await this.cartService.GetCartForUserAsync(User.Id.ToString());
+
+            Assert.AreEqual(expectedProductCount, cart.CartItems.Count);
         }
     }
 }

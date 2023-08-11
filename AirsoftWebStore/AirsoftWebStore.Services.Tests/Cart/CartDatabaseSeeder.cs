@@ -49,8 +49,6 @@
                 IsActive = true
             };
 
-            
-
             dbContext.Users.Add(User);
             dbContext.Equipments.Add(Equipment);
             dbContext.Consumatives.Add(Consumative);
