@@ -25,3 +25,7 @@ body {
     transition: transform 0.1s;
     transform: rotate(-5deg);
 }
+
+.nav-item {
+    font-size: 18px;
+}

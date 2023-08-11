@@ -29,7 +29,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Airsoft Store</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/logo.png" style="max-width: 65px; height: auto;" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -76,12 +76,18 @@
 
                         @if (isAuthenticated && !isUserAdmin)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="ViewCart">Cart</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Wallet" asp-action="Deposit">Deposit</a>
-                            </li>
+                            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                                <ul class="navbar-nav flex-grow-1">
+                                </ul>
+                                <ul class="navbar-nav ml-auto align-items-center">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" style="font-size: 24px; margin-right: 5px;" asp-area="" asp-controller="Cart" asp-action="ViewCart">🛒</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="btn btn-primary nav-link text-white" style="margin-right: 5px;" asp-area="" asp-controller="Wallet" asp-action="Deposit">Deposit</a>
+                                    </li>
+                                </ul>
+                            </div>
                         }
 
                     </ul>
@@ -98,7 +104,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            AirsoftWebStore 2023
+            Airsoft Beast 2023
         </div>
     </footer>
 
