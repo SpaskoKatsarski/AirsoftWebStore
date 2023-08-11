@@ -46,15 +46,13 @@
 <hr class="mt-5" />
 
 <div style="margin-top: 20px;">
-    <a asp-controller="Part" asp-action="All" class="btn btn-warning fw-bold">Back to all</a>
+    <a asp-controller="Gun" asp-action="All" class="btn btn-primary fw-bold">Back to all</a>
 </div>
 
 @if (isUserAdmin || isUserGunsmith)
 {
     <div style="margin-top: 20px;">
-        <a asp-controller="Part" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-warning">Edit</a>
-    </div>
-    <div style="margin-top: 20px;">
-        <a asp-controller="Part" asp-action="Delete" asp-route-id="@Model.Id.ToString()" class="mb-3 btn btn-danger">Delete</a>
+        <a asp-controller="Gun" asp-action="Edit" asp-route-id="@Model.Id.ToString()" class="btn btn-warning">Edit</a>
+        <a asp-controller="Gun" asp-action="Delete" asp-route-id="@Model.Id.ToString()" class="btn btn-danger">Delete</a>
     </div>
 }

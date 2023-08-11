@@ -20,6 +20,7 @@
         [Display(Name = "Items per Page")]
         public int ItemsPerPage { get; set; }
 
+        [Display(Name = "Sort Equipment by")]
         public EquipmentSorting EquipmentSorting { get; set; }
 
         public int CurrentPage { get; set; }

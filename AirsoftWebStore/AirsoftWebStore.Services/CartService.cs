@@ -164,8 +164,8 @@
             bool hasUserCart = await this.HasUserCart(userId);
             if (!hasUserCart)
             {
-                ApplicationUser user = await this.context.Users
-                    .FirstAsync(u => u.Id.ToString() == userId);
+                ApplicationUser? user = await this.context.Users
+                    .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
 
                 if (user == null)
                 {
