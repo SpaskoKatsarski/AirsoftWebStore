@@ -198,7 +198,7 @@
 
         public async Task<GunDeleteViewModel> GetGunForDeleteByIdAsync(string id)
         {
-            Gun? gun = await this.context.Guns
+            Gun gun = await this.context.Guns
                 .AsNoTracking()
                 .Where(g => g.IsActive)
                 .Include(g => g.Category)
@@ -217,7 +217,7 @@
 
         public async Task<GunFormViewModel> GetGunForEditByIdAsync(string id)
         {
-            Gun? gun = await this.context.Guns
+            Gun gun = await this.context.Guns
                 .AsNoTracking()
                 .Where(g => g.IsActive)
                 .FirstAsync(g => g.Id.ToString() == id);
