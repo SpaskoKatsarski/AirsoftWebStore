@@ -135,6 +135,7 @@
 
             PartFormViewModel model = new PartFormViewModel()
             {
+                Id = part.Id.ToString(),
                 Name = part.Name,
                 Manufacturer = part.Manufacturer,
                 Description = part.Description,

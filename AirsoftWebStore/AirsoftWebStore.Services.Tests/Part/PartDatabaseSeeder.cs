@@ -12,7 +12,6 @@
         {
             Category = new Category()
             {
-                Id = 1,
                 Name = "Rifle-Test"
             };
 
@@ -24,7 +23,7 @@
                 ImageUrl = "https://static2.gunfire.com/eng_pm_Fess-II-1-8x24-Driven-Hunt-Scope-1152224248_1.webp",
                 Price = 260.05m,
                 Quantity = 3,
-                CategoryId = 1,
+                Category = Category,
                 IsActive = true
             };
 
