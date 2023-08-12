@@ -86,7 +86,7 @@
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="btn btn-primary
            @(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
-           asp-controller="Gun"
+           asp-controller="Part"
            asp-action="All"
            asp-route-partsPerPage="@Model.PartsPerPage"
            asp-route-currentPage="@(Model.CurrentPage + 1)"
