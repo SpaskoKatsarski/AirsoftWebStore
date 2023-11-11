@@ -8,11 +8,31 @@
 
 <div class="mb-5"></div>
 
-<img class="d-block img-thumbnail mb-5" src="https://images.unsplash.com/photo-1569242840510-9fe6f0112cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="home img">
+<h2>Are you <strong>READY</strong>?</h2>
+<h2><strong>PREPARE</strong>!</h2>
 
-<h2 class="text-center">Some of Our Products:</h2>
+<img class="mt-5 img-thumbnail" src="https://images.unsplash.com/photo-1615589184022-96f33f0c39b4?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
 
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+<div class="text-center" style="margin-top: 10rem">
+    <div class="row">
+        <div class="col">
+            <a asp-controller="Gun" asp-action="All" class="btn btn-outline-dark btn-lg">Replicas</a>
+        </div>
+        <div class="col">
+            <a asp-controller="Equipment" asp-action="All" class="btn btn-outline-dark btn-lg">Equipment</a>
+        </div>
+        <div class="col">
+            <a asp-controller="Part" asp-action="All" class="btn btn-outline-dark btn-lg">Parts</a>
+        </div>
+        <div class="col">
+            <a asp-controller="Consumative" asp-action="All" class="btn btn-outline-dark btn-lg">Consumatives</a>
+        </div>
+    </div>
+</div>
+
+<h2 class="text-center" style="margin-top: 10rem">Some of Our Products:</h2>
+
+<div id="carouselExampleControls" class="carousel slide mb-5" data-bs-ride="carousel">
     <div class="carousel-inner">
         @if (products.Count == 0)
         {

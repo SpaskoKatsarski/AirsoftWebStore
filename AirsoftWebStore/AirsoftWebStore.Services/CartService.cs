@@ -232,11 +232,11 @@
                 }
                 else if (itemType == "equipment")
                 {
-                    exists = await this.CheckIfItemStllExists(item.EquipmentId.ToString(), itemType);
+                    exists = await this.CheckIfItemStllExists(item.EquipmentId.ToString()!, itemType);
                 }
                 else if (itemType == "consumative")
                 {
-                    exists = await this.CheckIfItemStllExists(item.ConsumativeId.ToString(), itemType);
+                    exists = await this.CheckIfItemStllExists(item.ConsumativeId.ToString()!, itemType);
                 }
 
                 if (!exists)
