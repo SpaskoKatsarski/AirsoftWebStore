@@ -13,9 +13,3 @@ document.body.addEventListener('click', function (event) {
         dropdownItems.classList.remove('show');
     }
 })
-
-document.getElementById('replicas-home').addEventListener('click', showReplicaCategories)
-
-function showReplicaCategories() {
-
-}
