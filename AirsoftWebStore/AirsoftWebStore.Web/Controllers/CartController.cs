@@ -105,7 +105,7 @@
             catch (InvalidOperationException ex)
             {
                 TempData[ErrorMessage] = ex.Message;
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("ViewCart", "Cart");
             }
             catch (Exception)
             {
