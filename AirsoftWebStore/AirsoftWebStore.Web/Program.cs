@@ -7,6 +7,7 @@ using AirsoftWebStore.Data;
 using AirsoftWebStore.Web.Infrastructure.Extensions;
 using AirsoftWebStore.Services.Contracts;
 using AirsoftWebStore.Web.Infrastructure.ModelBinders;
+using AirsoftWebStore.Web.Hubs;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 
 builder.Services.AddDbContext<AirsoftStoreDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddSignalR();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
@@ -65,6 +67,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHub<RequestHub>("/requestHub");
 
 app.EnableOnlineUsersCheck();
 

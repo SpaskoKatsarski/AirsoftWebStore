@@ -56,7 +56,7 @@
                         @if (isAuthenticated && !isUserGunsmith && !isUserAdmin && !hasSentRequest)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Gunsmith" asp-action="RequestToBecome" asp-route-userId="@User.GetId().ToString()">Request for Gunsmith</a>
+                                <a id="requestBtn" class="nav-link text-dark" asp-area="" asp-controller="Gunsmith" asp-action="RequestToBecome" asp-route-userId="@User.GetId().ToString()">Request for Gunsmith</a>
                             </li>
                         }
 
@@ -111,6 +111,8 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/request.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
